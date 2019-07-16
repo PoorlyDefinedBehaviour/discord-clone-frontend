@@ -11,9 +11,17 @@ _default.set(
 
 _default.set(
   422,
-  (_: any, { setEmailAlreadyInUse }: any): void => {
+  (_: any, { setEmailAlreadyInUse, setInvalidCredentials }: any): void => {
+    setInvalidCredentials(false);
     setEmailAlreadyInUse(true);
+    console.log("422");
   }
 );
+
+_default.set(
+  404,
+  (_: any, { setInternalServerError }): void => setInternalServerError(true)
+);
+_default.set(500, () => _default.get(404));
 
 export default (status: number): any => _default.get(status);

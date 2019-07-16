@@ -36,16 +36,16 @@ async function validate(
     username: yup
       .string()
       .min(5, "Username must be at least 5 characters long")
-      .max(255),
+      .max(12),
     email: yup
       .string()
       .email("Email must be a valid email")
       .min(5, "email must be at least 5 characters long")
-      .max(255),
+      .max(12),
     password: yup
       .string()
       .min(6, "Password must be at least 6 characters long")
-      .max(255)
+      .max(12)
   });
 
   return await RegisterSchema.validate(
@@ -61,6 +61,7 @@ export default function Register({ history }: any): any {
 
   const [emailAlreadyInUse, setEmailAlreadyInUse] = useState(false);
   const [invalidCredentials, setInvalidCredentials] = useState(false);
+  const [internalServerError, setInternalServerError] = useState(false);
 
   const [tryingToRegister, setTryingToRegister] = useState(false);
 
@@ -80,20 +81,24 @@ export default function Register({ history }: any): any {
         data: {
           data: { register }
         }
-      }: any = await api.post("/", RegisterMutation(username, email, password));
+      }: any = await api
+        .post("/", RegisterMutation(username, email, password))
+        .catch((error: any): void => console.log(error));
 
       const handler: any = Handlers(register.status);
-
+      console.log("here");
       if (handler) {
         handler(register, {
           setEmail,
           setPassword,
           setEmailAlreadyInUse,
+          setInvalidCredentials,
+          setInternalServerError,
           history
         });
       }
     } catch (e) {
-      setInvalidCredentials(true);
+      Handlers(e.response.status as number);
     } finally {
       setTryingToRegister(false);
     }
@@ -135,6 +140,11 @@ export default function Register({ history }: any): any {
           {invalidCredentials && (
             <ErrorMessage style={{ width: "60%" }}>
               Username, email and password must be valid
+            </ErrorMessage>
+          )}
+          {internalServerError && (
+            <ErrorMessage>
+              Something went wrong on our end, try again later
             </ErrorMessage>
           )}
 

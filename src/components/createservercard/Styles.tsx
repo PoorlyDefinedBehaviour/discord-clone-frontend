@@ -17,7 +17,7 @@ export const LeftNavBar = styled.div`
   flex-direction: column;
 `;
 
-export const Section = styled.div`
+export const FriendsAndMessagesSection = styled.div`
   width: 300px;
   height: 100%;
   background: #2f3136;
@@ -110,13 +110,11 @@ export const ContentSection = styled.div`
 `;
 
 export const FriendsContentNavbar = styled.div`
-  display: flex;
   width: 100%;
   height: 25px;
   margin-top: 10px;
   margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid #282a2e;
+  display: flex;
 `;
 
 export const ContentOptionContainer = styled.div`
@@ -147,11 +145,6 @@ export const AddFriendButton = styled.button`
   width: 100%;
   height: 100%;
   cursor: pointer;
-  outline: none;
-
-  &:hover {
-    filter: brightness(0.9);
-  }
 `;
 
 export const UserRow = styled.div`
@@ -172,9 +165,9 @@ export const UserRow = styled.div`
 export const GreenDot = styled.span`
   width: 5px;
   height: 5px;
-  background: ${(props: any): any => (props.color ? "#43b480" : "#747F8D")};
+  background: #43b480;
   border-radius: 50%;
-  margin-left: 90px;
+  margin-left: 30px;
   margin-right: 10px;
 `;
 
@@ -182,6 +175,146 @@ export const OnlineStatus = styled.span`
   font-weight: bold;
   font-size: 14px;
   color: #62656c;
+`;
+
+export const CreateServerPopUpContainer = styled.div`
+  width: 540px;
+  height: 420px;
+  border-radius: 5px;
+  background-color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+`;
+
+export const CreateServerPopUpBackgroundContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+`;
+
+export const CreateServerPopUpBackground = styled.img`
+  height: 200px;
+  width: auto;
+  margin-top: 40%;
+`;
+
+export const CreateServerPopUpAction = styled.div`
+  width: 210px;
+  height: 285px;
+  border: 2px solid #e5e5e5;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  left: 15%;
+  top: 70%;
+  transform: translate(-15%, -70%);
+  text-align: center;
+  line-height: 20px;
+`;
+
+export const CreateServerPopUpActionName = styled.p`
+  color: ${(props: any): any => props.color};
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 10px auto;
+  text-align: justify;
+`;
+
+export const CreateServerPopUpActionImage = styled.img`
+  src: url(${(props: any): any => props.src});
+  width: 50%;
+  height: auto;
+  margin: 0 auto;
+`;
+
+export const CreateServerPopUpActionDescription = styled.p`
+  font-size: 12px;
+  font-weight: normal;
+  color: #9bacb6;
+  width: 80%;
+  margin: 0 auto;
+`;
+
+export const CreateServerPopUpActionButton = styled.button`
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background: ${(props: any): any => props.color};
+  color: #fff;
+  margin: 0 auto;
+  width: 80%;
+  height: 50px;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(0.95);
+  }
+`;
+
+export const CreateServerPopUpInnerContainer = styled.div`
+  width: 80%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+`;
+
+export const CreateServerPopUpInnerContainerName = styled.p`
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  color: #7289da;
+`;
+
+export const CreateServerInputContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const CreateServerLabelAndInputContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
+
+export const CreateServerInput = styled.input`
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+  width: 60%;
+  text-indent: 5px;
+  transition: 0.5s;
+  margin-left: -10%;
+
+  &::placeholder {
+    font-weight: normal;
+    font-size: 14px;
+    color: #c3c5c7;
+  }
+
+  &:focus {
+    outline: none;
+    border-bottom: 2px solid #7289da;
+  }
+
+  &:hover {
+    border-bottom: 2px solid #b9bbbe;
+  }
 `;
 
 export const ImageInputButton = styled.button`
@@ -196,29 +329,9 @@ export const ImageInputButton = styled.button`
   font-size: 0px;
   text-transform: uppercase;
   color: #fff;
-  outline: none;
 
   &:hover {
     background-color: #8289da;
     font-size: 10px;
   }
-`;
-
-export const FriendListHeaderContainer = styled.div`
-  display: flex;
-  width: 100%;
-  height: 30px;
-  border-bottom: 1px solid #4a4d53;
-  width: 91%;
-  margin: 0 auto;
-`;
-
-export const FriendListHeaderElement = styled.span`
-  color: #6c6e72;
-  font-weight: bolder;
-  font-size: 12px;
-  text-transform: uppercase;
-  padding-right: 100px;
-  margin-right: 20px;
-  border-right: 1px solid #4a4d53;
 `;

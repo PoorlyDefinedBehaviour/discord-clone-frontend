@@ -1,6 +1,6 @@
 import { IGraphQLRequest } from "../../types/IGraphQLRequest.d";
 
-export const AcceptFriendReques = (_id: string): IGraphQLRequest => ({
+export const AcceptFriendRequest = (_id: string): IGraphQLRequest => ({
   query: `
 mutation {
   accept_friend_request(_id: "${_id}") {
