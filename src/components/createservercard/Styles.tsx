@@ -187,6 +187,7 @@ export const CreateServerPopUpContainer = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   overflow: hidden;
+  z-index: 100;
 `;
 
 export const CreateServerPopUpBackgroundContainer = styled.div`

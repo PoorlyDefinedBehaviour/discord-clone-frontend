@@ -1,7 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import Login from "./pages/login/Index";
+
 import { isLoggedIn } from "./services/Authentication";
+
+import Login from "./pages/login/Index";
 import Register from "./pages/register/Index";
 import Lobby from "./pages/lobby/Index";
 

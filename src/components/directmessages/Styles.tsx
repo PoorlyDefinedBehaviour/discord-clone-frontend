@@ -1,19 +1,27 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  width: 20%;
+export const Section = styled.div`
+  width: 300px;
   height: 100%;
   background: #2f3136;
 `;
 
-export const H1 = styled.h1`
-  font-size: 14px;
-  font-weight: bolder;
-  color: #77787c;
-  width: 80%;
-  margin: 0 auto;
-  margin-top: 20px;
-  text-transform: uppercase;
+export const SearchBar = styled.input`
+  width: 90%;
+  height: 25px;
+  margin-left: 5%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: 3px;
+  border: none;
+  background: #202225;
+  color: #72767d;
+  text-indent: 5px;
+
+  &::placeholder {
+    font-weight: normal;
+    font-size: 12px;
+  }
 `;
 
 export const OptionContainer = styled.div`
@@ -46,4 +54,14 @@ export const OptionLabel = styled.p`
   color: #62656c;
   font-weight: bold;
   font-size: 13px;
+`;
+
+export const Message = styled.p`
+  color: #62656c;
+  width: 90%;
+  margin-left: 5%;
+  height: 30px;
+  text-transform: uppercase;
+  font-weight: bolder;
+  font-size: 11px;
 `;

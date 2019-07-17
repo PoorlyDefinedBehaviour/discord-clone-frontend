@@ -1,7 +1,6 @@
-export const StorageKeyPrefix: string = "@discord";
+export const SiteUrl: string = "http://localhost:3001";
 
 export const getToken = () =>
-  (localStorage.getItem(`${StorageKeyPrefix}:user`) as any).token;
+  (localStorage.getItem(`@discord:user`) as any).token;
 
-export const isLoggedIn = () =>
-  !!localStorage.getItem(`${StorageKeyPrefix}:user`);
+export const isLoggedIn = () => !!localStorage.getItem(`@discord:user`);
