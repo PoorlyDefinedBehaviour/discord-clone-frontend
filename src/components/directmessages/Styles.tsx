@@ -65,3 +65,12 @@ export const Message = styled.p`
   font-weight: bolder;
   font-size: 11px;
 `;
+
+export const FlexContainer = styled.div`
+  display: flex;
+`;
+
+export const DiscordTag = styled.span`
+  font-size: 11px;
+  color: #71757a;
+`;

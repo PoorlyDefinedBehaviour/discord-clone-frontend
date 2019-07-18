@@ -145,6 +145,7 @@ export const AddFriendButton = styled.button`
   width: 100%;
   height: 100%;
   cursor: pointer;
+  outline: none;
 `;
 
 export const UserRow = styled.div`
@@ -256,6 +257,7 @@ export const CreateServerPopUpActionButton = styled.button`
   width: 80%;
   height: 50px;
   cursor: pointer;
+  outline: none;
 
   &:hover {
     filter: brightness(0.95);
@@ -330,6 +332,7 @@ export const ImageInputButton = styled.button`
   font-size: 0px;
   text-transform: uppercase;
   color: #fff;
+  outline: none;
 
   &:hover {
     background-color: #8289da;

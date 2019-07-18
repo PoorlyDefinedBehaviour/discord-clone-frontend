@@ -10,7 +10,13 @@ import {
   MainContent,
   Image,
   CodeInput,
-  GiftInventorySectionContainer
+  GiftInventorySectionContainer,
+  InputContainer,
+  Button,
+  H1,
+  P,
+  LowerSectionContainer,
+  Link
 } from "./Styles";
 
 import BackpackIcon from "../../assets/school-book-bag.png";
@@ -65,7 +71,8 @@ export default class ActivitySection extends React.Component<any, any> {
                 style={{
                   fontSize: "20px",
                   fontWeight: "normal",
-                  marginBottom: "0px"
+                  marginTop: "20px",
+                  marginBottom: "20px"
                 }}
               >
                 No games found
@@ -78,8 +85,40 @@ export default class ActivitySection extends React.Component<any, any> {
           </MainContentContainer>
         ) : (
           <GiftInventorySectionContainer>
-            <CodeInput />
-            <Image src={FriendSuggestionsBackground} />
+            <H1>Redeem Codes</H1>
+            <P>
+              Received a code for Nitro or a game? That's exciting! Enter it
+              below:
+            </P>
+            <InputContainer>
+              <CodeInput placeholder="WUMP-AAAAA-BBBBB-CCCCC" />
+              <Button>Redeem</Button>
+            </InputContainer>
+            <H1 style={{ marginBottom: "100px" }}>Gift Inventory</H1>
+            <LowerSectionContainer>
+              <Image src={FriendSuggestionsBackground} />
+
+              <H1
+                style={{
+                  fontSize: "20px",
+                  border: "none",
+                  marginTop: "30px",
+                  marginBottom: "-10px"
+                }}
+              >
+                There are no gifts.
+              </H1>
+              <P
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "lighter",
+                  color: "#B9BBBE"
+                }}
+              >
+                Feeling generous? Check out <Link>our store</Link> and purchase
+                a gift to make someone's day!
+              </P>
+            </LowerSectionContainer>
           </GiftInventorySectionContainer>
         )}
       </Container>

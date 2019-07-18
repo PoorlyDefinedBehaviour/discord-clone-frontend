@@ -6,6 +6,7 @@ import { isLoggedIn } from "./services/Authentication";
 import Login from "./pages/login/Index";
 import Register from "./pages/register/Index";
 import Lobby from "./pages/lobby/Index";
+import Landing from "./pages/landing/Index";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -14,7 +15,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
       isLoggedIn() ? (
         <Component {...props} />
       ) : (
-        <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+        <Redirect
+          to={{ pathname: "/login", state: { from: props.location } }}
+        />
       )
     }
   />
@@ -23,7 +26,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 const routes: React.FC = () => (
   <BrowserRouter>
     <Switch>
-      <Route exact path="/" component={Login} />
+      <Route exact path="/" component={Landing} />
+      <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <PrivateRoute path="/lobby" component={Lobby} />
     </Switch>

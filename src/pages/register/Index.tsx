@@ -35,17 +35,17 @@ async function validate(
   const RegisterSchema = yup.object().shape({
     username: yup
       .string()
-      .min(5, "Username must be at least 5 characters long")
-      .max(12),
+      .min(6, "Username must be at least 5 characters long")
+      .max(255),
     email: yup
       .string()
       .email("Email must be a valid email")
-      .min(5, "email must be at least 5 characters long")
-      .max(12),
+      .min(6, "email must be at least 5 characters long")
+      .max(255),
     password: yup
       .string()
       .min(6, "Password must be at least 6 characters long")
-      .max(12)
+      .max(255)
   });
 
   return await RegisterSchema.validate(
@@ -98,7 +98,7 @@ export default function Register({ history }: any): any {
         });
       }
     } catch (e) {
-      Handlers(e.response.status as number);
+      console.error("register", e);
     } finally {
       setTryingToRegister(false);
     }
@@ -152,7 +152,7 @@ export default function Register({ history }: any): any {
         </Form>
 
         <LinkContainer>
-          <RedirectLink to="/" style={{ textDecoration: "none" }}>
+          <RedirectLink to="/login" style={{ textDecoration: "none" }}>
             <Link>Already have an account? </Link>
           </RedirectLink>
         </LinkContainer>

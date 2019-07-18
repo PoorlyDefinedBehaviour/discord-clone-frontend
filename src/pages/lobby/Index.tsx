@@ -23,7 +23,7 @@ export default function Lobby(): any {
   views.set(
     EViews.MAIN,
     <>
-      <LobbySection />>
+      <LobbySection />
     </>
   );
 

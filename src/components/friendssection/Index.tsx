@@ -49,7 +49,7 @@ export default class FriendsSection extends React.Component<any, any> {
     this.state = {
       componentsOnView: {
         addFriend: false,
-        friendList: false,
+        friendList: true,
         createServerCard: false
       },
       friendListFilter: EFriendListFilters.ALL,
