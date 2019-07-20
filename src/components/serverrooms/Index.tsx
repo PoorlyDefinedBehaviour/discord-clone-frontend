@@ -19,19 +19,7 @@ export default function ServerRooms(): any {
       <OptionContainer>
         <OptionIcon src={HashtagIcon} />
         <OptionLabel style={{ fontWeight: "bolder", color: "#fff" }}>
-          chat room
-        </OptionLabel>
-      </OptionContainer>
-      <OptionContainer>
-        <OptionIcon src={HashtagIcon} />
-        <OptionLabel style={{ fontWeight: "bolder", color: "#fff" }}>
-          chat room
-        </OptionLabel>
-      </OptionContainer>
-      <OptionContainer>
-        <OptionIcon src={HashtagIcon} />
-        <OptionLabel style={{ fontWeight: "bolder", color: "#fff" }}>
-          chat room
+          main
         </OptionLabel>
       </OptionContainer>
     </Section>

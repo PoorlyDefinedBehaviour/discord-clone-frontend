@@ -24,7 +24,10 @@ export default function LobbySection(): any {
   sections.set(ESections.ACTIVITY, <ActivitySection />);
   sections.set(ESections.LIBRARY, <LibrarySection />);
   sections.set(ESections.NITRO, <NitroSection />);
-  sections.set(ESections.SETTINGS, <UserSettings />);
+  sections.set(
+    ESections.SETTINGS,
+    <UserSettings setCurrentSection={setCurrentSection} />
+  );
 
   return (
     <>

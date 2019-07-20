@@ -30,6 +30,7 @@ mutation {
       servers {
         _id
         name
+        logo
         owner {
           _id
           username

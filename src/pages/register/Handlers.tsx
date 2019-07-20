@@ -1,10 +1,11 @@
+import { store } from "../../store/Index";
+
 const _default: Map<number, any> = new Map<number, any>();
 
 _default.set(
   201,
   ({ user, token }: any, { history }: any): void => {
-    localStorage.setItem("@discord:user", JSON.stringify({ ...user, token }));
-    console.log(user, token);
+    store.dispatch({ type: "SET_USER", user, token });
     history.push("/lobby");
   }
 );

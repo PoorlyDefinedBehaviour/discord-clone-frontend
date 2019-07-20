@@ -8,33 +8,37 @@ import {
   OptionLabel
 } from "./Styles";
 
-import TPHIcon from "../../assets/server-icon.png";
+import { store } from "../../store/Index";
 
 export default function ServerMembers(): any {
+  const { server }: any = store.getState();
+
   return (
     <Container>
-      <H1>Staff - {1}</H1>
-      <OptionContainer style={{ marginTop: "10px" }}>
-        <OptionIcon src={TPHIcon} style={{ filter: "none" }} />
-        <OptionLabel>John Doe</OptionLabel>
-      </OptionContainer>
-      <H1>Members - {4}</H1>
-      <OptionContainer style={{ marginTop: "10px" }}>
-        <OptionIcon src={TPHIcon} style={{ filter: "none" }} />
-        <OptionLabel>John Doe</OptionLabel>
-      </OptionContainer>
-      <OptionContainer style={{ marginTop: "10px" }}>
-        <OptionIcon src={TPHIcon} style={{ filter: "none" }} />
-        <OptionLabel>John Doe</OptionLabel>
-      </OptionContainer>
-      <OptionContainer style={{ marginTop: "10px" }}>
-        <OptionIcon src={TPHIcon} style={{ filter: "none" }} />
-        <OptionLabel>John Doe</OptionLabel>
-      </OptionContainer>
-      <OptionContainer style={{ marginTop: "10px" }}>
-        <OptionIcon src={TPHIcon} style={{ filter: "none" }} />
-        <OptionLabel>John Doe</OptionLabel>
-      </OptionContainer>
+      <H1>Staff - {server.staff.length}</H1>
+      {server.staff.map(
+        (user: any): any => (
+          <OptionContainer key={user._id} style={{ marginTop: "10px" }}>
+            <OptionIcon src={user.avatar} style={{ filter: "none" }} />
+            <OptionLabel>{user.username}</OptionLabel>
+          </OptionContainer>
+        )
+      )}
+
+      <H1>Members - {server.members.length}</H1>
+      {server.members
+        .filter(
+          (user: any): boolean =>
+            !server.staff.find((_user: any): any => _user._id === user._id)
+        )
+        .map(
+          (user: any): any => (
+            <OptionContainer key={user._id} style={{ marginTop: "10px" }}>
+              <OptionIcon src={user.avatar} style={{ filter: "none" }} />
+              <OptionLabel>{user.username}</OptionLabel>
+            </OptionContainer>
+          )
+        )}
     </Container>
   );
 }

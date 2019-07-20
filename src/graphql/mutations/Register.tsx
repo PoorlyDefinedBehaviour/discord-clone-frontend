@@ -19,6 +19,11 @@ mutation {
       username
       email
       avatar
+      servers {
+        _id
+        name
+        logo
+      }
     }
   }
 }

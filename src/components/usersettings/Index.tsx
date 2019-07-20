@@ -22,8 +22,10 @@ import TwitterIcon from "../../assets/twitter-icon.svg";
 import FacebookIcon from "../../assets/facebook-icon.svg";
 import InstagramIcon from "../../assets/instagram-icon.svg";
 import ChestImage from "../../assets/chest.svg";
+import { logout } from "../../services/Authentication";
+import { ESections } from "../lobbysection/Index";
 
-export default function UserSettings(): any {
+export default function UserSettings({ setCurrentSection }): any {
   return (
     <Container>
       <Leftcontainer>
@@ -50,7 +52,9 @@ export default function UserSettings(): any {
           <Line />
           <Button>Change Log</Button>
           <Line />
-          <Button style={{ color: "#C34142" }}>Log Out</Button>
+          <Button style={{ color: "#C34142" }} onClick={logout}>
+            Log Out
+          </Button>
           <Line />
           <IconContainer>
             <Icon src={TwitterIcon} />
@@ -63,7 +67,9 @@ export default function UserSettings(): any {
       <RightContainer>
         <FlexContainer style={{ justifyContent: "space-between" }}>
           <BigTitle>My Account</BigTitle>
-          <XButton>X</XButton>
+          <XButton onClick={(): void => setCurrentSection(ESections.FRIENDS)}>
+            X
+          </XButton>
         </FlexContainer>
 
         <FlexContainer

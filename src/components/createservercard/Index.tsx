@@ -30,6 +30,10 @@ import CreateServerPopUpLeftBackground from "../../assets/left-background.png";
 import CreateServerPopUpRightBackground from "../../assets/right-background.png";
 import { ErrorMessage } from "../../pages/register/Styles";
 
+import api from "../../services/Api";
+import { CreateServer as CreateServerMutation } from "../../graphql/mutations/CreateServer";
+import { store } from "../../store/Index";
+
 enum ECards {
   MAIN = 0,
   CREATE,
@@ -43,6 +47,7 @@ interface IState {
   serverName: any;
   invalidInviteLink: any;
   invalidServerName: any;
+  serverNameAlreadyInUse: any;
 }
 
 export default class CreateServerCard extends React.Component<any, IState> {
@@ -55,7 +60,8 @@ export default class CreateServerCard extends React.Component<any, IState> {
       inviteLink: "",
       serverName: "",
       invalidInviteLink: false,
-      invalidServerName: false
+      invalidServerName: false,
+      serverNameAlreadyInUse: false
     };
 
     this.state.cards.set(
@@ -145,6 +151,11 @@ export default class CreateServerCard extends React.Component<any, IState> {
               {this.state.invalidServerName && (
                 <ErrorMessage style={{ marginTop: "12%", marginLeft: "-29%" }}>
                   Server name must be valid
+                </ErrorMessage>
+              )}
+              {this.state.serverNameAlreadyInUse && (
+                <ErrorMessage style={{ marginTop: "12%", marginLeft: "-29%" }}>
+                  Server name is already in use
                 </ErrorMessage>
               )}
             </CreateServerLabelAndInputContainer>
@@ -274,8 +285,34 @@ export default class CreateServerCard extends React.Component<any, IState> {
     return await schema.validate({ field }, { abortEarly: false });
   }
 
-  createServer = () => {
+  createServer = async () => {
     console.log("createServer()");
+    try {
+      const {
+        data: {
+          data: { create_server }
+        }
+      }: any = await api.post("", CreateServerMutation(this.state.serverName));
+
+      switch (create_server.status) {
+        case 201:
+          const { user }: any = store.getState();
+          store.dispatch({
+            type: "SET_USER",
+            user: { ...user, servers: [...user.servers, create_server.server] }
+          });
+          break;
+        case 400:
+          await this.setState({
+            invalidServerName: false,
+            invalidInviteLink: false,
+            serverNameAlreadyInUse: true
+          });
+          break;
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   joinServer = () => {

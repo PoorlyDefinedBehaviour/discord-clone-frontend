@@ -40,7 +40,7 @@ export const Status = styled.span`
 export const GreenDot = styled.span`
   width: 5px;
   height: 5px;
-  background: ${(props: any): any => (props.color ? "#43b480" : "#747F8D")};
+  background: ${(props: any): any => props.color || "#43b480"};
   border-radius: 50%;
   margin-left: 90px;
   margin-right: 10px;

@@ -13,6 +13,9 @@
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
+    "redux": "^4.0.4",
+    "redux-persist": "^5.10.0",
+    "socket.io-client": "^2.2.0",
     "styled-components": "^4.3.2",
     "typescript": "3.5.3",
     "yup": "^0.27.0"
@@ -41,6 +44,9 @@
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/react-router-dom": "^4.3.4",
+    "@types/redux": "^3.6.0",
+    "@types/redux-persist": "^4.3.1",
+    "@types/socket.io-client": "^1.4.32",
     "@types/styled-components": "^4.1.18",
     "@types/yup": "^0.26.21"
   }

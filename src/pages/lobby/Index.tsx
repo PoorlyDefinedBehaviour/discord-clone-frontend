@@ -2,13 +2,12 @@ import React, { useState } from "react";
 
 import { Container } from "./Styles";
 
-import ServerRooms from "../../components/serverrooms/Index";
-import ServerChat from "../../components/serverchat/Index";
-import ServerMembers from "../../components/servermembers/Index";
-
 import LeftSideNavbar from "../../components/leftsidenavbar/Index";
 
 import LobbySection from "../../components/lobbysection/Index";
+import ServerRooms from "../../components/serverrooms/Index";
+import ServerChat from "../../components/serverchat/Index";
+import ServerMembers from "../../components/servermembers/Index";
 
 export enum EViews {
   MAIN = 0,

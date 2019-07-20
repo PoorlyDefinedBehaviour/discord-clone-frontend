@@ -1,6 +1,7 @@
 import React from "react";
 
 import { UserRow, Status, OptionIcon, OptionLabel, GreenDot } from "./Styles";
+import { store } from "../../store/Index";
 
 export enum EFriendListFilters {
   ALL = 0,
@@ -8,26 +9,47 @@ export enum EFriendListFilters {
   PENDING
 }
 
-export default function FriendList({ friends, filter }): any {
+export default function FriendList({ filter }): any {
   const modes: Map<number, any> = new Map<number, any>();
 
-  modes.set(EFriendListFilters.ALL, friends =>
-    friends.map(
-      (friend: any): any => (
-        <UserRow key={Math.random()}>
-          <OptionIcon src={friend.avatar} />
-          <OptionLabel>{friend.username}</OptionLabel>
-          <GreenDot color={friend.online} />
-          <Status>{friend.online ? "Online" : "Offline"}</Status>
-        </UserRow>
+  const { user }: any = store.getState();
+
+  modes.set(
+    EFriendListFilters.ALL,
+    (user: any): any =>
+      user.friends.map(
+        (friend: any): any => (
+          <UserRow key={Math.random()}>
+            <OptionIcon src={friend.avatar} />
+            <OptionLabel>{friend.username}</OptionLabel>
+            <GreenDot color={friend.online ? "#43b480" : "#747F8D"} />
+            <Status>{friend.online ? "Online" : "Offline"}</Status>
+          </UserRow>
+        )
       )
-    )
   );
 
-  modes.set(EFriendListFilters.ONLINE, friends =>
-    friends
-      .filter((friend: any): boolean => friend.online)
-      .map(
+  modes.set(
+    EFriendListFilters.ONLINE,
+    (user: any): any =>
+      user.friends
+        .filter((friend: any): boolean => friend.online)
+        .map(
+          (friend: any): any => (
+            <UserRow key={Math.random()}>
+              <OptionIcon src={friend.avatar} />
+              <OptionLabel>{friend.username}</OptionLabel>
+              <GreenDot color={friend.online} />
+              <Status>Online</Status>
+            </UserRow>
+          )
+        )
+  );
+
+  modes.set(
+    EFriendListFilters.PENDING,
+    (user: any): any =>
+      user.friend_requests.map(
         (friend: any): any => (
           <UserRow key={Math.random()}>
             <OptionIcon src={friend.avatar} />
@@ -39,9 +61,5 @@ export default function FriendList({ friends, filter }): any {
       )
   );
 
-  modes.set(EFriendListFilters.PENDING, friends =>
-    console.log("todo: implement pending friend requests")
-  );
-
-  return modes.get(filter)(friends);
+  return modes.get(filter)(user);
 }

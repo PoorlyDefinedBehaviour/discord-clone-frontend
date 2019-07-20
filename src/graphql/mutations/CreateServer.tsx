@@ -12,6 +12,7 @@ mutation {
     server {
       _id
       name
+      logo
       owner {
         _id
         username
@@ -52,7 +53,12 @@ mutation {
           }
         }
       }
-      logo
+      members {
+        _id
+        username
+        email
+        avatar
+      }
       staff {
         _id
         username

@@ -13,34 +13,8 @@ import {
 
 import FriendsIcon from "../../assets/friends.png";
 import AddFriendView from "../addfriend/AddFriend";
-import FriendList, { EFriendListFilters } from "../friendlist/Index";
 
-import NitroIcon from "../../assets/start-up.png";
-/**
- * Grab friends from redux or contextapi
- */
-const friends: Array<any> = [
-  {
-    avatar: NitroIcon,
-    username: "John doe",
-    online: true
-  },
-  {
-    avatar: NitroIcon,
-    username: "John doe",
-    online: false
-  },
-  {
-    avatar: NitroIcon,
-    username: "John doe",
-    online: false
-  },
-  {
-    avatar: NitroIcon,
-    username: "John doe",
-    online: true
-  }
-];
+import FriendList, { EFriendListFilters } from "../friendlist/Index";
 
 export default class FriendsSection extends React.Component<any, any> {
   constructor(props: any) {
@@ -139,7 +113,7 @@ export default class FriendsSection extends React.Component<any, any> {
           </FriendListHeaderContainer>
         )}
         {this.state.componentsOnView.friendList &&
-          FriendList({ friends, filter: this.state.friendListFilter })}
+          FriendList({ filter: this.state.friendListFilter })}
         {this.state.componentsOnView.addFriend && <AddFriendView />}
       </ContentSection>
     );

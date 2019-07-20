@@ -25,6 +25,12 @@ export const Server = (_id: string): IGraphQLRequest => ({
         email
         avatar
       }
+      members {
+        _id
+        username
+        email
+        avatar
+      }
     }
   }
 }
