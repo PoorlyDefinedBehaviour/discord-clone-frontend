@@ -33,6 +33,7 @@ import { ErrorMessage } from "../../pages/register/Styles";
 import api from "../../services/Api";
 import { CreateServer as CreateServerMutation } from "../../graphql/mutations/CreateServer";
 import { store } from "../../store/Index";
+import { JoinServer as JoinServerMutation } from "../../graphql/mutations/JoinServer";
 
 enum ECards {
   MAIN = 0,
@@ -286,7 +287,6 @@ export default class CreateServerCard extends React.Component<any, IState> {
   }
 
   createServer = async () => {
-    console.log("createServer()");
     try {
       const {
         data: {
@@ -297,10 +297,15 @@ export default class CreateServerCard extends React.Component<any, IState> {
       switch (create_server.status) {
         case 201:
           const { user }: any = store.getState();
+
+          user.servers.push(create_server.server);
+
           store.dispatch({
             type: "SET_USER",
-            user: { ...user, servers: [...user.servers, create_server.server] }
+            user,
+            token: user.token
           });
+
           break;
         case 400:
           await this.setState({
@@ -309,14 +314,50 @@ export default class CreateServerCard extends React.Component<any, IState> {
             serverNameAlreadyInUse: true
           });
           break;
+        default:
+          console.error("Something went wrong", create_server);
+          break;
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  joinServer = () => {
-    console.log("joinServer()");
+  joinServer = async (): Promise<void> => {
+    if (!this.state.inviteLink) return;
+
+    try {
+      const {
+        data: {
+          data: { join_server }
+        }
+      }: any = await api.post("", JoinServerMutation(this.state.inviteLink));
+
+      switch (join_server.status) {
+        case 201:
+          const { user }: any = store.getState();
+
+          user.servers.push(join_server.server);
+
+          store.dispatch({
+            type: "SET_USER",
+            user,
+            token: user.token
+          });
+
+          break;
+        case 400:
+          await this.setState({
+            invalidServerName: false,
+            invalidInviteLink: true
+          });
+          break;
+        default:
+          console.error("something went wrong", join_server);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   render() {

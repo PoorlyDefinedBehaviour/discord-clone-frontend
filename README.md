@@ -14,6 +14,7 @@ run [npm](https://www.npmjs.com) install in the project folder <br/>
 
 ## Usage
 
+mongodb must be running on port 27017 <br/>
 npm start or npm run dev for the backend <br/>
 npm start for the frontend <br/>
 

@@ -140,3 +140,11 @@ export const DefaultButton = styled.button`
     filter: brightness(0.9);
   }
 `;
+
+export const Input = styled.input`
+  width: 90%;
+  height: 30px;
+  border: 1px solid #202225;
+  background: #26282c;
+  color: #fff;
+`;

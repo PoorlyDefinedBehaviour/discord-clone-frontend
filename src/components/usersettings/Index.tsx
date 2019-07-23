@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Container,
@@ -15,7 +15,8 @@ import {
   XButton,
   Avatar,
   P,
-  DefaultButton
+  DefaultButton,
+  Input
 } from "./Styles";
 
 import TwitterIcon from "../../assets/twitter-icon.svg";
@@ -25,7 +26,70 @@ import ChestImage from "../../assets/chest.svg";
 import { logout } from "../../services/Authentication";
 import { ESections } from "../lobbysection/Index";
 
+import api from "../../services/Api";
+import { DeleteAccount as DeleteAccountMutation } from "../../graphql/mutations/DeleteAccount";
+import { DeactivateAccount as DeactivateAccountMutation } from "../../graphql/mutations/DeactivateAccount";
+import { UpdateAccount as UpdateAccountMutation } from "../../graphql/mutations/UpdateAccount";
+import { store } from "../../store/Index";
+
 export default function UserSettings({ setCurrentSection }): any {
+  const [editButtonClicked, setEditButtonClicked] = useState(false);
+  const [state, setState] = useState({} as any);
+
+  const { user }: any = store.getState();
+
+  const updateAccount = async (): Promise<void> => {
+    try {
+      const {
+        data: {
+          data: { update_account }
+        }
+      }: any = await api.post(
+        "",
+        UpdateAccountMutation(
+          state.username || "",
+          state.email || "",
+          state.password || ""
+        )
+      );
+      console.log(update_account);
+      if (update_account.status === 201) {
+        store.dispatch({ type: "UPDATE_USER", fields: state });
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setEditButtonClicked(false);
+    }
+  };
+
+  const cancelUpdate = (): void => {
+    setState({});
+    setEditButtonClicked(false);
+  };
+
+  const deleteAccount = async (): Promise<void> => {
+    try {
+      await api.post("", DeleteAccountMutation());
+      logout();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setEditButtonClicked(false);
+    }
+  };
+
+  const disableAccount = async (): Promise<void> => {
+    try {
+      await api.post("", DeactivateAccountMutation());
+      logout();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setEditButtonClicked(false);
+    }
+  };
+
   return (
     <Container>
       <Leftcontainer>
@@ -66,7 +130,14 @@ export default function UserSettings({ setCurrentSection }): any {
 
       <RightContainer>
         <FlexContainer style={{ justifyContent: "space-between" }}>
-          <BigTitle>My Account</BigTitle>
+          <BigTitle>
+            My Account{" "}
+            <span
+              style={{ marginLeft: "10px", fontSize: "12px", color: "#5A5C60" }}
+            >
+              #DiscordTag: {user._id}
+            </span>
+          </BigTitle>
           <XButton onClick={(): void => setCurrentSection(ESections.FRIENDS)}>
             X
           </XButton>
@@ -78,26 +149,121 @@ export default function UserSettings({ setCurrentSection }): any {
             width: "90%",
             border: "1px solid #202225",
             borderRadius: "5px",
-            height: "150px",
+            height: editButtonClicked ? "400px" : "150px",
             alignItems: "center"
           }}
         >
-          <Avatar src={TwitterIcon} style={{ marginLeft: "10px" }} />
-          <FlexContainer
-            style={{ flexDirection: "column", marginLeft: "30px" }}
-          >
-            <Title style={{ marginBottom: "0px" }}>USERNAME</Title>
-            <P>
-              PoorlyDefinedBehaviour{" "}
-              <span style={{ color: "#5A5C60", fontSize: "12px" }}>#3450</span>
-            </P>
+          <Avatar
+            src={TwitterIcon}
+            style={{
+              marginLeft: "10px",
+              marginTop: editButtonClicked ? "-200px" : "0px"
+            }}
+          />
+          {editButtonClicked ? (
+            <>
+              <FlexContainer
+                style={{
+                  flexDirection: "column",
+                  marginLeft: "30px"
+                }}
+              >
+                <Title style={{ marginBottom: "5px" }}>USERNAME</Title>
+                <Input
+                  onChange={(e: any): void =>
+                    setState({ ...state, username: e.target.value })
+                  }
+                />
 
-            <Title style={{ marginBottom: "0px" }}>EMAIL</Title>
-            <P>foo@bar.com</P>
-          </FlexContainer>
-          <DefaultButton style={{ marginBottom: "55px", marginRight: "20px" }}>
-            Edit
-          </DefaultButton>
+                <Title style={{ marginBottom: "5px" }}>EMAIL</Title>
+                <Input
+                  type="email"
+                  onChange={(e: any): void =>
+                    setState({ ...state, email: e.target.value })
+                  }
+                />
+
+                <Title style={{ marginBottom: "5px" }}>PASSWORD</Title>
+                <Input
+                  type="password"
+                  onChange={(e: any): void =>
+                    setState({ ...state, password: e.target.value })
+                  }
+                />
+
+                <Line />
+                <FlexContainer
+                  style={{
+                    flexDirection: "row",
+                    marginTop: "15%",
+                    width: "100%"
+                  }}
+                >
+                  <DefaultButton
+                    style={{
+                      background: "transparent",
+                      border: "1px solid #C34142",
+                      color: "#C34142"
+                    }}
+                    onClick={deleteAccount}
+                  >
+                    Delete Account
+                  </DefaultButton>
+                  <DefaultButton
+                    style={{
+                      background: "transparent",
+                      border: "1px solid #C34142",
+                      color: "#C34142",
+                      marginRight: "100px",
+                      marginLeft: "10px"
+                    }}
+                    onClick={disableAccount}
+                  >
+                    Disable Account
+                  </DefaultButton>
+                  <DefaultButton
+                    style={{
+                      background: "transparent",
+                      border: "none",
+                      color: "#fff"
+                    }}
+                    onClick={cancelUpdate}
+                  >
+                    Cancel
+                  </DefaultButton>
+                  <DefaultButton
+                    style={{ background: "#43B581" }}
+                    onClick={updateAccount}
+                  >
+                    Save
+                  </DefaultButton>
+                </FlexContainer>
+              </FlexContainer>
+            </>
+          ) : (
+            <>
+              <FlexContainer
+                style={{ flexDirection: "column", marginLeft: "30px" }}
+              >
+                <Title style={{ marginBottom: "0px" }}>USERNAME</Title>
+                <P>
+                  {user.username}{" "}
+                  <span style={{ color: "#5A5C60", fontSize: "12px" }}>
+                    #3450
+                  </span>
+                </P>
+
+                <Title style={{ marginBottom: "0px" }}>EMAIL</Title>
+                <P>{user.email}</P>
+              </FlexContainer>
+              <DefaultButton
+                style={{ marginBottom: "55px", marginRight: "20px" }}
+                onClick={(): void => setEditButtonClicked(true)}
+              >
+                Edit
+              </DefaultButton>
+            </>
+          )}
         </FlexContainer>
 
         <BigTitle style={{ marginTop: "60px", marginBottom: "20px" }}>

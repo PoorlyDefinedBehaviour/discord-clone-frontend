@@ -14,17 +14,24 @@ import {
 import { AddFriendButton as Button } from "../../pages/lobby/Styles";
 
 import FriendSuggestionsBackground from "../../assets/friend-suggestions.svg";
+import api from "../../services/Api";
+import { FriendRequest as FriendRequestMutation } from "../../graphql/mutations/FriendRequest";
 
 export default class AddFriend extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      friendName: ""
+      _id: ""
     };
   }
 
-  searchFriend = () => {
-    console.log(`Searching for ${this.state.friendName}`);
+  sendFriendRequest = async (): Promise<void> => {
+    try {
+      if (this.state._id)
+        await api.post("", FriendRequestMutation(this.state._id));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   render() {
@@ -35,9 +42,7 @@ export default class AddFriend extends React.Component<any, any> {
           <P>You can add a friend with their DiscordTag.</P>
           <SearchBar
             placeholder="Enter a DiscordTag#0000"
-            onChange={(e: any): void =>
-              this.setState({ friendName: e.target.value })
-            }
+            onChange={(e: any): void => this.setState({ _id: e.target.value })}
           />
           <Button
             style={{
@@ -49,7 +54,7 @@ export default class AddFriend extends React.Component<any, any> {
               top: "22.5%",
               transform: "translate(-90%, -22.5%)"
             }}
-            onClick={this.searchFriend}
+            onClick={this.sendFriendRequest}
           >
             Send Friend Request
           </Button>

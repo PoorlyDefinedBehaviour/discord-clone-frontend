@@ -1,9 +1,9 @@
 import { IGraphQLRequest } from "../../types/IGraphQLRequest.d";
 
-export const SendFriendRequest = (_id: string): IGraphQLRequest => ({
+export const DeactivateAccount = (): IGraphQLRequest => ({
   query: `
 mutation {
-  send_friend_request(_id: "_id") {
+  deactivate_account {
     status
     errors {
       path

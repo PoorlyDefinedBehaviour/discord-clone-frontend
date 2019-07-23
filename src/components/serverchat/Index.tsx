@@ -15,13 +15,17 @@ import {
 import { ApiUrl } from "../../services/Api";
 import { store } from "../../store/Index";
 
+import ErrorMessage from "../errormessage/Index";
+
 const socket: any = io(ApiUrl);
 
-let lastMesssageSentAt: number = 0;
+let lastMessageTimestamp = 0;
 
 export default function ServerChat(server): any {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messages, setMessages] = useState([] as any);
+
+  const [tooManyMessages, setTooManyMessages] = useState(false);
 
   const {
     server: { _id }
@@ -37,17 +41,18 @@ export default function ServerChat(server): any {
     }
   );
 
-  const sendMessage = (event: any): void => {
-    event.preventDefault();
+  const sendMessage = (e: any): void => {
+    e.preventDefault();
 
     if (!currentMessage) {
       return;
     }
 
-    const timePassed: number = Date.now() - lastMesssageSentAt;
+    const timePassed = Date.now() - lastMessageTimestamp;
 
-    if (timePassed < 1000) {
-      console.log("too fast");
+    timePassed > 1000 ? setTooManyMessages(false) : setTooManyMessages(true);
+
+    if (tooManyMessages) {
       return;
     }
 
@@ -67,8 +72,7 @@ export default function ServerChat(server): any {
     });
 
     setCurrentMessage("");
-
-    lastMesssageSentAt = Date.now();
+    lastMessageTimestamp = Date.now();
   };
 
   return (
@@ -85,9 +89,13 @@ export default function ServerChat(server): any {
               </MessageContainer>
             )
           )}
+
+        {tooManyMessages && (
+          <ErrorMessage message="You're sending too many messages" />
+        )}
         <form onSubmit={(e: any): void => sendMessage(e)}>
           <Input
-            placeholder="Message"
+            placeholder="type here"
             onChange={(e: any): void => setCurrentMessage(e.target.value)}
             value={currentMessage}
           />

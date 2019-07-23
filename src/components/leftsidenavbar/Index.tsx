@@ -16,12 +16,19 @@ import api from "../../services/Api";
 export default class LeftSideNavbar extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
+
     this.state = {
       joiningServer: false,
       componentsOnView: {
         createServerCard: false
-      }
+      },
+      userServers: store.getState().user.servers
     };
+
+    store.subscribe(
+      async (): Promise<void> =>
+        await this.setState({ userServers: store.getState().user.servers })
+    );
   }
 
   join = async (serverId: string): Promise<void> => {
@@ -53,24 +60,17 @@ export default class LeftSideNavbar extends React.Component<any, any> {
     }
   };
 
-  getUserServers = () => {
-    const { user }: any = store.getState();
-
-    return user.servers.length > 0 ? (
-      user.servers.map(
-        (server: any): any => (
-          <IconContainer
-            key={server._id}
-            onClick={async (): Promise<void> => await this.join(server._id)}
-          >
-            <Icon src={server.logo} />
-          </IconContainer>
-        )
+  getUserServers = () =>
+    this.state.userServers.map(
+      (server: any): any => (
+        <IconContainer
+          key={server._id}
+          onClick={async (): Promise<void> => await this.join(server._id)}
+        >
+          <Icon src={server.logo} />
+        </IconContainer>
       )
-    ) : (
-      <></>
     );
-  };
 
   render() {
     return (
