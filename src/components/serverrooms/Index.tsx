@@ -5,7 +5,7 @@ import { Section, OptionContainer, OptionIcon, OptionLabel } from "./Styles";
 import HashtagIcon from "../../assets/hashtag.png";
 import TPHIcon from "../../assets/server-icon.png";
 
-export default function ServerRooms(): any {
+export function ServerRooms(): any {
   return (
     <Section>
       <OptionContainer

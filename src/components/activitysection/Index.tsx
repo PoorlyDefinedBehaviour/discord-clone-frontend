@@ -11,7 +11,7 @@ import {
 
 import ControllerIcon from "../../assets/gamepad-controller.png";
 
-export default function ActivitySection(): any {
+export function ActivitySection(): any {
   return (
     <Container>
       <FriendsContentNavbar>

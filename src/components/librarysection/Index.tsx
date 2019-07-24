@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   ContentOptionContainer,
@@ -27,101 +27,91 @@ export enum EViews {
   GIFTS
 }
 
-export default class ActivitySection extends React.Component<any, any> {
-  constructor(props: any) {
-    super(props);
+export function LibrarySection(): any {
+  const [state, setState] = useState({
+    selected: EViews.GIFTS
+  });
 
-    this.state = {
-      selected: EViews.GIFTS
-    };
-  }
+  return (
+    <Container>
+      <FriendsContentNavbar>
+        <ContentOptionContainer style={{ marginLeft: "20px" }}>
+          <OptionIcon src={BackpackIcon} />
+          <OptionLabel>Library</OptionLabel>
+        </ContentOptionContainer>
 
-  render() {
-    return (
-      <Container>
-        <FriendsContentNavbar>
-          <ContentOptionContainer style={{ marginLeft: "20px" }}>
-            <OptionIcon src={BackpackIcon} />
-            <OptionLabel>Library</OptionLabel>
-          </ContentOptionContainer>
+        <ContentOptionContainer
+          style={{ marginLeft: "20px" }}
+          onClick={() => setState({ selected: EViews.GAMES })}
+        >
+          <OptionLabel>My Games</OptionLabel>
+        </ContentOptionContainer>
 
-          <ContentOptionContainer
-            style={{ marginLeft: "20px" }}
-            onClick={async (): Promise<void> =>
-              await this.setState({ selected: EViews.GAMES })
-            }
-          >
-            <OptionLabel>My Games</OptionLabel>
-          </ContentOptionContainer>
+        <ContentOptionContainer
+          style={{ marginLeft: "20px" }}
+          onClick={() => setState({ selected: EViews.GIFTS })}
+        >
+          <OptionLabel>Gift Inventory</OptionLabel>
+        </ContentOptionContainer>
+      </FriendsContentNavbar>
+      {state.selected === EViews.GAMES ? (
+        <MainContentContainer>
+          <MainContent>
+            <Image src={FriendSuggestionsBackground} />
+            <OptionLabel
+              style={{
+                fontSize: "20px",
+                fontWeight: "normal",
+                marginTop: "20px",
+                marginBottom: "20px"
+              }}
+            >
+              No games found
+            </OptionLabel>
+            <OptionLabel style={{ color: "#9A9CA1" }}>
+              Hm, seems you don't have any games. Purchase games and they'll
+              show up here!
+            </OptionLabel>
+          </MainContent>
+        </MainContentContainer>
+      ) : (
+        <GiftInventorySectionContainer>
+          <H1>Redeem Codes</H1>
+          <P>
+            Received a code for Nitro or a game? That's exciting! Enter it
+            below:
+          </P>
+          <InputContainer>
+            <CodeInput placeholder="WUMP-AAAAA-BBBBB-CCCCC" />
+            <Button>Redeem</Button>
+          </InputContainer>
+          <H1 style={{ marginBottom: "100px" }}>Gift Inventory</H1>
+          <LowerSectionContainer>
+            <Image src={FriendSuggestionsBackground} />
 
-          <ContentOptionContainer
-            style={{ marginLeft: "20px" }}
-            onClick={async (): Promise<void> =>
-              await this.setState({ selected: EViews.GIFTS })
-            }
-          >
-            <OptionLabel>Gift Inventory</OptionLabel>
-          </ContentOptionContainer>
-        </FriendsContentNavbar>
-        {this.state.selected === EViews.GAMES ? (
-          <MainContentContainer>
-            <MainContent>
-              <Image src={FriendSuggestionsBackground} />
-              <OptionLabel
-                style={{
-                  fontSize: "20px",
-                  fontWeight: "normal",
-                  marginTop: "20px",
-                  marginBottom: "20px"
-                }}
-              >
-                No games found
-              </OptionLabel>
-              <OptionLabel style={{ color: "#9A9CA1" }}>
-                Hm, seems you don't have any games. Purchase games and they'll
-                show up here!
-              </OptionLabel>
-            </MainContent>
-          </MainContentContainer>
-        ) : (
-          <GiftInventorySectionContainer>
-            <H1>Redeem Codes</H1>
-            <P>
-              Received a code for Nitro or a game? That's exciting! Enter it
-              below:
+            <H1
+              style={{
+                fontSize: "20px",
+                border: "none",
+                marginTop: "30px",
+                marginBottom: "-10px"
+              }}
+            >
+              There are no gifts.
+            </H1>
+            <P
+              style={{
+                fontSize: "14px",
+                fontWeight: "lighter",
+                color: "#B9BBBE"
+              }}
+            >
+              Feeling generous? Check out <Link>our store</Link> and purchase a
+              gift to make someone's day!
             </P>
-            <InputContainer>
-              <CodeInput placeholder="WUMP-AAAAA-BBBBB-CCCCC" />
-              <Button>Redeem</Button>
-            </InputContainer>
-            <H1 style={{ marginBottom: "100px" }}>Gift Inventory</H1>
-            <LowerSectionContainer>
-              <Image src={FriendSuggestionsBackground} />
-
-              <H1
-                style={{
-                  fontSize: "20px",
-                  border: "none",
-                  marginTop: "30px",
-                  marginBottom: "-10px"
-                }}
-              >
-                There are no gifts.
-              </H1>
-              <P
-                style={{
-                  fontSize: "14px",
-                  fontWeight: "lighter",
-                  color: "#B9BBBE"
-                }}
-              >
-                Feeling generous? Check out <Link>our store</Link> and purchase
-                a gift to make someone's day!
-              </P>
-            </LowerSectionContainer>
-          </GiftInventorySectionContainer>
-        )}
-      </Container>
-    );
-  }
+          </LowerSectionContainer>
+        </GiftInventorySectionContainer>
+      )}
+    </Container>
+  );
 }

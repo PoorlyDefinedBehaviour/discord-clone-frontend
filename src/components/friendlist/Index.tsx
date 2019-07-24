@@ -9,7 +9,7 @@ export enum EFriendListFilters {
   PENDING
 }
 
-export default function FriendList({ filter }): any {
+export function FriendList({ filter }: any): any {
   const modes: Map<number, any> = new Map<number, any>();
 
   const { user }: any = store.getState();

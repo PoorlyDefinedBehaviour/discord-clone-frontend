@@ -6,7 +6,7 @@ import * as yup from "yup";
 
 import { Login as LoginMutation } from "../../graphql/mutations/Login";
 
-import api from "../../services/Api";
+import { api } from "../../services/Api";
 
 import {
   Container,
@@ -45,7 +45,7 @@ async function validate(email: string, password: string): Promise<any> {
   return await LoginSchema.validate({ email, password }, { abortEarly: false });
 }
 
-export default function Login({ history }: any): any {
+export function Login({ history }: any): any {
   const [email, setEmail]: any = useState("");
   const [password, setPassword]: any = useState("");
 

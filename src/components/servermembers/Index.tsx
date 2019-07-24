@@ -10,7 +10,7 @@ import {
 
 import { store } from "../../store/Index";
 
-export default function ServerMembers(): any {
+export function ServerMembers(): any {
   const { server }: any = store.getState();
 
   return (
@@ -25,7 +25,7 @@ export default function ServerMembers(): any {
         )
       )}
 
-      <H1>Members - {server.members.length}</H1>
+      <H1>Members - {server.members.length - server.staff.length}</H1>
       {server.members
         .filter(
           (user: any): boolean =>

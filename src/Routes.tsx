@@ -3,12 +3,12 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import { isLoggedIn, getUserId } from "./services/Authentication";
 
-import Login from "./pages/login/Index";
-import Register from "./pages/register/Index";
-import Lobby from "./pages/lobby/Index";
-import Landing from "./pages/landing/Index";
+import { Login } from "./pages/login/Index";
+import { Register } from "./pages/register/Index";
+import { Lobby } from "./pages/lobby/Index";
+import { Landing } from "./pages/landing/Index";
 
-import api from "./services/Api";
+import { api } from "./services/Api";
 import { User as UserQuery } from "./graphql/queries/User";
 import { store } from "./store/Index";
 import { Maybe } from "./types/Maybe.d";

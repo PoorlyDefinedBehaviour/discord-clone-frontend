@@ -7,7 +7,7 @@ export const ApiUrl = "http://localhost:8080";
 /**
  * Change it to https:// on prod
  */
-const api = axios.create({
+export const api = axios.create({
   baseURL: "http://localhost:8080/graphql"
 });
 
@@ -19,5 +19,3 @@ api.interceptors.request.use(config => {
 
   return config;
 });
-
-export default api;

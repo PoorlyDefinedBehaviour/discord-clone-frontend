@@ -6,7 +6,7 @@ import * as yup from "yup";
 
 import { Register as RegisterMutation } from "../../graphql/mutations/Register";
 
-import api from "../../services/Api";
+import { api } from "../../services/Api";
 
 import {
   Container,
@@ -54,7 +54,7 @@ async function validate(
   );
 }
 
-export default function Register({ history }: any): any {
+export function Register({ history }: any): any {
   const [email, setEmail]: any = useState("");
   const [username, setUsername]: any = useState("");
   const [password, setPassword]: any = useState("");

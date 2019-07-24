@@ -26,13 +26,14 @@ import ChestImage from "../../assets/chest.svg";
 import { logout } from "../../services/Authentication";
 import { ESections } from "../lobbysection/Index";
 
-import api from "../../services/Api";
+import { api } from "../../services/Api";
+
 import { DeleteAccount as DeleteAccountMutation } from "../../graphql/mutations/DeleteAccount";
 import { DeactivateAccount as DeactivateAccountMutation } from "../../graphql/mutations/DeactivateAccount";
 import { UpdateAccount as UpdateAccountMutation } from "../../graphql/mutations/UpdateAccount";
 import { store } from "../../store/Index";
 
-export default function UserSettings({ setCurrentSection }): any {
+export function UserSettings({ setCurrentSection }): any {
   const [editButtonClicked, setEditButtonClicked] = useState(false);
   const [state, setState] = useState({} as any);
 

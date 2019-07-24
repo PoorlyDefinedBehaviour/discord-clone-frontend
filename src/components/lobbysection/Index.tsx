@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-import FriendsSection from "../friendssection/Index";
-import ActivitySection from "../activitysection/Index";
-import LibrarySection from "../librarysection/Index";
-import NitroSection from "../nitrosection/Index";
-import DirectMessages from "../directmessages/Index";
-import UserSettings from "../usersettings/Index";
+import { FriendsSection } from "../friendssection/Index";
+import { ActivitySection } from "../activitysection/Index";
+import { LibrarySection } from "../librarysection/Index";
+import { NitroSection } from "../nitrosection/Index";
+import { DirectMessages } from "../directmessages/Index";
+import { UserSettings } from "../usersettings/Index";
 
 export enum ESections {
   ACTIVITY = 0,
@@ -15,7 +15,7 @@ export enum ESections {
   SETTINGS
 }
 
-export default function LobbySection(): any {
+export function LobbySection(): any {
   const [currentSection, setCurrentSection] = useState(ESections.SETTINGS);
 
   const sections: Map<number, any> = new Map<number, any>();

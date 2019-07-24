@@ -21,7 +21,7 @@ import SettingsIcon from "../../assets/settings-work-tool.svg";
 
 import { ESections } from "../lobbysection/Index";
 
-export default function DirectMessages({ setCurrentSection }): any {
+export function DirectMessages({ setCurrentSection }): any {
   return (
     <Section>
       <SearchBar placeholder="Find or start a conversation" />

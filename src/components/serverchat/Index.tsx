@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { ReactMic } from "react-mic";
+
 import io from "socket.io-client";
 
 import {
@@ -15,19 +17,28 @@ import {
 import { ApiUrl } from "../../services/Api";
 import { store } from "../../store/Index";
 
-import ErrorMessage from "../errormessage/Index";
+import { ErrorMessage } from "../errormessage/Index";
+import { useKeyPress } from "../../hooks/useKeyPress";
 
-const socket: any = io(ApiUrl);
+export const socket: any = io(ApiUrl);
 
 let lastMessageTimestamp = 0;
+let audioChunks: Array<any> = [];
 
-export default function ServerChat(server): any {
+//@ts-ignore
+const playAudio = (chunks: Array<any>): void => {
+  const audioUrl: string = URL.createObjectURL(new Blob(chunks));
+  new Audio(audioUrl).play();
+};
+
+export function ServerChat(server): any {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messages, setMessages] = useState([] as any);
 
   const [tooManyMessages, setTooManyMessages] = useState(false);
 
   const {
+    user,
     server: { _id }
   }: any = store.getState();
 
@@ -40,6 +51,21 @@ export default function ServerChat(server): any {
       setMessages([...messages, message.message]);
     }
   );
+
+  socket.on("voice", (data: any): void => playAudio(data.data.content));
+
+  const onData = (chunk: any): any => audioChunks.push(chunk);
+
+  const onStop = (_: any): void => {
+    socket.emit("voice", {
+      data: {
+        room: _id,
+        content: audioChunks,
+        author: { ...user, token: null }
+      }
+    });
+    audioChunks = [];
+  };
 
   const sendMessage = (e: any): void => {
     e.preventDefault();
@@ -55,8 +81,6 @@ export default function ServerChat(server): any {
     if (tooManyMessages) {
       return;
     }
-
-    const { user }: any = store.getState();
 
     setMessages([
       ...messages,
@@ -77,6 +101,16 @@ export default function ServerChat(server): any {
 
   return (
     <ContentSection>
+      <div style={{ width: "0px", height: "0px", marginTop: "-2000px" }}>
+        <ReactMic
+          record={useKeyPress("t")}
+          className="sound-wave"
+          onStop={onStop}
+          onData={onData}
+          strokeColor="#000000"
+          backgroundColor="#FF4081"
+        />
+      </div>
       <Container>
         {messages.length > 0 &&
           messages.map(

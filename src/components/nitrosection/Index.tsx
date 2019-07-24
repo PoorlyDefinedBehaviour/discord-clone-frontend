@@ -10,7 +10,7 @@ import {
 
 import NitroIcon from "../../assets/start-up.png";
 
-export default function NitroSection(): any {
+export function NitroSection(): any {
   return (
     <Container>
       <Navbar>

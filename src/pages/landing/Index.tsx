@@ -39,7 +39,7 @@ import CircleImage from "../../assets/circle.svg";
 import TriangleImage from "../../assets/triangle.svg";
 import XImage from "../../assets/x.svg";
 
-export default function Landing(): any {
+export function Landing(): any {
   return (
     <Container>
       <Navbar>
