@@ -27,7 +27,8 @@ import {
 } from "./Styles";
 
 import { isLoggedIn } from "../../services/Authentication";
-import Handlers from "./Handlers";
+
+import { store } from "../../store/Index";
 
 async function validate(email: string, password: string): Promise<any> {
   const LoginSchema = yup.object().shape({
@@ -49,8 +50,7 @@ export function Login({ history }: any): any {
   const [email, setEmail]: any = useState("");
   const [password, setPassword]: any = useState("");
 
-  const [invalidCredentials, setInvalidCredentials] = useState(false);
-  const [failedToLogin, setFailedToLogin] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [tryingToLogin, setTryingToLogin] = useState(false);
 
@@ -60,6 +60,7 @@ export function Login({ history }: any): any {
 
   async function login(): Promise<void> {
     if (tryingToLogin) return;
+    if (!email || !password) return;
 
     try {
       setTryingToLogin(true);
@@ -68,23 +69,27 @@ export function Login({ history }: any): any {
 
       const {
         data: {
-          data: { login }
+          data: {
+            login: { status, user, token }
+          }
         }
       }: any = await api.post("/", LoginMutation(email, password));
 
-      const handler: any = Handlers(login.status);
-
-      if (handler) {
-        handler(login, {
-          setEmail,
-          setPassword,
-          setInvalidCredentials,
-          setFailedToLogin,
-          history
-        });
+      console.log(status, user, token);
+      switch (status) {
+        case 200:
+          store.dispatch({ type: "SET_USER", user, token });
+          history.push("/lobby");
+          break;
+        case 401:
+          setErrorMessage("Invalid credentials");
+          break;
+        default:
+          setErrorMessage("Something went wrong, try again later");
+          break;
       }
     } catch (e) {
-      setInvalidCredentials(true);
+      setErrorMessage("Email and password must be valid");
     } finally {
       setTryingToLogin(false);
     }
@@ -117,10 +122,7 @@ export function Login({ history }: any): any {
             type="password"
             onChange={(e: any): void => setPassword(e.target.value)}
           />
-          {invalidCredentials && (
-            <ErrorMessage>Email and password must be valid</ErrorMessage>
-          )}
-          {failedToLogin && <ErrorMessage>Invalid credentials</ErrorMessage>}
+          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
 
           <LoginButton>Login</LoginButton>
         </LoginForm>

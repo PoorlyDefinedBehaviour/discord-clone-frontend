@@ -25,7 +25,7 @@ import {
 } from "./Styles";
 
 import { isLoggedIn } from "../../services/Authentication";
-import Handlers from "./Handlers";
+import { store } from "../../store/Index";
 
 async function validate(
   username: string,
@@ -59,9 +59,7 @@ export function Register({ history }: any): any {
   const [username, setUsername]: any = useState("");
   const [password, setPassword]: any = useState("");
 
-  const [emailAlreadyInUse, setEmailAlreadyInUse] = useState(false);
-  const [invalidCredentials, setInvalidCredentials] = useState(false);
-  const [internalServerError, setInternalServerError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [tryingToRegister, setTryingToRegister] = useState(false);
 
@@ -71,6 +69,7 @@ export function Register({ history }: any): any {
 
   async function register(): Promise<void> {
     if (tryingToRegister) return;
+    if (!email || !username || !password) return;
 
     try {
       setTryingToRegister(true);
@@ -79,23 +78,27 @@ export function Register({ history }: any): any {
 
       const {
         data: {
-          data: { register }
+          data: {
+            register: { status, user, token }
+          }
         }
       }: any = await api
         .post("/", RegisterMutation(username, email, password))
         .catch((error: any): void => console.log(error));
 
-      const handler: any = Handlers(register.status);
-      console.log("here");
-      if (handler) {
-        handler(register, {
-          setEmail,
-          setPassword,
-          setEmailAlreadyInUse,
-          setInvalidCredentials,
-          setInternalServerError,
-          history
-        });
+      console.log(status, user, token);
+      switch (status) {
+        case 201:
+          store.dispatch({ type: "SET_USER", user, token });
+          history.push("/lobby");
+          break;
+
+        case 422:
+          setErrorMessage("Email is already being used");
+          break;
+        default:
+          setErrorMessage("Something went wrong, try again later");
+          break;
       }
     } catch (e) {
       console.error("register", e);
@@ -134,19 +137,7 @@ export function Register({ history }: any): any {
             type="password"
             onChange={(e: any): void => setPassword(e.target.value)}
           />
-          {emailAlreadyInUse && (
-            <ErrorMessage>Email is already being used</ErrorMessage>
-          )}
-          {invalidCredentials && (
-            <ErrorMessage style={{ width: "60%" }}>
-              Username, email and password must be valid
-            </ErrorMessage>
-          )}
-          {internalServerError && (
-            <ErrorMessage>
-              Something went wrong on our end, try again later
-            </ErrorMessage>
-          )}
+          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
 
           <Button>Continue</Button>
         </Form>
