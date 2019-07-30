@@ -16,24 +16,13 @@ export const Nav = styled.div`
   background: #202225;
   display: flex;
   flex-direction: column;
-`;
 
-export const IconContainer = styled.div`
-  width: 100%;
-  height: 40px;
-  background: transparent;
-  margin-top: 20%;
-  margin-bottom: 20%;
-  cursor: pointer;
+  & > * {
+    margin-top: 10px;
+    cursor: pointer;
 
-  &:hover {
-    filter: brightness(1.1);
+    &:hover {
+      filter: brightness(1.1);
+    }
   }
-`;
-
-export const Icon = styled.img`
-  src: url(${(props: any) => props.src});
-  width: 60%;
-  height: auto;
-  margin-left: 20%;
 `;

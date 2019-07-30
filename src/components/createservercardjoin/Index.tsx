@@ -1,16 +1,6 @@
 import React, { useState } from "react";
 
-import {
-  CreateServerPopUpContainer,
-  CreateServerPopUpInnerContainer,
-  CreateServerPopUpInnerContainerName,
-  CreateServerPopUpActionDescription,
-  CreateServerInputContainer,
-  CreateServerLabelAndInputContainer,
-  CreateServerPopUpActionButton,
-  CreateServerInput,
-  OptionLabel
-} from "./Styles";
+import * as S from "./Styles";
 
 import { ErrorMessage } from "../errormessage/Index";
 
@@ -19,8 +9,11 @@ import { store } from "../../store/Index";
 import { api } from "../../services/Api";
 
 import { JoinServer as JoinServerMutation } from "../../graphql/mutations/JoinServer";
+import { Label } from "../label/Index";
 
-export function CreateServerCardJoin({ backButtonClickHandler }: any): any {
+export const CreateServerCardJoin = ({
+  backButtonClickHandler
+}: any): JSX.Element => {
   const [state, setState] = useState({
     invalidServerId: false,
     serverId: ""
@@ -65,34 +58,34 @@ export function CreateServerCardJoin({ backButtonClickHandler }: any): any {
   };
 
   return (
-    <CreateServerPopUpContainer>
-      <CreateServerPopUpInnerContainer>
-        <CreateServerPopUpInnerContainerName style={{ color: "#53BB8C" }}>
+    <S.CreateServerPopUpContainer>
+      <S.CreateServerPopUpInnerContainer>
+        <S.CreateServerPopUpInnerContainerName style={{ color: "#53BB8C" }}>
           JOIN A SERVER
-        </CreateServerPopUpInnerContainerName>
-        <CreateServerPopUpActionDescription
+        </S.CreateServerPopUpInnerContainerName>
+        <S.CreateServerPopUpActionDescription
           style={{ fontWeight: "bolder", fontSize: "14px" }}
         >
           Enter an instant invite below to join an existing server. The invite
           will look something like these:
-        </CreateServerPopUpActionDescription>
-        <OptionLabel style={{ fontSize: "11px", color: "#8C9EE0" }}>
+        </S.CreateServerPopUpActionDescription>
+        <Label style={{ fontSize: "11px", color: "#8C9EE0" }}>
           https://discord.gg/qJq5C
-        </OptionLabel>
-        <OptionLabel style={{ fontSize: "11px", color: "#8C9EE0" }}>
+        </Label>
+        <Label style={{ fontSize: "11px", color: "#8C9EE0" }}>
           https://discord.gg/discord-developers-qJq5C
-        </OptionLabel>
-        <CreateServerInputContainer>
-          <CreateServerLabelAndInputContainer
+        </Label>
+        <S.CreateServerInputContainer>
+          <S.CreateServerLabelAndInputContainer
             style={{ width: "80%", marginLeft: "10%" }}
           >
-            <OptionLabel
+            <Label
               style={{
                 color: "87909C",
                 marginLeft: "-77%"
               }}
             />
-            <CreateServerInput
+            <S.CreateServerInput
               placeholder="Enter instant invite"
               onChange={(e: any): void =>
                 setState({ ...state, serverId: e.target.value })
@@ -103,9 +96,9 @@ export function CreateServerCardJoin({ backButtonClickHandler }: any): any {
                 Invite link must be valid
               </ErrorMessage>
             )}
-          </CreateServerLabelAndInputContainer>
-        </CreateServerInputContainer>
-        <CreateServerLabelAndInputContainer
+          </S.CreateServerLabelAndInputContainer>
+        </S.CreateServerInputContainer>
+        <S.CreateServerLabelAndInputContainer
           style={{
             marginTop: "20%",
             flexDirection: "row",
@@ -113,7 +106,7 @@ export function CreateServerCardJoin({ backButtonClickHandler }: any): any {
             width: "100%"
           }}
         >
-          <CreateServerPopUpActionButton
+          <S.CreateServerPopUpActionButton
             color={"#99AAB5"}
             style={{
               marginLeft: "20px",
@@ -124,16 +117,16 @@ export function CreateServerCardJoin({ backButtonClickHandler }: any): any {
             onClick={backButtonClickHandler}
           >
             Back
-          </CreateServerPopUpActionButton>
-          <CreateServerPopUpActionButton
+          </S.CreateServerPopUpActionButton>
+          <S.CreateServerPopUpActionButton
             color={"#43B581"}
             style={{ marginLeft: "20px", width: "100px", color: "#fff" }}
             onClick={joinServer}
           >
             Join
-          </CreateServerPopUpActionButton>
-        </CreateServerLabelAndInputContainer>
-      </CreateServerPopUpInnerContainer>
-    </CreateServerPopUpContainer>
+          </S.CreateServerPopUpActionButton>
+        </S.CreateServerLabelAndInputContainer>
+      </S.CreateServerPopUpInnerContainer>
+    </S.CreateServerPopUpContainer>
   );
-}
+};

@@ -15,22 +15,6 @@ export const UserRow = styled.div`
   }
 `;
 
-export const OptionIcon = styled.img`
-  src: url(${(props: any) => props.src});
-  width: 24px;
-  height: 24px;
-  margin-left: 5%;
-  margin-right: 10%;
-  filter: invert(46%) sepia(14%) saturate(182%) hue-rotate(180deg)
-    brightness(97%) contrast(90%);
-`;
-
-export const OptionLabel = styled.p`
-  color: #62656c;
-  font-weight: bold;
-  font-size: 13px;
-`;
-
 export const Status = styled.span`
   font-weight: bold;
   font-size: 14px;

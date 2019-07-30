@@ -1,27 +1,21 @@
 import React from "react";
 
-import {
-  ContentOptionContainer,
-  Container,
-  OptionIcon,
-  OptionLabel,
-  FriendsContentNavbar,
-  MainContent
-} from "./Styles";
+import * as S from "./Styles";
+
+import { Icon } from "../icon/Index";
 
 import ControllerIcon from "../../assets/gamepad-controller.png";
+import { Navbar } from "../navbar/Index";
+import { CenterContainer } from "../centercontainer/Index";
+import { Label } from "../label/Index";
 
-export function ActivitySection(): any {
-  return (
-    <Container>
-      <FriendsContentNavbar>
-        <ContentOptionContainer style={{ marginLeft: "20px" }}>
-          <OptionIcon src={ControllerIcon} />
-          <OptionLabel>Activity</OptionLabel>
-        </ContentOptionContainer>
-      </FriendsContentNavbar>
-
-      <MainContent />
-    </Container>
-  );
-}
+export const ActivitySection = (): JSX.Element => (
+  <S.Container>
+    <Navbar>
+      <CenterContainer>
+        <Icon src={ControllerIcon} />
+        <Label>Activity</Label>
+      </CenterContainer>
+    </Navbar>
+  </S.Container>
+);

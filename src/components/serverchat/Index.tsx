@@ -4,21 +4,14 @@ import { ReactMic } from "react-mic";
 
 import io from "socket.io-client";
 
-import {
-  Container,
-  MessageContainer,
-  Message,
-  AvatarContainer,
-  Avatar,
-  Input,
-  ContentSection
-} from "./Styles";
+import * as S from "./Styles";
 
 import { ApiUrl } from "../../services/Api";
 import { store } from "../../store/Index";
 
 import { ErrorMessage } from "../errormessage/Index";
 import { useKeyPress } from "../../hooks/useKeyPress";
+import { Avatar } from "../avatar/Index";
 
 export const socket: any = io(ApiUrl);
 
@@ -100,7 +93,7 @@ export function ServerChat(server): any {
   };
 
   return (
-    <ContentSection>
+    <S.ContentSection>
       <div style={{ width: "0px", height: "0px", marginTop: "-2000px" }}>
         <ReactMic
           record={useKeyPress("t")}
@@ -111,16 +104,16 @@ export function ServerChat(server): any {
           backgroundColor="#FF4081"
         />
       </div>
-      <Container>
+      <S.Container>
         {messages.length > 0 &&
           messages.map(
             (message: any): any => (
-              <MessageContainer key={Math.random()}>
-                <AvatarContainer>
+              <S.MessageContainer key={Math.random()}>
+                <S.AvatarContainer>
                   <Avatar src={message.author.avatar} />
-                </AvatarContainer>
-                <Message>{message.content}</Message>
-              </MessageContainer>
+                </S.AvatarContainer>
+                <S.Message>{message.content}</S.Message>
+              </S.MessageContainer>
             )
           )}
 
@@ -128,13 +121,13 @@ export function ServerChat(server): any {
           <ErrorMessage message="You're sending too many messages" />
         )}
         <form onSubmit={(e: any): void => sendMessage(e)}>
-          <Input
+          <S.Input
             placeholder="type here"
             onChange={(e: any): void => setCurrentMessage(e.target.value)}
             value={currentMessage}
           />
         </form>
-      </Container>
-    </ContentSection>
+      </S.Container>
+    </S.ContentSection>
   );
 }

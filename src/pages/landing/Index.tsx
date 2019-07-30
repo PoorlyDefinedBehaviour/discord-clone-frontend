@@ -2,22 +2,7 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-import {
-  Container,
-  Navbar,
-  FlexContainer,
-  Image,
-  List,
-  ListItem,
-  VerticalBar,
-  RoundButton,
-  Headline,
-  ContentContainer,
-  Description,
-  Button,
-  AnimatedImage,
-  FadedImage
-} from "./Styles";
+import * as S from "./Styles";
 
 import DownArrow from "../../assets/down-arrow.svg";
 import LanguagesIcon from "../../assets/languages-icon.svg";
@@ -39,49 +24,51 @@ import CircleImage from "../../assets/circle.svg";
 import TriangleImage from "../../assets/triangle.svg";
 import XImage from "../../assets/x.svg";
 
+import { Button } from "../../components/button/Index";
+
 export function Landing(): any {
   return (
-    <Container>
-      <Navbar>
-        <FlexContainer>
-          <Image src={DiscordLogo} />
-          <List>
-            <ListItem>Download</ListItem>
-            <ListItem>Nitro</ListItem>
-            <ListItem>Jobs</ListItem>
-            <ListItem>Developers </ListItem>
-            <Image src={DownArrow} style={{ margin: "5px 20px 0px -15px" }} />
-            <ListItem>Community</ListItem>
-            <Image src={DownArrow} style={{ margin: "5px 20px 0px -15px" }} />
-            <ListItem>Support</ListItem>
-            <Image src={DownArrow} style={{ margin: "5px 20px 0px -15px" }} />
-          </List>
-        </FlexContainer>
+    <S.Container>
+      <S.Navbar>
+        <S.FlexContainer>
+          <S.Image src={DiscordLogo} />
+          <S.List>
+            <S.ListItem>Download</S.ListItem>
+            <S.ListItem>Nitro</S.ListItem>
+            <S.ListItem>Jobs</S.ListItem>
+            <S.ListItem>Developers </S.ListItem>
+            <S.Image src={DownArrow} style={{ margin: "5px 20px 0px -15px" }} />
+            <S.ListItem>Community</S.ListItem>
+            <S.Image src={DownArrow} style={{ margin: "5px 20px 0px -15px" }} />
+            <S.ListItem>Support</S.ListItem>
+            <S.Image src={DownArrow} style={{ margin: "5px 20px 0px -15px" }} />
+          </S.List>
+        </S.FlexContainer>
 
-        <FlexContainer style={{ marginRight: "30px" }}>
-          <Image src={TwitterIcon} style={{ transform: "scale(0.5)" }} />
-          <Image src={FacebookIcon} style={{ transform: "scale(0.5)" }} />
-          <Image src={InstagramIcon} style={{ transform: "scale(0.5)" }} />
+        <S.FlexContainer style={{ marginRight: "30px" }}>
+          <S.Image src={TwitterIcon} style={{ transform: "scale(0.5)" }} />
+          <S.Image src={FacebookIcon} style={{ transform: "scale(0.5)" }} />
+          <S.Image src={InstagramIcon} style={{ transform: "scale(0.5)" }} />
           <Link to="/login">
-            <RoundButton style={{ marginLeft: "10px", marginRight: "20px" }}>
+            <S.RoundButton style={{ marginLeft: "10px", marginRight: "20px" }}>
               Open
-            </RoundButton>
+            </S.RoundButton>
           </Link>
-          <VerticalBar />
-          <Image src={LanguagesIcon} style={{ transform: "scale(0.5)" }} />
-        </FlexContainer>
-      </Navbar>
+          <S.VerticalBar />
+          <S.Image src={LanguagesIcon} style={{ transform: "scale(0.5)" }} />
+        </S.FlexContainer>
+      </S.Navbar>
 
-      <ContentContainer>
-        <Headline>It's time to ditch Skype and TeamSpeak.</Headline>
-        <Description>
+      <S.ContentContainer>
+        <S.Headline>It's time to ditch Skype and TeamSpeak.</S.Headline>
+        <S.Description>
           All-in-one voice and text chat for gamers that's free, secure, and
           works on both your desktop and phone.
           <br /> Stop paying for TeamSpeak server and hassling with Skype.
           Simplify your life.
-        </Description>
+        </S.Description>
 
-        <FlexContainer
+        <S.FlexContainer
           style={{
             width: "80%",
             margin: "0 auto",
@@ -91,6 +78,8 @@ export function Landing(): any {
           <Button
             style={{
               color: "#57585A",
+              width: "250px",
+              height: "45px",
               background: "#fff",
               marginRight: "20px"
             }}
@@ -98,11 +87,20 @@ export function Landing(): any {
             Download For Windows
           </Button>
           <Link to="/login">
-            <Button style={{ marginLeft: "20px" }}>Open Discord</Button>
+            <Button
+              style={{
+                marginLeft: "20px",
+                width: "250px",
+                height: "45px",
+                background: "#7289da"
+              }}
+            >
+              Open Discord
+            </Button>
           </Link>
-        </FlexContainer>
+        </S.FlexContainer>
 
-        <AnimatedImage
+        <S.AnimatedImage
           src={BoxImage}
           style={{
             position: "absolute",
@@ -111,7 +109,7 @@ export function Landing(): any {
             transform: "translate(-64%, -55%)"
           }}
         />
-        <Image
+        <S.Image
           src={ComputerImage}
           style={{
             position: "absolute",
@@ -122,7 +120,7 @@ export function Landing(): any {
             transform: "translate(-50%, -155%)"
           }}
         />
-        <FadedImage
+        <S.FadedImage
           src={XImage}
           style={{
             position: "absolute",
@@ -131,7 +129,7 @@ export function Landing(): any {
             transform: "translate(-86%, -90%)"
           }}
         />
-        <Image
+        <S.Image
           src={NotebookImage}
           style={{
             position: "absolute",
@@ -142,7 +140,7 @@ export function Landing(): any {
             transform: "translate(-80%, -145%)"
           }}
         />
-        <Image
+        <S.Image
           src={HeadphonesImage}
           style={{
             position: "absolute",
@@ -152,7 +150,7 @@ export function Landing(): any {
             marginTop: "269px"
           }}
         />
-        <FlexContainer
+        <S.FlexContainer
           style={{
             position: "absolute",
             top: "165%",
@@ -160,22 +158,22 @@ export function Landing(): any {
             transform: "translate(-22%, -165%)"
           }}
         >
-          <Image
+          <S.Image
             src={Phone1}
             style={{
               width: "110px",
               height: "210px"
             }}
           />
-          <Image
+          <S.Image
             src={Phone2}
             style={{
               width: "120px",
               height: "200px"
             }}
           />
-        </FlexContainer>
-        <Image
+        </S.FlexContainer>
+        <S.Image
           src={ControllerImage}
           style={{
             position: "absolute",
@@ -184,7 +182,7 @@ export function Landing(): any {
             transform: "scale(0.15) translate(-5%, -74%)"
           }}
         />
-        <AnimatedImage
+        <S.AnimatedImage
           src={BombImage}
           style={{
             position: "absolute",
@@ -193,7 +191,7 @@ export function Landing(): any {
             transform: "translate(-23%, -71%)"
           }}
         />
-        <AnimatedImage
+        <S.AnimatedImage
           src={CoinImage}
           style={{
             position: "absolute",
@@ -202,7 +200,7 @@ export function Landing(): any {
             transform: "translate(-26%, -75%)"
           }}
         />
-        <AnimatedImage
+        <S.AnimatedImage
           src={CoinImage}
           style={{
             position: "absolute",
@@ -211,7 +209,7 @@ export function Landing(): any {
             transform: "translate(-55%, -45%)"
           }}
         />
-        <FadedImage
+        <S.FadedImage
           src={SquareImage}
           style={{
             position: "absolute",
@@ -220,7 +218,7 @@ export function Landing(): any {
             transform: "translate(-75%, -44%)"
           }}
         />
-        <FadedImage
+        <S.FadedImage
           src={SquareImage}
           style={{
             position: "absolute",
@@ -229,7 +227,7 @@ export function Landing(): any {
             transform: "translate(-80%, -65%)"
           }}
         />
-        <FadedImage
+        <S.FadedImage
           src={CircleImage}
           style={{
             position: "absolute",
@@ -238,7 +236,7 @@ export function Landing(): any {
             transform: "translate(-88%, -80%)"
           }}
         />
-        <FadedImage
+        <S.FadedImage
           src={CircleImage}
           style={{
             position: "absolute",
@@ -247,7 +245,7 @@ export function Landing(): any {
             transform: "translate(-28%, -50%)"
           }}
         />
-        <FadedImage
+        <S.FadedImage
           src={TriangleImage}
           style={{
             position: "absolute",
@@ -256,7 +254,7 @@ export function Landing(): any {
             transform: "translate(-53%, -50%)"
           }}
         />
-        <FadedImage
+        <S.FadedImage
           src={TriangleImage}
           style={{
             position: "absolute",
@@ -266,7 +264,7 @@ export function Landing(): any {
           }}
         />
 
-        <FadedImage
+        <S.FadedImage
           src={XImage}
           style={{
             position: "absolute",
@@ -275,7 +273,7 @@ export function Landing(): any {
             transform: "translate(-19%, -60%)"
           }}
         />
-      </ContentContainer>
-    </Container>
+      </S.ContentContainer>
+    </S.Container>
   );
 }

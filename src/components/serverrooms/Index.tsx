@@ -1,33 +1,42 @@
 import React from "react";
 
-import { Section, OptionContainer, OptionIcon, OptionLabel } from "./Styles";
+import * as S from "./Styles";
 
 import HashtagIcon from "../../assets/hashtag.png";
 import TPHIcon from "../../assets/server-icon.png";
+
 import { store } from "../../store/Index";
+
+import { Label } from "../label/Index";
+import { CenterContainer } from "../centercontainer/Index";
+import { Avatar } from "../avatar/Index";
+import { Icon } from "../icon/Index";
 
 export function ServerRooms(): any {
   const { server }: any = store.getState();
 
   return (
-    <Section>
-      <OptionContainer
-        style={{ borderBottom: "1px solid #232428", height: "56px" }}
+    <S.Section>
+      <CenterContainer
+        style={{
+          borderBottom: "1px solid #232428",
+          width: "100%",
+          justifyContent: "flex-start",
+          paddingBottom: "5px"
+        }}
       >
-        <OptionIcon src={TPHIcon} style={{ filter: "none" }} />
-        <OptionLabel style={{ maxWidth: "inherit", overflow: "hidden" }}>
+        <Avatar src={TPHIcon} style={{ filter: "none" }} />
+        <Label style={{ maxWidth: "inherit", overflow: "hidden" }}>
           {server.name}
-        </OptionLabel>
-      </OptionContainer>
-      <OptionLabel style={{ width: "80%", margin: "0 auto", fontSize: "11px" }}>
+        </Label>
+      </CenterContainer>
+      <Label style={{ width: "80%", margin: "0 auto", fontSize: "11px" }}>
         {server._id}
-      </OptionLabel>
-      <OptionContainer>
-        <OptionIcon src={HashtagIcon} />
-        <OptionLabel style={{ fontWeight: "bolder", color: "#fff" }}>
-          main
-        </OptionLabel>
-      </OptionContainer>
-    </Section>
+      </Label>
+      <CenterContainer>
+        <Icon src={HashtagIcon} />
+        <Label style={{ fontWeight: "bolder", color: "#fff" }}>main</Label>
+      </CenterContainer>
+    </S.Section>
   );
 }

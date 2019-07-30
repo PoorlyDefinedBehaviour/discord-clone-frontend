@@ -3,32 +3,21 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import * as yup from "yup";
-
-import { Login as LoginMutation } from "../../graphql/mutations/Login";
+import * as S from "./Styles";
 
 import { api } from "../../services/Api";
-
-import {
-  Container,
-  LoginFormContainer,
-  WelcomeMessageContainer,
-  WelcomeBackMessage,
-  HappyToSeeYouAgainMessage,
-  LoginForm,
-  EmailLabel,
-  PasswordLabel,
-  EmailInput,
-  PasswordInput,
-  LoginButton,
-  RegisterLinkContainer,
-  RegisterLink,
-  NeedAnAccount,
-  ErrorMessage
-} from "./Styles";
+import { Login as LoginMutation } from "../../graphql/mutations/Login";
 
 import { isLoggedIn } from "../../services/Authentication";
 
 import { store } from "../../store/Index";
+
+import { Label } from "../../components/label/Index";
+import { ErrorMessage } from "../../components/errormessage/Index";
+import { Form, Input } from "../../components/form/Index";
+import { Button } from "../../components/button/Index";
+
+import { MatchAny, Match } from "../../utils/Match";
 
 async function validate(email: string, password: string): Promise<any> {
   const LoginSchema = yup.object().shape({
@@ -61,7 +50,6 @@ export function Login({ history }: any): any {
   async function login(): Promise<void> {
     if (tryingToLogin) return;
     if (!email || !password) return;
-
     try {
       setTryingToLogin(true);
 
@@ -75,19 +63,19 @@ export function Login({ history }: any): any {
         }
       }: any = await api.post("/", LoginMutation(email, password));
 
-      console.log(status, user, token);
-      switch (status) {
-        case 200:
-          store.dispatch({ type: "SET_USER", user, token });
-          history.push("/lobby");
-          break;
-        case 401:
-          setErrorMessage("Invalid credentials");
-          break;
-        default:
-          setErrorMessage("Something went wrong, try again later");
-          break;
-      }
+      Match(
+        status,
+        [
+          200,
+          (): void => store.dispatch({ type: "SET_USER", user, token }),
+          history.push("/lobby")
+        ],
+        [401, (): void => setErrorMessage("Invalid credentials")],
+        [
+          MatchAny,
+          (): void => setErrorMessage("Something went wrong, try again later")
+        ]
+      );
     } catch (e) {
       setErrorMessage("Email and password must be valid");
     } finally {
@@ -96,44 +84,53 @@ export function Login({ history }: any): any {
   }
 
   return (
-    <Container>
-      <LoginFormContainer>
-        <WelcomeMessageContainer>
-          <WelcomeBackMessage>Welcome Back!</WelcomeBackMessage>
-          <HappyToSeeYouAgainMessage>
+    <S.Container>
+      <S.LoginFormContainer>
+        <S.WelcomeMessageContainer>
+          <S.WelcomeBackMessage>Welcome Back!</S.WelcomeBackMessage>
+          <S.HappyToSeeYouAgainMessage>
             We're excited to see you again!
-          </HappyToSeeYouAgainMessage>
-        </WelcomeMessageContainer>
+          </S.HappyToSeeYouAgainMessage>
+        </S.WelcomeMessageContainer>
 
-        <LoginForm
+        <Form
           onSubmit={(e: any): void => {
             e.preventDefault();
             login();
           }}
         >
-          <EmailLabel>Email</EmailLabel>
-          <EmailInput
+          <Label>EMAIL</Label>
+          <Input
             type="email"
             onChange={(e: any): void => setEmail(e.target.value)}
           />
 
-          <PasswordLabel>Password</PasswordLabel>
-          <PasswordInput
+          <Label>PASSWORD</Label>
+          <Input
             type="password"
             onChange={(e: any): void => setPassword(e.target.value)}
           />
           {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
 
-          <LoginButton>Login</LoginButton>
-        </LoginForm>
+          <Button
+            style={{
+              marginTop: "30px",
+              fontSize: "16px",
+              backgroundColor: "#677bc4",
+              height: "40px"
+            }}
+          >
+            Login
+          </Button>
+        </Form>
 
-        <RegisterLinkContainer>
-          <NeedAnAccount>Need an account? </NeedAnAccount>
+        <S.RegisterLinkContainer>
+          <S.NeedAnAccount>Need an account? </S.NeedAnAccount>
           <Link to="/register" style={{ textDecoration: "none" }}>
-            <RegisterLink>Register</RegisterLink>
+            <S.RegisterLink>Register</S.RegisterLink>
           </Link>
-        </RegisterLinkContainer>
-      </LoginFormContainer>
-    </Container>
+        </S.RegisterLinkContainer>
+      </S.LoginFormContainer>
+    </S.Container>
   );
 }

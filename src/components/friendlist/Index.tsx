@@ -1,7 +1,9 @@
 import React from "react";
 
-import { UserRow, Status, OptionIcon, OptionLabel, GreenDot } from "./Styles";
+import * as S from "./Styles";
 import { store } from "../../store/Index";
+import { Icon } from "../icon/Index";
+import { Label } from "../label/Index";
 
 export enum EFriendListFilters {
   ALL = 0,
@@ -9,7 +11,7 @@ export enum EFriendListFilters {
   PENDING
 }
 
-export function FriendList({ filter }: any): any {
+export const FriendList = ({ filter }: any): JSX.Element => {
   const modes: Map<number, any> = new Map<number, any>();
 
   const { user }: any = store.getState();
@@ -19,12 +21,12 @@ export function FriendList({ filter }: any): any {
     (user: any): any =>
       user.friends.map(
         (friend: any): any => (
-          <UserRow key={Math.random()}>
-            <OptionIcon src={friend.avatar} />
-            <OptionLabel>{friend.username}</OptionLabel>
-            <GreenDot color={friend.online ? "#43b480" : "#747F8D"} />
-            <Status>{friend.online ? "Online" : "Offline"}</Status>
-          </UserRow>
+          <S.UserRow key={Math.random()}>
+            <Icon src={friend.avatar} />
+            <Label>{friend.username}</Label>
+            <S.GreenDot color={friend.online ? "#43b480" : "#747F8D"} />
+            <S.Status>{friend.online ? "Online" : "Offline"}</S.Status>
+          </S.UserRow>
         )
       )
   );
@@ -36,12 +38,12 @@ export function FriendList({ filter }: any): any {
         .filter((friend: any): boolean => friend.online)
         .map(
           (friend: any): any => (
-            <UserRow key={Math.random()}>
-              <OptionIcon src={friend.avatar} />
-              <OptionLabel>{friend.username}</OptionLabel>
-              <GreenDot color={friend.online} />
-              <Status>Online</Status>
-            </UserRow>
+            <S.UserRow key={Math.random()}>
+              <Icon src={friend.avatar} />
+              <Label>{friend.username}</Label>
+              <S.GreenDot color={friend.online} />
+              <S.Status>Online</S.Status>
+            </S.UserRow>
           )
         )
   );
@@ -51,15 +53,15 @@ export function FriendList({ filter }: any): any {
     (user: any): any =>
       user.friend_requests.map(
         (friend: any): any => (
-          <UserRow key={Math.random()}>
-            <OptionIcon src={friend.avatar} />
-            <OptionLabel>{friend.username}</OptionLabel>
-            <GreenDot color={friend.online} />
-            <Status>Online</Status>
-          </UserRow>
+          <S.UserRow key={Math.random()}>
+            <Icon src={friend.avatar} />
+            <Label>{friend.username}</Label>
+            <S.GreenDot color={friend.online} />
+            <S.Status>Online</S.Status>
+          </S.UserRow>
         )
       )
   );
 
   return modes.get(filter)(user);
-}
+};

@@ -8,10 +8,6 @@ export const saveToLocalStorage = ({ user, token }): void => {
   user.friend_requests = user.friend_requests ? user.friend_requests : [];
   localStorage.setItem("@discord:user", JSON.stringify({ ...user, token }));
   localStorage.setItem("persist:root", JSON.stringify({ ...user, token }));
-
-  console.log(
-    JSON.parse((localStorage.getItem("@discord:user") as any).toString())
-  );
 };
 
 export const isLoggedIn = (): boolean =>

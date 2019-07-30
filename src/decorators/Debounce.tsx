@@ -1,5 +1,5 @@
 export const Debounce = (fn: any, ms: number) => {
-  function wrapper(this: any, ...args): any {
+  function wrapper(this: any, ...args: any): any {
     if (Date.now() - wrapper.timestamp > ms) {
       fn.apply(this, args);
       wrapper.timestamp = Date.now();

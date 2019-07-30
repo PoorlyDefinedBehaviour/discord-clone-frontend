@@ -1,31 +1,27 @@
 import React from "react";
 
-import {
-  Container,
-  H1,
-  OptionContainer,
-  OptionIcon,
-  OptionLabel
-} from "./Styles";
+import * as S from "./Styles";
 
 import { store } from "../../store/Index";
+import { Label } from "../label/Index";
+import { Avatar } from "../avatar/Index";
 
 export function ServerMembers(): any {
   const { server }: any = store.getState();
 
   return (
-    <Container>
-      <H1>Staff - {server.staff.length}</H1>
+    <S.Container>
+      <S.H1>Staff - {server.staff.length}</S.H1>
       {server.staff.map(
         (user: any): any => (
-          <OptionContainer key={user._id} style={{ marginTop: "10px" }}>
-            <OptionIcon src={user.avatar} style={{ filter: "none" }} />
-            <OptionLabel>{user.username}</OptionLabel>
-          </OptionContainer>
+          <S.OptionContainer key={user._id} style={{ marginTop: "10px" }}>
+            <Avatar src={user.avatar} />
+            <Label>{user.username}</Label>
+          </S.OptionContainer>
         )
       )}
 
-      <H1>Members - {server.members.length - server.staff.length}</H1>
+      <S.H1>Members - {server.members.length - server.staff.length}</S.H1>
       {server.members
         .filter(
           (user: any): boolean =>
@@ -33,12 +29,12 @@ export function ServerMembers(): any {
         )
         .map(
           (user: any): any => (
-            <OptionContainer key={user._id} style={{ marginTop: "10px" }}>
-              <OptionIcon src={user.avatar} style={{ filter: "none" }} />
-              <OptionLabel>{user.username}</OptionLabel>
-            </OptionContainer>
+            <S.OptionContainer key={user._id} style={{ marginTop: "10px" }}>
+              <Avatar src={user.avatar} style={{ filter: "none" }} />
+              <Label>{user.username}</Label>
+            </S.OptionContainer>
           )
         )}
-    </Container>
+    </S.Container>
   );
 }

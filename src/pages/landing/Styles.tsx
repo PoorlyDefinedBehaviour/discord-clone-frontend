@@ -100,19 +100,6 @@ export const Description = styled.p`
   margin-bottom: 30px;
 `;
 
-export const Button = styled.button`
-  background: #7289da;
-  color: #fff;
-  width: 250px;
-  height: 45px;
-  border: none;
-  border-radius: 5px;
-  margin: 0;
-  font-size: 13px;
-  font-weight: bold;
-  cursor: pointer;
-`;
-
 export const FloatingAnimation = keyframes`
   0% {
     transform: translate(0px, 0px);

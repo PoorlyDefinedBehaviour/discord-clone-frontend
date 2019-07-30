@@ -15,7 +15,7 @@ export enum ESections {
   SETTINGS
 }
 
-export function LobbySection(): any {
+export const LobbySection = (): JSX.Element => {
   const [currentSection, setCurrentSection] = useState(ESections.SETTINGS);
 
   const sections: Map<number, any> = new Map<number, any>();
@@ -35,4 +35,4 @@ export function LobbySection(): any {
       {sections.get(currentSection)}
     </>
   );
-}
+};

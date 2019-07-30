@@ -1,11 +1,5 @@
 import styled from "styled-components";
 
-export const OptionLabel = styled.p`
-  color: #62656c;
-  font-weight: bold;
-  font-size: 13px;
-`;
-
 export const DirectMessages = styled.p`
   color: #62656c;
   width: 90%;

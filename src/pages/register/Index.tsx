@@ -2,30 +2,24 @@ import React, { useState, useEffect } from "react";
 
 import { Link as RedirectLink } from "react-router-dom";
 
+import * as S from "./Styles";
+
 import * as yup from "yup";
 
 import { Register as RegisterMutation } from "../../graphql/mutations/Register";
 
 import { api } from "../../services/Api";
 
-import {
-  Container,
-  RegisterFormContainer,
-  WelcomeMessageContainer,
-  WelcomeBackMessage,
-  Form,
-  Button,
-  LinkContainer,
-  Link,
-  ErrorMessage,
-  Input,
-  Label,
-  Info,
-  InfoLink
-} from "./Styles";
-
 import { isLoggedIn } from "../../services/Authentication";
 import { store } from "../../store/Index";
+
+import { Label } from "../../components/label/Index";
+import { ErrorMessage } from "../../components/errormessage/Index";
+import { Form, Input } from "../../components/form/Index";
+import { Button } from "../../components/button/Index";
+
+import { Match, MatchAny } from "../../utils/Match";
+import { FormatYupError } from "../../utils/FormatYupError";
 
 async function validate(
   username: string,
@@ -63,7 +57,7 @@ export function Register({ history }: any): any {
 
   const [tryingToRegister, setTryingToRegister] = useState(false);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (isLoggedIn()) history.push("/lobby");
   }, []);
 
@@ -86,33 +80,33 @@ export function Register({ history }: any): any {
         .post("/", RegisterMutation(username, email, password))
         .catch((error: any): void => console.log(error));
 
-      console.log(status, user, token);
-      switch (status) {
-        case 201:
-          store.dispatch({ type: "SET_USER", user, token });
-          history.push("/lobby");
-          break;
-
-        case 422:
-          setErrorMessage("Email is already being used");
-          break;
-        default:
-          setErrorMessage("Something went wrong, try again later");
-          break;
-      }
-    } catch (e) {
-      console.error("register", e);
+      Match(
+        status,
+        [
+          201,
+          (): void => store.dispatch({ type: "SET_USER", user, token }),
+          history.push("/lobby")
+        ],
+        [422, (): void => setErrorMessage("Email is already being used")],
+        [
+          MatchAny,
+          (): void => setErrorMessage("Something went wrong, try again later")
+        ]
+      );
+    } catch (ex) {
+      console.error(ex);
+      setErrorMessage(FormatYupError(ex)[0].message);
     } finally {
       setTryingToRegister(false);
     }
   }
 
   return (
-    <Container>
-      <RegisterFormContainer>
-        <WelcomeMessageContainer>
-          <WelcomeBackMessage>Create an Account!</WelcomeBackMessage>
-        </WelcomeMessageContainer>
+    <S.Container>
+      <S.RegisterFormContainer>
+        <S.WelcomeMessageContainer>
+          <S.WelcomeBackMessage>Create an Account!</S.WelcomeBackMessage>
+        </S.WelcomeMessageContainer>
 
         <Form
           onSubmit={(e: any): void => {
@@ -139,23 +133,32 @@ export function Register({ history }: any): any {
           />
           {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
 
-          <Button>Continue</Button>
+          <Button
+            style={{
+              marginTop: "30px",
+              fontSize: "16px",
+              backgroundColor: "#677bc4",
+              height: "40px"
+            }}
+          >
+            Continue
+          </Button>
         </Form>
 
-        <LinkContainer>
+        <S.LinkContainer>
           <RedirectLink to="/login" style={{ textDecoration: "none" }}>
-            <Link>Already have an account? </Link>
+            <S.Link>Already have an account? </S.Link>
           </RedirectLink>
-        </LinkContainer>
+        </S.LinkContainer>
 
-        <LinkContainer>
-          <Info>
+        <S.LinkContainer>
+          <S.Info>
             By registering, you agree to Discord's
-            <InfoLink> Terms of service</InfoLink> and{" "}
-            <InfoLink>Privacy Policy.</InfoLink>
-          </Info>
-        </LinkContainer>
-      </RegisterFormContainer>
-    </Container>
+            <S.InfoLink> Terms of service</S.InfoLink> and{" "}
+            <S.InfoLink>Privacy Policy.</S.InfoLink>
+          </S.Info>
+        </S.LinkContainer>
+      </S.RegisterFormContainer>
+    </S.Container>
   );
 }

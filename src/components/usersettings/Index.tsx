@@ -284,7 +284,11 @@ export function UserSettings({ setCurrentSection }): any {
             configure you'll be required to enter both your password and an
             authentication code from your mobile phone in order to sign in.
           </P>
-          <img src={ChestImage} style={{ transform: "scale(0.6)" }} />
+          <img
+            src={ChestImage}
+            alt="treasure chest"
+            style={{ transform: "scale(0.6)" }}
+          />
         </FlexContainer>
         <DefaultButton style={{ width: "auto", fontSize: "12px" }}>
           Enable Two-Factor Auth

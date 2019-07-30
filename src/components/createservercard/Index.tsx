@@ -10,7 +10,7 @@ enum ECards {
   JOIN
 }
 
-export function CreateServerCard({ setOnView }: any): any {
+export const CreateServerCard = ({ setOnView }: any): JSX.Element => {
   const [state, setState] = useState({
     currentServerCard: ECards.MAIN,
     inviteLink: "",
@@ -54,4 +54,4 @@ export function CreateServerCard({ setOnView }: any): any {
   );
 
   return cards.get(state.currentServerCard);
-}
+};

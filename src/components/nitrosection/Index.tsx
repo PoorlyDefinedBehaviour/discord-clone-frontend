@@ -1,24 +1,22 @@
 import React from "react";
 
-import {
-  Container,
-  Navbar,
-  ContentOptionContainer,
-  OptionIcon,
-  OptionLabel
-} from "./Styles";
+import * as S from "./Styles";
 
 import NitroIcon from "../../assets/start-up.png";
+import { Navbar } from "../navbar/Index";
+import { Icon } from "../icon/Index";
+import { Label } from "../label/Index";
+import { CenterContainer } from "../centercontainer/Index";
 
 export function NitroSection(): any {
   return (
-    <Container>
+    <S.Container>
       <Navbar>
-        <ContentOptionContainer style={{ marginLeft: "20px" }}>
-          <OptionIcon src={NitroIcon} />
-          <OptionLabel>Nitro</OptionLabel>
-        </ContentOptionContainer>
+        <CenterContainer>
+          <Icon src={NitroIcon} />
+          <Label>Nitro</Label>
+        </CenterContainer>
       </Navbar>
-    </Container>
+    </S.Container>
   );
 }

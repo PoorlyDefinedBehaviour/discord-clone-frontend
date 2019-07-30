@@ -39,45 +39,6 @@ export const WelcomeBackMessage = styled.h2`
   margin-top: 40px;
 `;
 
-export const Form = styled.form`
-  width: 80%;
-  margin: 0 auto;
-`;
-
-export const Input = styled.input`
-  width: 100%;
-  height: 35px;
-  border-radius: 2px;
-  border: 1px solid transparent;
-
-  &:hover {
-    border-color: #111;
-  }
-`;
-
-export const Label = styled.p`
-  color: #b9bbbe;
-  font-weight: bolder;
-  font-size: 11px;
-  text-transform: uppercase;
-`;
-
-export const Button = styled.button`
-  margin-top: 40px;
-  width: 100%;
-  height: 40px;
-  color: #fff;
-  font-weight: bold;
-  background-color: #677bc4;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #677bf4;
-  }
-`;
-
 export const LinkContainer = styled.div`
   width: 80%;
   margin: 0 auto;
@@ -94,15 +55,6 @@ export const Link = styled.span`
   &:hover {
     text-decoration: underline;
   }
-`;
-
-export const ErrorMessage = styled.span`
-  color: red;
-  font-size: 12px;
-  position: absolute;
-  padding: 5px;
-  left: 50%;
-  transform: translate(-50%, 0);
 `;
 
 export const Info = styled.span`

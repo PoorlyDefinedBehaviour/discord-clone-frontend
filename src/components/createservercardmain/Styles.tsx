@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CreateServerPopUpContainer = styled.div`
+export const PopUpContainer = styled.div`
   width: 540px;
   height: 420px;
   border-radius: 5px;
@@ -13,7 +13,7 @@ export const CreateServerPopUpContainer = styled.div`
   z-index: 100;
 `;
 
-export const CreateServerPopUpBackgroundContainer = styled.div`
+export const BackgroundContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -21,13 +21,13 @@ export const CreateServerPopUpBackgroundContainer = styled.div`
   overflow: hidden;
 `;
 
-export const CreateServerPopUpBackground = styled.img`
+export const Background = styled.img`
   height: 200px;
   width: auto;
   margin-top: 40%;
 `;
 
-export const CreateServerPopUpAction = styled.div`
+export const Action = styled.div`
   width: 210px;
   height: 285px;
   border: 2px solid #e5e5e5;
@@ -43,7 +43,7 @@ export const CreateServerPopUpAction = styled.div`
   line-height: 20px;
 `;
 
-export const CreateServerPopUpActionName = styled.p`
+export const Name = styled.p`
   color: ${(props: any): any => props.color};
   font-size: 16px;
   font-weight: bold;
@@ -52,14 +52,14 @@ export const CreateServerPopUpActionName = styled.p`
   text-align: justify;
 `;
 
-export const CreateServerPopUpActionImage = styled.img`
+export const Image = styled.img`
   src: url(${(props: any): any => props.src});
   width: 50%;
   height: auto;
   margin: 0 auto;
 `;
 
-export const CreateServerPopUpActionDescription = styled.p`
+export const Description = styled.p`
   font-size: 12px;
   font-weight: normal;
   color: #9bacb6;
@@ -67,7 +67,7 @@ export const CreateServerPopUpActionDescription = styled.p`
   margin: 0 auto;
 `;
 
-export const CreateServerPopUpActionButton = styled.button`
+export const Button = styled.button`
   font-size: 14px;
   font-weight: bold;
   padding: 10px;

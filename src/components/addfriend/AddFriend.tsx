@@ -1,26 +1,15 @@
 import React, { useState } from "react";
 
-import {
-  Container,
-  SearchBarContainer,
-  H1,
-  P,
-  SearchBar,
-  FriendSuggestionsH1,
-  FriendSuggestionsHeaderContainer,
-  FriendSuggestionsImageContainer,
-  FriendSuggestionsImage
-} from "./Styles";
-
-import { AddFriendButton as Button } from "../../pages/lobby/Styles";
+import * as S from "./Styles";
 
 import FriendSuggestionsBackground from "../../assets/friend-suggestions.svg";
 
 import { api } from "../../services/Api";
 
 import { FriendRequest as FriendRequestMutation } from "../../graphql/mutations/FriendRequest";
+import { Button } from "../button/Index";
 
-export function AddFriend(): any {
+export const AddFriend = (): JSX.Element => {
   const [state, setState] = useState({ _id: "" } as any);
 
   const sendFriendRequest = async (): Promise<void> => {
@@ -32,11 +21,11 @@ export function AddFriend(): any {
   };
 
   return (
-    <Container>
-      <SearchBarContainer>
-        <H1>Add Friend</H1>
-        <P>You can add a friend with their DiscordTag.</P>
-        <SearchBar
+    <S.Container>
+      <S.SearchBarContainer>
+        <S.H1>Add Friend</S.H1>
+        <S.P>You can add a friend with their DiscordTag.</S.P>
+        <S.SearchBar
           placeholder="Enter a DiscordTag#0000"
           onChange={(e: any): void =>
             setState({ ...state, _id: e.target.value })
@@ -49,24 +38,24 @@ export function AddFriend(): any {
             height: "38px",
             background: "#7289DA",
             left: "90%",
-            top: "22.5%",
-            transform: "translate(-90%, -22.5%)"
+            top: "20.5%",
+            transform: "translate(-90%, -20.5%)"
           }}
           onClick={sendFriendRequest}
         >
           Send Friend Request
         </Button>
-      </SearchBarContainer>
+      </S.SearchBarContainer>
 
-      <FriendSuggestionsHeaderContainer>
-        <FriendSuggestionsH1>FRIEND SUGGESTIONS</FriendSuggestionsH1>
-      </FriendSuggestionsHeaderContainer>
-      <FriendSuggestionsImageContainer>
-        <FriendSuggestionsImage
+      <S.FriendSuggestionsHeaderContainer>
+        <S.FriendSuggestionsH1>FRIEND SUGGESTIONS</S.FriendSuggestionsH1>
+      </S.FriendSuggestionsHeaderContainer>
+      <S.FriendSuggestionsImageContainer>
+        <S.FriendSuggestionsImage
           src={FriendSuggestionsBackground}
           style={{ marginBottom: "35px" }}
         />
-        <P
+        <S.P
           style={{
             color: "#6F747B",
             textAlign: "center",
@@ -79,7 +68,7 @@ export function AddFriend(): any {
           Grab the desktop app to find friends from other services like Skype{" "}
           <br />
           or League of Legends.
-        </P>
+        </S.P>
         <Button
           style={{
             color: "#fff",
@@ -90,7 +79,7 @@ export function AddFriend(): any {
         >
           Download
         </Button>
-      </FriendSuggestionsImageContainer>
-    </Container>
+      </S.FriendSuggestionsImageContainer>
+    </S.Container>
   );
-}
+};

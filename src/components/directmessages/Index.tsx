@@ -1,15 +1,6 @@
 import React from "react";
 
-import {
-  Section,
-  SearchBar,
-  OptionContainer,
-  OptionIcon,
-  OptionLabel,
-  Message,
-  FlexContainer,
-  DiscordTag
-} from "./Styles";
+import * as S from "./Styles";
 
 import NitroIcon from "../../assets/start-up.png";
 import ControllerIcon from "../../assets/gamepad-controller.png";
@@ -20,41 +11,39 @@ import HeadphoneIcon from "../../assets/headphone-symbol.svg";
 import SettingsIcon from "../../assets/settings-work-tool.svg";
 
 import { ESections } from "../lobbysection/Index";
+import { Label } from "../label/Index";
+import { Icon } from "../icon/Index";
+import { store } from "../../store/Index";
+import { Avatar } from "../avatar/Index";
 
-export function DirectMessages({ setCurrentSection }): any {
+export const DirectMessages = ({ setCurrentSection }): JSX.Element => {
+  const { user }: any = store.getState();
+
   return (
-    <Section>
-      <SearchBar placeholder="Find or start a conversation" />
-      <OptionContainer
-        onClick={(): void => setCurrentSection(ESections.ACTIVITY)}
-      >
-        <OptionIcon src={ControllerIcon} />
-        <OptionLabel>Activity</OptionLabel>
-      </OptionContainer>
-      <OptionContainer
-        onClick={(): void => setCurrentSection(ESections.LIBRARY)}
-      >
-        <OptionIcon src={BackpackIcon} />
-        <OptionLabel>Library</OptionLabel>
-      </OptionContainer>
-      <OptionContainer onClick={(): void => setCurrentSection(ESections.NITRO)}>
-        <OptionIcon src={NitroIcon} />
-        <OptionLabel>Nitro</OptionLabel>
-      </OptionContainer>
-      <OptionContainer
-        onClick={(): void => setCurrentSection(ESections.FRIENDS)}
-      >
-        <OptionIcon src={FriendsIcon} />
-        <OptionLabel>Friends</OptionLabel>
-      </OptionContainer>
+    <S.Section>
+      <S.SearchBar placeholder="Find or start a conversation" />
+      <S.Container onClick={(): void => setCurrentSection(ESections.ACTIVITY)}>
+        <Icon src={ControllerIcon} />
+        <Label>Activity</Label>
+      </S.Container>
+      <S.Container onClick={(): void => setCurrentSection(ESections.LIBRARY)}>
+        <Icon src={BackpackIcon} />
+        <Label>Library</Label>
+      </S.Container>
+      <S.Container onClick={(): void => setCurrentSection(ESections.NITRO)}>
+        <Icon src={NitroIcon} />
+        <Label>Nitro</Label>
+      </S.Container>
+      <S.Container onClick={(): void => setCurrentSection(ESections.FRIENDS)}>
+        <Icon src={FriendsIcon} />
+        <Label>Friends</Label>
+      </S.Container>
 
-      <Message>Direct Messages</Message>
+      <S.Message>Direct Messages</S.Message>
 
-      <OptionContainer
-        onClick={(): void => setCurrentSection(ESections.LIBRARY)}
-      />
+      <S.Container onClick={(): void => setCurrentSection(ESections.LIBRARY)} />
 
-      <OptionContainer
+      <S.Container
         style={{
           position: "fixed",
           bottom: "0px",
@@ -63,37 +52,22 @@ export function DirectMessages({ setCurrentSection }): any {
           background: "#2A2C31"
         }}
       >
-        <OptionIcon src={NitroIcon} />
+        <Avatar src={user.avatar} />
 
-        <FlexContainer style={{ flexDirection: "column" }}>
-          <OptionLabel
-            style={{
-              marginBottom: "3px",
-              color: "#fff",
-              fontWeight: "normal",
-              maxWidth: "50px",
-              overflow: "hidden"
-            }}
-          >
-            UserName
-          </OptionLabel>
-          <DiscordTag>#3450</DiscordTag>
-        </FlexContainer>
-
-        <OptionIcon
+        <Icon
           src={MicrophoneIcon}
           style={{ marginRight: "5px", transform: "scale(0.8)" }}
         />
-        <OptionIcon
+        <Icon
           src={HeadphoneIcon}
           style={{ marginRight: "5px", transform: "scale(0.8)" }}
         />
-        <OptionIcon
+        <Icon
           src={SettingsIcon}
           style={{ transform: "scale(0.8)" }}
           onClick={(): void => setCurrentSection(ESections.SETTINGS)}
         />
-      </OptionContainer>
-    </Section>
+      </S.Container>
+    </S.Section>
   );
-}
+};

@@ -1,29 +1,19 @@
 import React, { useState } from "react";
 
-import {
-  CreateServerPopUpContainer,
-  CreateServerPopUpInnerContainer,
-  CreateServerPopUpActionDescription,
-  CreateServerPopUpInnerContainerName,
-  CreateServerInputContainer,
-  CreateServerLabelAndInputContainer,
-  OptionLabel,
-  CreateServerInput,
-  ImageInputButton,
-  OptionIcon,
-  CreateServerPopUpActionButton
-} from "./Styles";
+import * as S from "./Styles";
 
 import ServerRegionImage from "../../assets/server-region.png";
 
 import { ErrorMessage } from "../errormessage/Index";
+import { Label } from "../label/Index";
 
 import { api } from "../../services/Api";
-
-import { CreateServer as CreateServerMutation } from "../../graphql/mutations/CreateServer";
 import { store } from "../../store/Index";
+import { CreateServer as CreateServerMutation } from "../../graphql/mutations/CreateServer";
 
-export function CreateServerCardCreate({ backButtonClickHandler }): any {
+export const CreateServerCardCreate = ({
+  backButtonClickHandler
+}): JSX.Element => {
   const [state, setState] = useState({
     invalidServerName: false,
     serverNameAlreadyInUse: false,
@@ -68,28 +58,22 @@ export function CreateServerCardCreate({ backButtonClickHandler }): any {
   };
 
   return (
-    <CreateServerPopUpContainer>
-      <CreateServerPopUpInnerContainer>
-        <CreateServerPopUpInnerContainerName>
+    <S.CreateServerPopUpContainer>
+      <S.CreateServerPopUpInnerContainer>
+        <S.CreateServerPopUpInnerContainerName>
           CREATE YOUR SERVER
-        </CreateServerPopUpInnerContainerName>
-        <CreateServerPopUpActionDescription
+        </S.CreateServerPopUpInnerContainerName>
+        <S.CreateServerPopUpActionDescription
           style={{ fontWeight: "bolder", fontSize: "14px" }}
         >
           By creating a server, you will have access to voice and text chat to
           use amongst your friends.
-        </CreateServerPopUpActionDescription>
-        <CreateServerInputContainer>
-          <CreateServerLabelAndInputContainer>
-            <OptionLabel
-              style={{
-                color: "87909C",
-                marginLeft: "-77%"
-              }}
-            >
-              SERVER NAME
-            </OptionLabel>
-            <CreateServerInput
+        </S.CreateServerPopUpActionDescription>
+        <S.CreateServerInputContainer>
+          <S.CreateServerLabelAndInputContainer>
+            <Label>SERVER NAME</Label>
+            <S.CreateServerInput
+              style={{ marginLeft: "20%" }}
               placeholder="Enter a server name"
               onChange={(e: any): void =>
                 setState({ ...state, serverName: e.target.value })
@@ -105,40 +89,32 @@ export function CreateServerCardCreate({ backButtonClickHandler }): any {
                 Server name is already in use
               </ErrorMessage>
             )}
-          </CreateServerLabelAndInputContainer>
-          <ImageInputButton>
+          </S.CreateServerLabelAndInputContainer>
+          <S.ImageInputButton>
             Change <br />
             Icon
-          </ImageInputButton>
-        </CreateServerInputContainer>
-        <CreateServerLabelAndInputContainer
+          </S.ImageInputButton>
+        </S.CreateServerInputContainer>
+        <S.CreateServerLabelAndInputContainer
           style={{ flexDirection: "row", alignItems: "center" }}
         >
-          <OptionIcon
-            src={ServerRegionImage}
-            style={{
-              width: "280px",
-              height: "auto",
-              filter: "none",
-              marginLeft: "-10%"
-            }}
-          />
-          <CreateServerPopUpActionButton
+          <img src={ServerRegionImage} alt="Server region" />
+          <S.CreateServerPopUpActionButton
             color={"#677BC4"}
             style={{ width: "100px", color: "#fff" }}
             onClick={createServer}
           >
             Create
-          </CreateServerPopUpActionButton>
-          <CreateServerPopUpActionButton
+          </S.CreateServerPopUpActionButton>
+          <S.CreateServerPopUpActionButton
             color={"#99AAB5"}
             style={{ marginLeft: "20px", width: "100px", color: "#fff" }}
             onClick={backButtonClickHandler}
           >
             Back
-          </CreateServerPopUpActionButton>
-        </CreateServerLabelAndInputContainer>
-      </CreateServerPopUpInnerContainer>
-    </CreateServerPopUpContainer>
+          </S.CreateServerPopUpActionButton>
+        </S.CreateServerLabelAndInputContainer>
+      </S.CreateServerPopUpInnerContainer>
+    </S.CreateServerPopUpContainer>
   );
-}
+};

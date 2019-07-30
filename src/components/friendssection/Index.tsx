@@ -1,22 +1,18 @@
 import React, { useState } from "react";
 
-import {
-  ContentSection,
-  FriendsContentNavbar,
-  ContentOptionContainer,
-  OptionIcon,
-  OptionLabel,
-  AddFriendButton,
-  FriendListHeaderContainer,
-  FriendListHeaderElement
-} from "./Styles";
+import * as S from "./Styles";
 
 import FriendsIcon from "../../assets/friends.png";
 import { AddFriend } from "../addfriend/AddFriend";
 
 import { FriendList, EFriendListFilters } from "../friendlist/Index";
+import { Icon } from "../icon/Styles";
+import { Label } from "../label/Index";
+import { CenterContainer } from "../centercontainer/Index";
+import { Navbar } from "../navbar/Index";
+import { Button } from "../button/Index";
 
-export function FriendsSection(): any {
+export const FriendsSection = (): JSX.Element => {
   const [state, setState] = useState({
     componentsOnView: {
       addFriend: false,
@@ -28,72 +24,82 @@ export function FriendsSection(): any {
   });
 
   return (
-    <ContentSection>
-      <FriendsContentNavbar>
-        <ContentOptionContainer
-          style={{ marginLeft: "20px" }}
-          onClick={() =>
-            setState({
-              ...state,
-              componentsOnView: {
-                friendList: true,
-                addFriend: false,
-                createServerCard: false
-              }
-            })
-          }
-        >
-          <OptionIcon src={FriendsIcon} />
-          <OptionLabel>Friends</OptionLabel>
-        </ContentOptionContainer>
+    <S.ContentSection>
+      <Navbar>
+        <CenterContainer>
+          <Icon src={FriendsIcon} />
+          <Label
+            onClick={() =>
+              setState({
+                ...state,
+                componentsOnView: {
+                  friendList: true,
+                  addFriend: false,
+                  createServerCard: false
+                }
+              })
+            }
+          >
+            Friends
+          </Label>
+        </CenterContainer>
 
-        <ContentOptionContainer
-          onClick={() =>
-            setState({
-              ...state,
-              componentsOnView: {
-                friendList: true,
-                addFriend: false,
-                createServerCard: false
-              },
-              friendListFilter: EFriendListFilters.ONLINE
-            })
-          }
-        >
-          <OptionLabel style={{ margin: "0 auto" }}>Online</OptionLabel>
-        </ContentOptionContainer>
-        <ContentOptionContainer
-          onClick={() =>
-            setState({
-              ...state,
-              componentsOnView: {
-                friendList: true,
-                addFriend: false,
-                createServerCard: false
-              },
-              friendListFilter: EFriendListFilters.ALL
-            })
-          }
-        >
-          <OptionLabel style={{ margin: "0 auto" }}>All</OptionLabel>
-        </ContentOptionContainer>
-        <ContentOptionContainer
-          onClick={() =>
-            setState({
-              ...state,
-              componentsOnView: {
-                friendList: true,
-                addFriend: false,
-                createServerCard: false
-              },
-              friendListFilter: EFriendListFilters.PENDING
-            })
-          }
-        >
-          <OptionLabel style={{ margin: "0 auto" }}>Pending</OptionLabel>
-        </ContentOptionContainer>
-        <ContentOptionContainer style={{ margin: "0px 40px 0px 40px" }}>
-          <AddFriendButton
+        <CenterContainer>
+          <Label
+            style={{ margin: "0 auto" }}
+            onClick={() =>
+              setState({
+                ...state,
+                componentsOnView: {
+                  friendList: true,
+                  addFriend: false,
+                  createServerCard: false
+                },
+                friendListFilter: EFriendListFilters.ONLINE
+              })
+            }
+          >
+            Online
+          </Label>
+        </CenterContainer>
+        <CenterContainer>
+          <Label
+            style={{ margin: "0 auto" }}
+            onClick={() =>
+              setState({
+                ...state,
+                componentsOnView: {
+                  friendList: true,
+                  addFriend: false,
+                  createServerCard: false
+                },
+                friendListFilter: EFriendListFilters.ALL
+              })
+            }
+          >
+            All
+          </Label>
+        </CenterContainer>
+        <CenterContainer>
+          <Label
+            style={{ margin: "0 auto" }}
+            onClick={() =>
+              setState({
+                ...state,
+                componentsOnView: {
+                  friendList: true,
+                  addFriend: false,
+                  createServerCard: false
+                },
+                friendListFilter: EFriendListFilters.PENDING
+              })
+            }
+          >
+            Pending
+          </Label>
+        </CenterContainer>
+        <CenterContainer>
+          <Button
             onClick={() =>
               setState({
                 ...state,
@@ -106,19 +112,19 @@ export function FriendsSection(): any {
             }
           >
             Add Friend
-          </AddFriendButton>
-        </ContentOptionContainer>
-      </FriendsContentNavbar>
+          </Button>
+        </CenterContainer>
+      </Navbar>
       {state.componentsOnView.friendList && (
-        <FriendListHeaderContainer>
-          <FriendListHeaderElement>Avatar</FriendListHeaderElement>
-          <FriendListHeaderElement>Name</FriendListHeaderElement>
-          <FriendListHeaderElement>Status</FriendListHeaderElement>
-        </FriendListHeaderContainer>
+        <S.FriendListHeaderContainer>
+          <S.FriendListHeaderElement>Avatar</S.FriendListHeaderElement>
+          <S.FriendListHeaderElement>Name</S.FriendListHeaderElement>
+          <S.FriendListHeaderElement>Status</S.FriendListHeaderElement>
+        </S.FriendListHeaderContainer>
       )}
       {state.componentsOnView.friendList &&
         FriendList({ filter: state.friendListFilter })}
       {state.componentsOnView.addFriend && <AddFriend />}
-    </ContentSection>
+    </S.ContentSection>
   );
-}
+};

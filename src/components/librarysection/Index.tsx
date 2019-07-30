@@ -1,64 +1,51 @@
 import React, { useState } from "react";
 
-import {
-  ContentOptionContainer,
-  Container,
-  OptionIcon,
-  OptionLabel,
-  FriendsContentNavbar,
-  MainContentContainer,
-  MainContent,
-  Image,
-  CodeInput,
-  GiftInventorySectionContainer,
-  InputContainer,
-  Button,
-  H1,
-  P,
-  LowerSectionContainer,
-  Link
-} from "./Styles";
+import * as S from "./Styles";
+
+import { Label } from "../label/Index";
 
 import BackpackIcon from "../../assets/school-book-bag.png";
 import FriendSuggestionsBackground from "../../assets/friend-suggestions.svg";
+import { Icon } from "../icon/Index";
+import { CenterContainer } from "../centercontainer/Index";
+import { Navbar } from "../navbar/Index";
 
 export enum EViews {
   GAMES = 0,
   GIFTS
 }
 
-export function LibrarySection(): any {
+export const LibrarySection = (): JSX.Element => {
   const [state, setState] = useState({
     selected: EViews.GIFTS
   });
 
   return (
-    <Container>
-      <FriendsContentNavbar>
-        <ContentOptionContainer style={{ marginLeft: "20px" }}>
-          <OptionIcon src={BackpackIcon} />
-          <OptionLabel>Library</OptionLabel>
-        </ContentOptionContainer>
+    <S.Container>
+      <Navbar>
+        <CenterContainer>
+          <Icon src={BackpackIcon} />
+          <Label>Library</Label>
+        </CenterContainer>
 
-        <ContentOptionContainer
-          style={{ marginLeft: "20px" }}
-          onClick={() => setState({ selected: EViews.GAMES })}
-        >
-          <OptionLabel>My Games</OptionLabel>
-        </ContentOptionContainer>
+        <CenterContainer>
+          <Label onClick={() => setState({ selected: EViews.GAMES })}>
+            My Games
+          </Label>
+        </CenterContainer>
 
-        <ContentOptionContainer
-          style={{ marginLeft: "20px" }}
-          onClick={() => setState({ selected: EViews.GIFTS })}
-        >
-          <OptionLabel>Gift Inventory</OptionLabel>
-        </ContentOptionContainer>
-      </FriendsContentNavbar>
+        <CenterContainer>
+          <Label onClick={() => setState({ selected: EViews.GIFTS })}>
+            {" "}
+            Gift Inventory
+          </Label>
+        </CenterContainer>
+      </Navbar>
       {state.selected === EViews.GAMES ? (
-        <MainContentContainer>
-          <MainContent>
-            <Image src={FriendSuggestionsBackground} />
-            <OptionLabel
+        <S.MainContentContainer>
+          <S.MainContent>
+            <S.Image src={FriendSuggestionsBackground} />
+            <Label
               style={{
                 fontSize: "20px",
                 fontWeight: "normal",
@@ -67,29 +54,30 @@ export function LibrarySection(): any {
               }}
             >
               No games found
-            </OptionLabel>
-            <OptionLabel style={{ color: "#9A9CA1" }}>
-              Hm, seems you don't have any games. Purchase games and they'll
-              show up here!
-            </OptionLabel>
-          </MainContent>
-        </MainContentContainer>
+            </Label>
+            <Label
+              style={{ color: "#9A9CA1" }}
+              text="Hm, seems you don't have any games. Purchase games and they'll
+              show up here!"
+            />
+          </S.MainContent>
+        </S.MainContentContainer>
       ) : (
-        <GiftInventorySectionContainer>
-          <H1>Redeem Codes</H1>
-          <P>
+        <S.GiftInventorySectionContainer>
+          <S.H1>Redeem Codes</S.H1>
+          <S.P>
             Received a code for Nitro or a game? That's exciting! Enter it
             below:
-          </P>
-          <InputContainer>
-            <CodeInput placeholder="WUMP-AAAAA-BBBBB-CCCCC" />
-            <Button>Redeem</Button>
-          </InputContainer>
-          <H1 style={{ marginBottom: "100px" }}>Gift Inventory</H1>
-          <LowerSectionContainer>
-            <Image src={FriendSuggestionsBackground} />
+          </S.P>
+          <S.InputContainer>
+            <S.CodeInput placeholder="WUMP-AAAAA-BBBBB-CCCCC" />
+            <S.Button>Redeem</S.Button>
+          </S.InputContainer>
+          <S.H1 style={{ marginBottom: "100px" }}>Gift Inventory</S.H1>
+          <S.LowerSectionContainer>
+            <S.Image src={FriendSuggestionsBackground} />
 
-            <H1
+            <S.H1
               style={{
                 fontSize: "20px",
                 border: "none",
@@ -98,20 +86,20 @@ export function LibrarySection(): any {
               }}
             >
               There are no gifts.
-            </H1>
-            <P
+            </S.H1>
+            <S.P
               style={{
                 fontSize: "14px",
                 fontWeight: "lighter",
                 color: "#B9BBBE"
               }}
             >
-              Feeling generous? Check out <Link>our store</Link> and purchase a
-              gift to make someone's day!
-            </P>
-          </LowerSectionContainer>
-        </GiftInventorySectionContainer>
+              Feeling generous? Check out <S.Link>our store</S.Link> and
+              purchase a gift to make someone's day!
+            </S.P>
+          </S.LowerSectionContainer>
+        </S.GiftInventorySectionContainer>
       )}
-    </Container>
+    </S.Container>
   );
-}
+};

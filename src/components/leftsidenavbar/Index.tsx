@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 
-import { Nav, IconContainer, Icon } from "./Styles";
+import * as S from "./Styles";
 
-import DiscordIcon from "../../assets/discord-icon.png";
-import CreateServerIcon from "../../assets/plus.png";
+import DiscordLogo from "../../assets/discord-icon.png";
+import CreateServerImage from "../../assets/plus.png";
 
 import { CreateServerCard } from "../createservercard/Index";
 import { EViews } from "../../pages/lobby/Index";
-
-import { store } from "../../store/Index";
+import { Avatar } from "../avatar/Index";
 
 import { Server as ServerQuery } from "../../graphql/queries/Server";
-
+import { store } from "../../store/Index";
 import { api } from "../../services/Api";
 
-export function LeftSideNavbar({ setCurrentView }: any): any {
+export const LeftSideNavbar = ({ setCurrentView }: any): JSX.Element => {
   const [state, setState] = useState({
     joiningServer: false,
     componentsOnView: {
@@ -61,30 +60,31 @@ export function LeftSideNavbar({ setCurrentView }: any): any {
   const getUserServers = () =>
     state.userServers.map(
       (server: any): any => (
-        <IconContainer
+        <Avatar
+          src={server.logo}
           key={server._id}
           onClick={async (): Promise<void> => await join(server._id)}
-        >
-          <Icon src={server.logo} />
-        </IconContainer>
+        />
       )
     );
 
   return (
     <>
-      <Nav>
-        <IconContainer onClick={(): void => setCurrentView(EViews.MAIN)}>
-          <Icon src={DiscordIcon} />
-        </IconContainer>
-        <IconContainer
+      <S.Nav>
+        <Avatar
+          src={DiscordLogo}
+          onClick={(): void => setCurrentView(EViews.MAIN)}
+        />
+
+        <Avatar
+          src={CreateServerImage}
           onClick={(): void =>
             setState({ ...state, componentsOnView: { createServerCard: true } })
           }
-        >
-          <Icon src={CreateServerIcon} />
-        </IconContainer>
+        />
+
         {getUserServers()}
-      </Nav>
+      </S.Nav>
       {state.componentsOnView.createServerCard && (
         <CreateServerCard
           setOnView={(onview: boolean): void =>
@@ -97,4 +97,4 @@ export function LeftSideNavbar({ setCurrentView }: any): any {
       )}
     </>
   );
-}
+};
