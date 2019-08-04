@@ -6,8 +6,8 @@ export const Container = styled.div`
   height: 40px;
   background: transparent;
   display: flex;
-  cursor: pointer;
   align-items: center;
+  cursor: pointer;
 
   &:hover {
     filter: brightness(1.1);

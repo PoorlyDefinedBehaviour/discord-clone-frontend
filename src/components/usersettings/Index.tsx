@@ -1,23 +1,6 @@
 import React, { useState } from "react";
 
-import {
-  Container,
-  Leftcontainer,
-  Title,
-  InnerContainer,
-  Button,
-  Line,
-  IconContainer,
-  Icon,
-  RightContainer,
-  BigTitle,
-  FlexContainer,
-  XButton,
-  Avatar,
-  P,
-  DefaultButton,
-  Input
-} from "./Styles";
+import * as S from "./Styles";
 
 import TwitterIcon from "../../assets/twitter-icon.svg";
 import FacebookIcon from "../../assets/facebook-icon.svg";
@@ -32,8 +15,12 @@ import { DeleteAccount as DeleteAccountMutation } from "../../graphql/mutations/
 import { DeactivateAccount as DeactivateAccountMutation } from "../../graphql/mutations/DeactivateAccount";
 import { UpdateAccount as UpdateAccountMutation } from "../../graphql/mutations/UpdateAccount";
 import { store } from "../../store/Index";
+import { Avatar } from "../avatar/Index";
+import { Icon } from "../icon/Index";
+import { Button } from "../button/Index";
+import { Input } from "../form/Index";
 
-export function UserSettings({ setCurrentSection }): any {
+export const UserSettings = ({ setCurrentSection }): JSX.Element => {
   const [editButtonClicked, setEditButtonClicked] = useState(false);
   const [state, setState] = useState({} as any);
 
@@ -92,59 +79,192 @@ export function UserSettings({ setCurrentSection }): any {
   };
 
   return (
-    <Container>
-      <Leftcontainer>
-        <InnerContainer>
-          <Title>User Settings</Title>
-          <Button>My Account</Button>
-          <Button>Privacy & Safety</Button>
-          <Button>Authorized Apps</Button>
-          <Button>Connections</Button>
-          <br />
-          <Button>Billing</Button>
-          <Line />
-          <Button style={{ color: "#5A6AA2" }}>Discord Nitro</Button>
-          <Button>HypeSquad</Button>
-          <Line />
-          <Title>App Settings</Title>
-          <Button>Voice & Video</Button>
-          <Button>Notifications</Button>
-          <Button>Activity Feed</Button>
-          <Button>Text & Images</Button>
-          <Button>Appereance</Button>
-          <Button>Streamer Mode</Button>
-          <Button>Language</Button>
-          <Line />
-          <Button>Change Log</Button>
-          <Line />
-          <Button style={{ color: "#C34142" }} onClick={logout}>
-            Log Out
-          </Button>
-          <Line />
-          <IconContainer>
-            <Icon src={TwitterIcon} />
-            <Icon src={FacebookIcon} />
-            <Icon src={InstagramIcon} />
-          </IconContainer>
-        </InnerContainer>
-      </Leftcontainer>
+    <S.Container>
+      <S.FlexContainer
+        style={{
+          width: "200px",
+          flexDirection: "column",
+          justifyContent: "space-evenly",
+          height: "100%",
+          background: "#2f3136"
+        }}
+      >
+        <S.Title>User Settings</S.Title>
+        <Button
+          style={{
+            background: "transparent",
+            color: "#696d74",
+            textAlign: "left"
+          }}
+        >
+          My Account
+        </Button>
+        <Button
+          style={{
+            background: "transparent",
+            color: "#696d74",
+            textAlign: "left"
+          }}
+        >
+          Privacy & Safety
+        </Button>
+        <Button
+          style={{
+            background: "transparent",
+            color: "#696d74",
+            textAlign: "left"
+          }}
+        >
+          Authorized Apps
+        </Button>
+        <Button
+          style={{
+            background: "transparent",
+            color: "#696d74",
+            textAlign: "left"
+          }}
+        >
+          Connections
+        </Button>
+        <Button
+          style={{
+            background: "transparent",
+            color: "#696d74",
+            textAlign: "left"
+          }}
+        >
+          Billing
+        </Button>
+        <Button
+          style={{
+            color: "#5A6AA2",
+            background: "transparent",
+            textAlign: "left"
+          }}
+        >
+          Discord Nitro
+        </Button>
+        <Button
+          style={{
+            background: "transparent",
+            color: "#696d74",
+            textAlign: "left"
+          }}
+        >
+          HypeSquad
+        </Button>
+        <S.Title>App Settings</S.Title>
+        <Button
+          style={{
+            background: "transparent",
+            color: "#696d74",
+            textAlign: "left"
+          }}
+        >
+          Voice & Video
+        </Button>
+        <Button
+          style={{
+            background: "transparent",
+            color: "#696d74",
+            textAlign: "left"
+          }}
+        >
+          Notifications
+        </Button>
+        <Button
+          style={{
+            background: "transparent",
+            color: "#696d74",
+            textAlign: "left"
+          }}
+        >
+          Activity Feed
+        </Button>
+        <Button
+          style={{
+            background: "transparent",
+            color: "#696d74",
+            textAlign: "left"
+          }}
+        >
+          Text & Images
+        </Button>
+        <Button
+          style={{
+            background: "transparent",
+            color: "#696d74",
+            textAlign: "left"
+          }}
+        >
+          Appereance
+        </Button>
+        <Button
+          style={{
+            background: "transparent",
+            color: "#696d74",
+            textAlign: "left"
+          }}
+        >
+          Streamer Mode
+        </Button>
+        <Button
+          style={{
+            background: "transparent",
+            color: "#696d74",
+            textAlign: "left"
+          }}
+        >
+          Language
+        </Button>
+        <Button
+          style={{
+            background: "transparent",
+            color: "#696d74",
+            textAlign: "left"
+          }}
+        >
+          Change Log
+        </Button>
+        <Button
+          style={{
+            color: "#C34142",
+            background: "transparent",
+            textAlign: "left"
+          }}
+          onClick={logout}
+        >
+          Log Out
+        </Button>
+        <S.FlexContainer
+          style={{
+            justifyContent: "flex-start",
+            height: "20px",
+            padding: "20px 0px"
+          }}
+        >
+          <Icon src={TwitterIcon} />
+          <Icon src={FacebookIcon} />
+          <Icon src={InstagramIcon} />
+        </S.FlexContainer>
+      </S.FlexContainer>
 
-      <RightContainer>
-        <FlexContainer style={{ justifyContent: "space-between" }}>
-          <BigTitle>
+      <S.RightContainer>
+        <S.FlexContainer style={{ justifyContent: "space-between" }}>
+          <S.BigTitle>
             My Account{" "}
             <span
               style={{ marginLeft: "10px", fontSize: "12px", color: "#5A5C60" }}
             >
               #DiscordTag: {user._id}
             </span>
-          </BigTitle>
-          <XButton onClick={(): void => setCurrentSection(ESections.FRIENDS)}>
+          </S.BigTitle>
+          <S.XButton onClick={(): void => setCurrentSection(ESections.FRIENDS)}>
             X
-          </XButton>
-        </FlexContainer>
+          </S.XButton>
+        </S.FlexContainer>
 
-        <FlexContainer
+        <S.FlexContainer
           style={{
             background: "#292B2F",
             width: "90%",
@@ -157,26 +277,26 @@ export function UserSettings({ setCurrentSection }): any {
           <Avatar
             src={TwitterIcon}
             style={{
-              marginLeft: "10px",
+              marginLeft: "30px",
               marginTop: editButtonClicked ? "-200px" : "0px"
             }}
           />
           {editButtonClicked ? (
             <>
-              <FlexContainer
+              <S.FlexContainer
                 style={{
                   flexDirection: "column",
-                  marginLeft: "30px"
+                  width: "80%"
                 }}
               >
-                <Title style={{ marginBottom: "5px" }}>USERNAME</Title>
+                <S.Title style={{ marginBottom: "5px" }}>USERNAME</S.Title>
                 <Input
                   onChange={(e: any): void =>
                     setState({ ...state, username: e.target.value })
                   }
                 />
 
-                <Title style={{ marginBottom: "5px" }}>EMAIL</Title>
+                <S.Title style={{ marginBottom: "5px" }}>EMAIL</S.Title>
                 <Input
                   type="email"
                   onChange={(e: any): void =>
@@ -184,7 +304,7 @@ export function UserSettings({ setCurrentSection }): any {
                   }
                 />
 
-                <Title style={{ marginBottom: "5px" }}>PASSWORD</Title>
+                <S.Title style={{ marginBottom: "5px" }}>PASSWORD</S.Title>
                 <Input
                   type="password"
                   onChange={(e: any): void =>
@@ -192,15 +312,14 @@ export function UserSettings({ setCurrentSection }): any {
                   }
                 />
 
-                <Line />
-                <FlexContainer
+                <S.FlexContainer
                   style={{
                     flexDirection: "row",
                     marginTop: "15%",
                     width: "100%"
                   }}
                 >
-                  <DefaultButton
+                  <Button
                     style={{
                       background: "transparent",
                       border: "1px solid #C34142",
@@ -209,8 +328,8 @@ export function UserSettings({ setCurrentSection }): any {
                     onClick={deleteAccount}
                   >
                     Delete Account
-                  </DefaultButton>
-                  <DefaultButton
+                  </Button>
+                  <Button
                     style={{
                       background: "transparent",
                       border: "1px solid #C34142",
@@ -221,57 +340,69 @@ export function UserSettings({ setCurrentSection }): any {
                     onClick={disableAccount}
                   >
                     Disable Account
-                  </DefaultButton>
-                  <DefaultButton
+                  </Button>
+                  <Button
                     style={{
                       background: "transparent",
                       border: "none",
-                      color: "#fff"
+                      color: "#fff",
+                      height: "35px"
                     }}
                     onClick={cancelUpdate}
                   >
                     Cancel
-                  </DefaultButton>
-                  <DefaultButton
-                    style={{ background: "#43B581" }}
+                  </Button>
+                  <Button
+                    style={{ background: "#43B581", height: "35px" }}
                     onClick={updateAccount}
                   >
                     Save
-                  </DefaultButton>
-                </FlexContainer>
-              </FlexContainer>
+                  </Button>
+                </S.FlexContainer>
+              </S.FlexContainer>
             </>
           ) : (
             <>
-              <FlexContainer
+              <S.FlexContainer
                 style={{ flexDirection: "column", marginLeft: "30px" }}
               >
-                <Title style={{ marginBottom: "0px" }}>USERNAME</Title>
-                <P>
+                <S.Title style={{ marginBottom: "0px" }}>USERNAME</S.Title>
+                <S.P>
                   {user.username}{" "}
                   <span style={{ color: "#5A5C60", fontSize: "12px" }}>
                     #3450
                   </span>
-                </P>
+                </S.P>
 
-                <Title style={{ marginBottom: "0px" }}>EMAIL</Title>
-                <P>{user.email}</P>
-              </FlexContainer>
-              <DefaultButton
-                style={{ marginBottom: "55px", marginRight: "20px" }}
+                <S.Title style={{ marginBottom: "0px" }}>EMAIL</S.Title>
+                <S.P>{user.email}</S.P>
+              </S.FlexContainer>
+              <Button
+                style={{
+                  marginBottom: "55px",
+                  marginRight: "20px",
+                  width: "100px",
+                  height: "40px",
+                  background: "#7289da"
+                }}
                 onClick={(): void => setEditButtonClicked(true)}
               >
                 Edit
-              </DefaultButton>
+              </Button>
             </>
           )}
-        </FlexContainer>
+        </S.FlexContainer>
 
-        <BigTitle style={{ marginTop: "60px", marginBottom: "20px" }}>
+        <S.BigTitle
+          style={{
+            marginTop: "60px",
+            marginBottom: "20px"
+          }}
+        >
           TWO-FACTOR AUTHENTICATION
-        </BigTitle>
-        <FlexContainer>
-          <P
+        </S.BigTitle>
+        <S.FlexContainer>
+          <S.P
             style={{
               fontSize: "12px",
               width: "auto",
@@ -283,17 +414,24 @@ export function UserSettings({ setCurrentSection }): any {
             Protect your Discord account with an extra layer of security. Once
             configure you'll be required to enter both your password and an
             authentication code from your mobile phone in order to sign in.
-          </P>
+          </S.P>
           <img
             src={ChestImage}
             alt="treasure chest"
             style={{ transform: "scale(0.6)" }}
           />
-        </FlexContainer>
-        <DefaultButton style={{ width: "auto", fontSize: "12px" }}>
+        </S.FlexContainer>
+        <Button
+          style={{
+            fontSize: "12px",
+            width: "auto",
+            height: "40px",
+            background: "#7289da"
+          }}
+        >
           Enable Two-Factor Auth
-        </DefaultButton>
-      </RightContainer>
-    </Container>
+        </Button>
+      </S.RightContainer>
+    </S.Container>
   );
-}
+};

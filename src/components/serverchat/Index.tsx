@@ -15,16 +15,15 @@ import { Avatar } from "../avatar/Index";
 
 export const socket: any = io(ApiUrl);
 
-let lastMessageTimestamp = 0;
+let lastMessageTimestamp: number = 0;
 let audioChunks: Array<any> = [];
 
-//@ts-ignore
 const playAudio = (chunks: Array<any>): void => {
   const audioUrl: string = URL.createObjectURL(new Blob(chunks));
   new Audio(audioUrl).play();
 };
 
-export function ServerChat(server): any {
+export const ServerChat = (): JSX.Element => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messages, setMessages] = useState([] as any);
 
@@ -47,7 +46,7 @@ export function ServerChat(server): any {
 
   socket.on("voice", (data: any): void => playAudio(data.data.content));
 
-  const onData = (chunk: any): any => audioChunks.push(chunk);
+  const onData = audioChunks.push;
 
   const onStop = (_: any): void => {
     socket.emit("voice", {
@@ -63,17 +62,13 @@ export function ServerChat(server): any {
   const sendMessage = (e: any): void => {
     e.preventDefault();
 
-    if (!currentMessage) {
-      return;
-    }
+    if (!currentMessage) return;
 
-    const timePassed = Date.now() - lastMessageTimestamp;
+    const timePassed: number = Date.now() - lastMessageTimestamp;
 
     timePassed > 1000 ? setTooManyMessages(false) : setTooManyMessages(true);
 
-    if (tooManyMessages) {
-      return;
-    }
+    if (tooManyMessages) return;
 
     setMessages([
       ...messages,
@@ -130,4 +125,4 @@ export function ServerChat(server): any {
       </S.Container>
     </S.ContentSection>
   );
-}
+};

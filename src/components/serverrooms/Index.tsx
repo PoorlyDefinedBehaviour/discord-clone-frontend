@@ -12,8 +12,10 @@ import { CenterContainer } from "../centercontainer/Index";
 import { Avatar } from "../avatar/Index";
 import { Icon } from "../icon/Index";
 
-export function ServerRooms(): any {
-  const { server }: any = store.getState();
+export const ServerRooms = (): JSX.Element => {
+  const {
+    server: { name, _id }
+  }: any = store.getState();
 
   return (
     <S.Section>
@@ -27,11 +29,11 @@ export function ServerRooms(): any {
       >
         <Avatar src={TPHIcon} style={{ filter: "none" }} />
         <Label style={{ maxWidth: "inherit", overflow: "hidden" }}>
-          {server.name}
+          {name}
         </Label>
       </CenterContainer>
       <Label style={{ width: "80%", margin: "0 auto", fontSize: "11px" }}>
-        {server._id}
+        {_id}
       </Label>
       <CenterContainer>
         <Icon src={HashtagIcon} />
@@ -39,4 +41,4 @@ export function ServerRooms(): any {
       </CenterContainer>
     </S.Section>
   );
-}
+};

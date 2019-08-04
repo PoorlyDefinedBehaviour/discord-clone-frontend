@@ -8,15 +8,13 @@ import { Icon } from "../icon/Index";
 import { Label } from "../label/Index";
 import { CenterContainer } from "../centercontainer/Index";
 
-export function NitroSection(): any {
-  return (
-    <S.Container>
-      <Navbar>
-        <CenterContainer>
-          <Icon src={NitroIcon} />
-          <Label>Nitro</Label>
-        </CenterContainer>
-      </Navbar>
-    </S.Container>
-  );
-}
+export const NitroSection = (): JSX.Element => (
+  <S.Container>
+    <Navbar>
+      <CenterContainer>
+        <Icon src={NitroIcon} />
+        <Label>Nitro</Label>
+      </CenterContainer>
+    </Navbar>
+  </S.Container>
+);

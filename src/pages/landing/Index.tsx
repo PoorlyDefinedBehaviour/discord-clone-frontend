@@ -77,7 +77,7 @@ export function Landing(): any {
         >
           <Button
             style={{
-              color: "#57585A",
+              color: "#43B581",
               width: "250px",
               height: "45px",
               background: "#fff",

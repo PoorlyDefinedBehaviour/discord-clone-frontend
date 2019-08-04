@@ -6,7 +6,7 @@ import { store } from "../../store/Index";
 import { Label } from "../label/Index";
 import { Avatar } from "../avatar/Index";
 
-export function ServerMembers(): any {
+export const ServerMembers = (): JSX.Element => {
   const { server }: any = store.getState();
 
   return (
@@ -37,4 +37,4 @@ export function ServerMembers(): any {
         )}
     </S.Container>
   );
-}
+};
