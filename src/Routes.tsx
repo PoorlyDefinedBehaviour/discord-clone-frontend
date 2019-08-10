@@ -12,8 +12,9 @@ import { api } from "./services/Api";
 import { User as UserQuery } from "./graphql/queries/User";
 import { store } from "./store/Index";
 import { Maybe } from "./types/Maybe.d";
+import { NotFound } from "./pages/notfound/Index";
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const PrivateRoute = ({ component: Component, ...rest }): JSX.Element => (
   <Route
     {...rest}
     render={props =>
@@ -61,6 +62,7 @@ export default function routes() {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <PrivateRoute path="/lobby" component={Lobby} />
+        <Route path="*" component={NotFound} />
       </Switch>
     </BrowserRouter>
   );
