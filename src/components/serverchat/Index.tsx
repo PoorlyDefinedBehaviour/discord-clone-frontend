@@ -40,13 +40,15 @@ export const ServerChat = (): JSX.Element => {
     "message",
     (message: any): void => {
       console.log("received", message.message);
-      setMessages([...messages, message.message]);
+      if (user.headphones) setMessages([...messages, message.message]);
     }
   );
 
   socket.on("voice", (data: any): void => playAudio(data.data.content));
 
-  const onData = audioChunks.push;
+  const onData = (chunk: any): void => {
+    if (user.microphone) audioChunks.push(chunk);
+  };
 
   const onStop = (_: any): void => {
     socket.emit("voice", {
@@ -91,7 +93,7 @@ export const ServerChat = (): JSX.Element => {
     <S.ContentSection>
       <div style={{ width: "0px", height: "0px", marginTop: "-2000px" }}>
         <ReactMic
-          record={useKeyPress("t")}
+          record={useKeyPress(user.push_to_talk_key)}
           className="sound-wave"
           onStop={onStop}
           onData={onData}

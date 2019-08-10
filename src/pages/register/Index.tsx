@@ -78,7 +78,7 @@ export function Register({ history }: any): any {
         }
       }: any = await api
         .post("/", RegisterMutation(username, email, password))
-        .catch((error: any): void => console.log(error));
+        .catch((error: any): void => console.error(error));
 
       Match(
         status,

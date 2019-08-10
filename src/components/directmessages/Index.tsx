@@ -15,9 +15,16 @@ import { Label } from "../label/Index";
 import { Icon } from "../icon/Index";
 import { store } from "../../store/Index";
 import { Avatar } from "../avatar/Index";
+import { SettingsContainer } from "../settingscontainer/Index";
 
 export const DirectMessages = ({ setCurrentSection }): JSX.Element => {
   const { user }: any = store.getState();
+
+  const toggle = (input: string): void => {
+    const newUser: any = { ...user };
+    newUser[input] = !user[input];
+    store.dispatch({ type: "SET_USER", user: newUser });
+  };
 
   return (
     <S.Section>
@@ -43,31 +50,26 @@ export const DirectMessages = ({ setCurrentSection }): JSX.Element => {
 
       <S.Container onClick={(): void => setCurrentSection(ESections.LIBRARY)} />
 
-      <S.Container
-        style={{
-          position: "fixed",
-          bottom: "0px",
-          width: "240px",
-          height: "65px",
-          background: "#2A2C31"
-        }}
-      >
+      <SettingsContainer>
         <Avatar src={user.avatar} />
 
         <Icon
           src={MicrophoneIcon}
-          style={{ marginRight: "5px", transform: "scale(0.8)" }}
+          style={{ marginRight: "5px", cursor: "pointer" }}
+          onClick={toggle("microphone")}
         />
         <Icon
+          className={!user.headphones && "no-headphones"}
           src={HeadphoneIcon}
-          style={{ marginRight: "5px", transform: "scale(0.8)" }}
+          style={{ marginRight: "5px", cursor: "pointer" }}
+          onClick={toggle("headphones")}
         />
         <Icon
           src={SettingsIcon}
-          style={{ transform: "scale(0.8)" }}
+          style={{ cursor: "pointer" }}
           onClick={(): void => setCurrentSection(ESections.SETTINGS)}
         />
-      </S.Container>
+      </SettingsContainer>
     </S.Section>
   );
 };

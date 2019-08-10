@@ -1,6 +1,9 @@
 import { saveToLocalStorage } from "../../services/Authentication";
 
 const INITIAL_STATE: any = {
+  push_to_talk_key: "t",
+  microphone: true,
+  headphones: true,
   friends: [],
   friend_requests: [],
   servers: []
