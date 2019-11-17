@@ -1,9 +1,6 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
-
 import * as S from "./Styles";
-
 import DownArrow from "../../assets/down-arrow.svg";
 import LanguagesIcon from "../../assets/languages-icon.svg";
 import DiscordLogo from "../../assets/landing-discord-logo.svg";
@@ -23,10 +20,9 @@ import SquareImage from "../../assets/square.svg";
 import CircleImage from "../../assets/circle.svg";
 import TriangleImage from "../../assets/triangle.svg";
 import XImage from "../../assets/x.svg";
+import Button from "../../components/button/Index";
 
-import { Button } from "../../components/button/Index";
-
-export function Landing(): any {
+export default function Landing(): JSX.Element {
   return (
     <S.Container>
       <S.Navbar>

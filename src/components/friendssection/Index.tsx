@@ -1,18 +1,15 @@
 import React, { useState } from "react";
-
 import * as S from "./Styles";
-
 import FriendsIcon from "../../assets/friends.png";
-import { AddFriend } from "../addfriend/AddFriend";
+import AddFriend from "../addfriend/AddFriend";
+import FriendList, { EFriendListFilters } from "../friendlist/Index";
+import Label from "../label/Index";
+import CenterContainer from "../centercontainer/Index";
+import Navbar from "../navbar/Index";
+import Button from "../button/Index";
+import Icon from "../icon/Index";
 
-import { FriendList, EFriendListFilters } from "../friendlist/Index";
-import { Icon } from "../icon/Styles";
-import { Label } from "../label/Index";
-import { CenterContainer } from "../centercontainer/Index";
-import { Navbar } from "../navbar/Index";
-import { Button } from "../button/Index";
-
-export const FriendsSection = (): JSX.Element => {
+export default function FriendsSection(): JSX.Element {
   const [state, setState] = useState({
     componentsOnView: {
       addFriend: false,
@@ -127,4 +124,4 @@ export const FriendsSection = (): JSX.Element => {
       {state.componentsOnView.addFriend && <AddFriend />}
     </S.ContentSection>
   );
-};
+}

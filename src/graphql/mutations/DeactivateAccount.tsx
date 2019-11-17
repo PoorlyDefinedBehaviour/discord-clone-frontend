@@ -1,6 +1,6 @@
-import { IGraphQLRequest } from "../../types/IGraphQLRequest.d";
+import IGraphQLRequest from "../../types/IGraphQLRequest.d";
 
-export const DeactivateAccount = (): IGraphQLRequest => ({
+const DeactivateAccount = (): IGraphQLRequest => ({
   query: `
 mutation {
   deactivate_account {
@@ -13,3 +13,5 @@ mutation {
 }
 `
 });
+
+export default DeactivateAccount;

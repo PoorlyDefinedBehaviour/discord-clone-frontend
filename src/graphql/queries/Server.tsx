@@ -1,6 +1,6 @@
-import { IGraphQLRequest } from "../../types/IGraphQLRequest.d";
+import IGraphQLRequest from "../../types/IGraphQLRequest.d";
 
-export const Server = (_id: string): IGraphQLRequest => ({
+const Server = (_id: string): IGraphQLRequest => ({
   query: `
 {
   server(_id: "${_id}") {
@@ -36,3 +36,5 @@ export const Server = (_id: string): IGraphQLRequest => ({
 }
 `
 });
+
+export default Server;

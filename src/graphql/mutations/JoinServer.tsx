@@ -1,6 +1,6 @@
-import { IGraphQLRequest } from "../../types/IGraphQLRequest.d";
+import IGraphQLRequest from "../../types/IGraphQLRequest.d";
 
-export const JoinServer = (_id: string): IGraphQLRequest => ({
+const JoinServer = (_id: string): IGraphQLRequest => ({
   query: `
   mutation {
     join_server(_id: "${_id}") {
@@ -70,3 +70,5 @@ export const JoinServer = (_id: string): IGraphQLRequest => ({
   }
 `
 });
+
+export default JoinServer;

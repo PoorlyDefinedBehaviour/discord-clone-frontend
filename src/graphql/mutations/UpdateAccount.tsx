@@ -1,6 +1,6 @@
-import { IGraphQLRequest } from "../../types/IGraphQLRequest.d";
+import IGraphQLRequest from "../../types/IGraphQLRequest.d";
 
-export const UpdateAccount = (
+const UpdateAccount = (
   username: string,
   email: string,
   password: string
@@ -22,3 +22,5 @@ mutation {
 }
 `
 });
+
+export default UpdateAccount;

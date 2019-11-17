@@ -1,24 +1,21 @@
 import React from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-
-import { isLoggedIn, getUserId } from "./services/Authentication";
-
-import { Login } from "./pages/login/Index";
-import { Register } from "./pages/register/Index";
-import { Lobby } from "./pages/lobby/Index";
-import { Landing } from "./pages/landing/Index";
-
-import { api } from "./services/Api";
-import { User as UserQuery } from "./graphql/queries/User";
-import { store } from "./store/Index";
-import { Maybe } from "./types/Maybe.d";
-import { NotFound } from "./pages/notfound/Index";
+import Login from "./pages/login/Index";
+import Register from "./pages/register/Index";
+import Lobby from "./pages/lobby/Index";
+import Landing from "./pages/landing/Index";
+import api from "./services/Api";
+import UserQuery from "./graphql/queries/User";
+import store from "./store/Index";
+import Maybe from "./types/Maybe.d";
+import NotFound from "./pages/notfound/Index";
+import UserService from "./services/User.service";
 
 const PrivateRoute = ({ component: Component, ...rest }): JSX.Element => (
   <Route
     {...rest}
-    render={props =>
-      isLoggedIn() ? (
+    render={(props) =>
+      UserService.isLoggedIn() ? (
         <Component {...props} />
       ) : (
         <Redirect
@@ -31,9 +28,11 @@ const PrivateRoute = ({ component: Component, ...rest }): JSX.Element => (
 
 export default function routes() {
   const refreshUser = async (): Promise<void> => {
-    const _id: Maybe<string> = getUserId();
+    const _id: Maybe<string> = UserService.getUserId();
 
-    if (!_id) return;
+    if (!_id) {
+      return;
+    }
 
     try {
       const {

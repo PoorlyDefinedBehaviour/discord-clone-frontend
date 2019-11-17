@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-
 import * as S from "./Styles";
-
 import FriendSuggestionsBackground from "../../assets/friend-suggestions.svg";
+import api from "../../services/Api";
+import FriendRequestMutation from "../../graphql/mutations/FriendRequest";
+import Button from "../button/Index";
 
-import { api } from "../../services/Api";
-
-import { FriendRequest as FriendRequestMutation } from "../../graphql/mutations/FriendRequest";
-import { Button } from "../button/Index";
-
-export const AddFriend = (): JSX.Element => {
+export default function AddFriend(): JSX.Element {
   const [state, setState] = useState({ _id: "" } as any);
 
   const sendFriendRequest = async (): Promise<void> => {
@@ -82,4 +78,4 @@ export const AddFriend = (): JSX.Element => {
       </S.FriendSuggestionsImageContainer>
     </S.Container>
   );
-};
+}

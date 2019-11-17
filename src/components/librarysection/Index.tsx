@@ -2,20 +2,20 @@ import React, { useState } from "react";
 
 import * as S from "./Styles";
 
-import { Label } from "../label/Index";
+import Label from "../label/Index";
 
 import BackpackIcon from "../../assets/school-book-bag.png";
 import FriendSuggestionsBackground from "../../assets/friend-suggestions.svg";
-import { Icon } from "../icon/Index";
-import { CenterContainer } from "../centercontainer/Index";
-import { Navbar } from "../navbar/Index";
+import Icon from "../icon/Index";
+import CenterContainer from "../centercontainer/Index";
+import Navbar from "../navbar/Index";
 
 export enum EViews {
   GAMES = 0,
   GIFTS
 }
 
-export const LibrarySection = (): JSX.Element => {
+export default function LibrarySection(): JSX.Element {
   const [state, setState] = useState({
     selected: EViews.GIFTS
   });
@@ -102,4 +102,4 @@ export const LibrarySection = (): JSX.Element => {
       )}
     </S.Container>
   );
-};
+}

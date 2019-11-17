@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-
-import { CreateServerCardMain } from "../createservercardmain/Index";
-import { CreateServerCardCreate } from "../createservercardcreate/Index";
-import { CreateServerCardJoin } from "../createservercardjoin/Index";
+import CreateServerCardMain from "../createservercardmain/Index";
+import CreateServerCardCreate from "../createservercardcreate/Index";
+import CreateServerCardJoin from "../createservercardjoin/Index";
 
 enum ECards {
   MAIN = 0,
@@ -10,7 +9,7 @@ enum ECards {
   JOIN
 }
 
-export const CreateServerCard = ({ setOnView }: any): JSX.Element => {
+export default function CreateServerCard({ setOnView }): JSX.Element {
   const [state, setState] = useState({
     currentServerCard: ECards.MAIN,
     inviteLink: "",
@@ -54,4 +53,4 @@ export const CreateServerCard = ({ setOnView }: any): JSX.Element => {
   );
 
   return cards.get(state.currentServerCard);
-};
+}

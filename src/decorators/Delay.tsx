@@ -1,7 +1,7 @@
-export const Delay = (fn: any, ms: number): any => {
-  return function(this: any, ...args: any): any {
+export default function delay(fn: Function, ms: number) {
+  return (...args: any[]): void => {
     setTimeout(() => {
-      fn.apply(this, args);
+      fn(...args);
     }, ms);
   };
-};
+}

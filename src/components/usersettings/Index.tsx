@@ -1,30 +1,26 @@
 import React, { useState } from "react";
-
 import * as S from "./Styles";
-
 import TwitterIcon from "../../assets/twitter-icon.svg";
 import FacebookIcon from "../../assets/facebook-icon.svg";
 import InstagramIcon from "../../assets/instagram-icon.svg";
 import ChestImage from "../../assets/chest.svg";
-import { logout } from "../../services/Authentication";
 import { ESections } from "../lobbysection/Index";
-
-import { api } from "../../services/Api";
-
-import { DeleteAccount as DeleteAccountMutation } from "../../graphql/mutations/DeleteAccount";
-import { DeactivateAccount as DeactivateAccountMutation } from "../../graphql/mutations/DeactivateAccount";
-import { UpdateAccount as UpdateAccountMutation } from "../../graphql/mutations/UpdateAccount";
-import { store } from "../../store/Index";
-import { Avatar } from "../avatar/Index";
-import { Icon } from "../icon/Index";
-import { Button } from "../button/Index";
+import api from "../../services/Api";
+import DeleteAccountMutation from "../../graphql/mutations/DeleteAccount";
+import DeactivateAccountMutation from "../../graphql/mutations/DeactivateAccount";
+import UpdateAccountMutation from "../../graphql/mutations/UpdateAccount";
+import store from "../../store/Index";
+import Avatar from "../avatar/Index";
+import Icon from "../icon/Index";
+import Button from "../button/Index";
 import { Input } from "../form/Index";
+import UserService from "../../services/User.service";
 
-export const UserSettings = ({ setCurrentSection }): JSX.Element => {
+export default function UserSettings({ setCurrentSection }): JSX.Element {
   const [editButtonClicked, setEditButtonClicked] = useState(false);
   const [state, setState] = useState({} as any);
 
-  const { user }: any = store.getState();
+  const { user } = store.getState();
 
   const updateAccount = async (): Promise<void> => {
     try {
@@ -32,7 +28,7 @@ export const UserSettings = ({ setCurrentSection }): JSX.Element => {
         data: {
           data: { update_account }
         }
-      }: any = await api.post(
+      } = await api.post(
         "",
         UpdateAccountMutation(
           state.username || "",
@@ -40,7 +36,7 @@ export const UserSettings = ({ setCurrentSection }): JSX.Element => {
           state.password || ""
         )
       );
-      console.log(update_account);
+
       if (update_account.status === 201) {
         store.dispatch({ type: "UPDATE_USER", fields: state });
       }
@@ -59,7 +55,7 @@ export const UserSettings = ({ setCurrentSection }): JSX.Element => {
   const deleteAccount = async (): Promise<void> => {
     try {
       await api.post("", DeleteAccountMutation());
-      logout();
+      UserService.logout();
     } catch (error) {
       console.error(error);
     } finally {
@@ -70,7 +66,7 @@ export const UserSettings = ({ setCurrentSection }): JSX.Element => {
   const disableAccount = async (): Promise<void> => {
     try {
       await api.post("", DeactivateAccountMutation());
-      logout();
+      UserService.logout();
     } catch (error) {
       console.error(error);
     } finally {
@@ -232,7 +228,7 @@ export const UserSettings = ({ setCurrentSection }): JSX.Element => {
             background: "transparent",
             textAlign: "left"
           }}
-          onClick={logout}
+          onClick={UserService.logout}
         >
           Log Out
         </Button>
@@ -291,7 +287,7 @@ export const UserSettings = ({ setCurrentSection }): JSX.Element => {
               >
                 <S.Title style={{ marginBottom: "5px" }}>USERNAME</S.Title>
                 <Input
-                  onChange={(e: any): void =>
+                  onChange={(e) =>
                     setState({ ...state, username: e.target.value })
                   }
                 />
@@ -299,7 +295,7 @@ export const UserSettings = ({ setCurrentSection }): JSX.Element => {
                 <S.Title style={{ marginBottom: "5px" }}>EMAIL</S.Title>
                 <Input
                   type="email"
-                  onChange={(e: any): void =>
+                  onChange={(e) =>
                     setState({ ...state, email: e.target.value })
                   }
                 />
@@ -434,4 +430,4 @@ export const UserSettings = ({ setCurrentSection }): JSX.Element => {
       </S.RightContainer>
     </S.Container>
   );
-};
+}

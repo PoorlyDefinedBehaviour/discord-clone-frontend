@@ -11,13 +11,13 @@ import HeadphoneIcon from "../../assets/headphone-symbol.svg";
 import SettingsIcon from "../../assets/settings-work-tool.svg";
 
 import { ESections } from "../lobbysection/Index";
-import { Label } from "../label/Index";
-import { Icon } from "../icon/Index";
-import { store } from "../../store/Index";
-import { Avatar } from "../avatar/Index";
-import { SettingsContainer } from "../settingscontainer/Index";
+import Label from "../label/Index";
+import Icon from "../icon/Index";
+import store from "../../store/Index";
+import Avatar from "../avatar/Index";
+import SettingsContainer from "../settingscontainer/Index";
 
-export const DirectMessages = ({ setCurrentSection }): JSX.Element => {
+export default function DirectMessages({ setCurrentSection }): JSX.Element {
   const { user }: any = store.getState();
 
   const toggle = (input: string): void => {
@@ -29,19 +29,19 @@ export const DirectMessages = ({ setCurrentSection }): JSX.Element => {
   return (
     <S.Section>
       <S.SearchBar placeholder="Find or start a conversation" />
-      <S.Container onClick={(): void => setCurrentSection(ESections.ACTIVITY)}>
+      <S.Container onClick={() => setCurrentSection(ESections.ACTIVITY)}>
         <Icon src={ControllerIcon} />
         <Label>Activity</Label>
       </S.Container>
-      <S.Container onClick={(): void => setCurrentSection(ESections.LIBRARY)}>
+      <S.Container onClick={() => setCurrentSection(ESections.LIBRARY)}>
         <Icon src={BackpackIcon} />
         <Label>Library</Label>
       </S.Container>
-      <S.Container onClick={(): void => setCurrentSection(ESections.NITRO)}>
+      <S.Container onClick={() => setCurrentSection(ESections.NITRO)}>
         <Icon src={NitroIcon} />
         <Label>Nitro</Label>
       </S.Container>
-      <S.Container onClick={(): void => setCurrentSection(ESections.FRIENDS)}>
+      <S.Container onClick={() => setCurrentSection(ESections.FRIENDS)}>
         <Icon src={FriendsIcon} />
         <Label>Friends</Label>
       </S.Container>
@@ -72,4 +72,4 @@ export const DirectMessages = ({ setCurrentSection }): JSX.Element => {
       </SettingsContainer>
     </S.Section>
   );
-};
+}

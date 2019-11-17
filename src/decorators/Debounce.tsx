@@ -1,11 +1,9 @@
-export const Debounce = (fn: any, ms: number) => {
-  function wrapper(this: any, ...args: any): any {
-    if (Date.now() - wrapper.timestamp > ms) {
-      fn.apply(this, args);
-      wrapper.timestamp = Date.now();
+export default function debounce(fn: Function, ms: number) {
+  let timestamp: number = 0;
+  return (...args: any[]): void => {
+    if (Date.now() - timestamp > ms) {
+      fn(...args);
+      timestamp = Date.now();
     }
-  }
-
-  wrapper.timestamp = 0;
-  return wrapper;
-};
+  };
+}

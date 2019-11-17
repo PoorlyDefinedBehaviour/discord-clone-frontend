@@ -1,6 +1,6 @@
-import { IGraphQLRequest } from "../../types/IGraphQLRequest.d";
+import IGraphQLRequest from "../../types/IGraphQLRequest.d";
 
-export const Login = (email: string, password: string): IGraphQLRequest => ({
+const Login = (email: string, password: string): IGraphQLRequest => ({
   query: `
 mutation {
   login(email: "${email}", password: "${password}") {
@@ -43,3 +43,5 @@ mutation {
 }
 `
 });
+
+export default Login;

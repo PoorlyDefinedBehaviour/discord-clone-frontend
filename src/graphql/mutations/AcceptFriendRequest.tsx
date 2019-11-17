@@ -1,6 +1,6 @@
-import { IGraphQLRequest } from "../../types/IGraphQLRequest.d";
+import IGraphQLRequest from "../../types/IGraphQLRequest.d";
 
-export const AcceptFriendRequest = (_id: string): IGraphQLRequest => ({
+const AcceptFriendRequest = (_id: string): IGraphQLRequest => ({
   query: `
 mutation {
   accept_friend_request(_id: "${_id}") {
@@ -25,3 +25,5 @@ mutation {
   }
 }`
 });
+
+export default AcceptFriendRequest;

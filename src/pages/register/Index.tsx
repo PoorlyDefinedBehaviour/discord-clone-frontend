@@ -1,25 +1,17 @@
 import React, { useState, useEffect } from "react";
-
 import { Link as RedirectLink } from "react-router-dom";
-
 import * as S from "./Styles";
-
 import * as yup from "yup";
-
-import { Register as RegisterMutation } from "../../graphql/mutations/Register";
-
-import { api } from "../../services/Api";
-
-import { isLoggedIn } from "../../services/Authentication";
-import { store } from "../../store/Index";
-
-import { Label } from "../../components/label/Index";
-import { ErrorMessage } from "../../components/errormessage/Index";
-import { Form, Input } from "../../components/form/Index";
-import { Button } from "../../components/button/Index";
-
-import { Match, MatchAny } from "../../utils/Match";
-import { FormatYupError } from "../../utils/FormatYupError";
+import RegisterMutation from "../../graphql/mutations/Register";
+import api from "../../services/Api";
+import store from "../../store/Index";
+import Label from "../../components/label/Index";
+import ErrorMessage from "../../components/errormessage/Index";
+import Form, { Input } from "../../components/form/Index";
+import Button from "../../components/button/Index";
+import match, { MatchAny } from "../../utils/Match";
+import formatYupError from "../../utils/FormatYupError";
+import UserService from "../../services/User.service";
 
 async function validate(
   username: string,
@@ -48,22 +40,25 @@ async function validate(
   );
 }
 
-export function Register({ history }: any): any {
-  const [email, setEmail]: any = useState("");
-  const [username, setUsername]: any = useState("");
-  const [password, setPassword]: any = useState("");
-
+export default function Register({ history }): JSX.Element {
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
   const [tryingToRegister, setTryingToRegister] = useState(false);
 
-  useEffect((): void => {
-    if (isLoggedIn()) history.push("/lobby");
+  useEffect(() => {
+    if (UserService.isLoggedIn()) {
+      history.push("/lobby");
+    }
   }, []);
 
-  async function register(): Promise<void> {
-    if (tryingToRegister) return;
-    if (!email || !username || !password) return;
+  const register = async (event): Promise<void> => {
+    event.preventDefault();
+
+    if (tryingToRegister || !email || !username || !password) {
+      return;
+    }
 
     try {
       setTryingToRegister(true);
@@ -78,28 +73,30 @@ export function Register({ history }: any): any {
         }
       }: any = await api
         .post("/", RegisterMutation(username, email, password))
-        .catch((error: any): void => console.error(error));
+        .catch(console.error);
 
-      Match(
+      match(
         status,
         [
           201,
-          (): void => store.dispatch({ type: "SET_USER", user, token }),
-          history.push("/lobby")
+          () => {
+            store.dispatch({ type: "SET_USER", user, token });
+            history.push("/lobby");
+          }
         ],
-        [422, (): void => setErrorMessage("Email is already being used")],
+        [422, () => setErrorMessage("Email is already being used")],
         [
           MatchAny,
-          (): void => setErrorMessage("Something went wrong, try again later")
+          () => setErrorMessage("Something went wrong, try again later")
         ]
       );
     } catch (ex) {
       console.error(ex);
-      setErrorMessage(FormatYupError(ex)[0].message);
+      setErrorMessage(formatYupError(ex)[0].message);
     } finally {
       setTryingToRegister(false);
     }
-  }
+  };
 
   return (
     <S.Container>
@@ -108,12 +105,7 @@ export function Register({ history }: any): any {
           <S.WelcomeBackMessage>Create an Account!</S.WelcomeBackMessage>
         </S.WelcomeMessageContainer>
 
-        <Form
-          onSubmit={(e: any): void => {
-            e.preventDefault();
-            register();
-          }}
-        >
+        <Form onSubmit={register}>
           <Label>Email</Label>
           <Input
             type="email"
@@ -131,7 +123,7 @@ export function Register({ history }: any): any {
             type="password"
             onChange={(e: any): void => setPassword(e.target.value)}
           />
-          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+          {errorMessage && <ErrorMessage message={errorMessage} />}
 
           <Button
             style={{

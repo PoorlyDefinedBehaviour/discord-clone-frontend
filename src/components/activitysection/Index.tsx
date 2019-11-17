@@ -1,15 +1,12 @@
 import React from "react";
-
 import * as S from "./Styles";
-
-import { Icon } from "../icon/Index";
-
+import Icon from "../icon/Index";
 import ControllerIcon from "../../assets/gamepad-controller.png";
-import { Navbar } from "../navbar/Index";
-import { CenterContainer } from "../centercontainer/Index";
-import { Label } from "../label/Index";
+import Navbar from "../navbar/Index";
+import CenterContainer from "../centercontainer/Index";
+import Label from "../label/Index";
 
-export const ActivitySection = (): JSX.Element => (
+const ActivitySection = (): JSX.Element => (
   <S.Container>
     <Navbar>
       <CenterContainer>
@@ -19,3 +16,5 @@ export const ActivitySection = (): JSX.Element => (
     </Navbar>
   </S.Container>
 );
+
+export default ActivitySection;

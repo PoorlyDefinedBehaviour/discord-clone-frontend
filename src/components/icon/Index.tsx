@@ -2,4 +2,6 @@ import React from "react";
 
 import * as S from "./Styles";
 
-export const Icon = (props: any): JSX.Element => <S.Icon {...props} />;
+export default function Icon(props): JSX.Element {
+  return <S.Icon {...props} />;
+}

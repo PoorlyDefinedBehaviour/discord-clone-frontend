@@ -2,9 +2,9 @@ import React, { PropsWithChildren } from "react";
 
 import * as S from "./Styles";
 
-export const Navbar = ({
+export default function Navbar({
   children,
   ...props
-}: PropsWithChildren<{}>): JSX.Element => (
-  <S.Navbar {...props}>{children}</S.Navbar>
-);
+}: PropsWithChildren<{}>): JSX.Element {
+  return <S.Navbar {...props}>{children}</S.Navbar>;
+}

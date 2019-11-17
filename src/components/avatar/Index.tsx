@@ -2,6 +2,6 @@ import React from "react";
 
 import * as S from "./Styles";
 
-export const Avatar = ({ src, ...props }: any): JSX.Element => (
-  <S.Avatar {...props} src={src} />
-);
+export default function Avatar({ src, ...props }): JSX.Element {
+  return <S.Avatar {...props} src={src} />;
+}

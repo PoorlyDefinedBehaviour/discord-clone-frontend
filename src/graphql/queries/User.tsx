@@ -1,4 +1,4 @@
-import { IGraphQLRequest } from "../../types/IGraphQLRequest.d";
+import IGraphQLRequest from "../../types/IGraphQLRequest.d";
 
 export const User = (_id: string): IGraphQLRequest => ({
   query: `
@@ -44,3 +44,5 @@ export const User = (_id: string): IGraphQLRequest => ({
 }
 `
 });
+
+export default User;

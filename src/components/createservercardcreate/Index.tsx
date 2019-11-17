@@ -1,19 +1,15 @@
 import React, { useState } from "react";
-
 import * as S from "./Styles";
-
 import ServerRegionImage from "../../assets/server-region.png";
+import ErrorMessage from "../errormessage/Index";
+import Label from "../label/Index";
+import api from "../../services/Api";
+import store from "../../store/Index";
+import CreateServerMutation from "../../graphql/mutations/CreateServer";
 
-import { ErrorMessage } from "../errormessage/Index";
-import { Label } from "../label/Index";
-
-import { api } from "../../services/Api";
-import { store } from "../../store/Index";
-import { CreateServer as CreateServerMutation } from "../../graphql/mutations/CreateServer";
-
-export const CreateServerCardCreate = ({
+export default function CreateServerCardCreate({
   backButtonClickHandler
-}): JSX.Element => {
+}): JSX.Element {
   const [state, setState] = useState({
     invalidServerName: false,
     serverNameAlreadyInUse: false,
@@ -80,14 +76,16 @@ export const CreateServerCardCreate = ({
               }
             />
             {state.invalidServerName && (
-              <ErrorMessage style={{ marginTop: "12%", marginLeft: "-29%" }}>
-                Server name must be valid
-              </ErrorMessage>
+              <ErrorMessage
+                style={{ marginTop: "12%", marginLeft: "-29%" }}
+                message="Server name must be valid"
+              />
             )}
             {state.serverNameAlreadyInUse && (
-              <ErrorMessage style={{ marginTop: "12%", marginLeft: "-29%" }}>
-                Server name is already in use
-              </ErrorMessage>
+              <ErrorMessage
+                style={{ marginTop: "12%", marginLeft: "-29%" }}
+                message="Server name is already in use"
+              />
             )}
           </S.CreateServerLabelAndInputContainer>
           <S.ImageInputButton>
@@ -117,4 +115,4 @@ export const CreateServerCardCreate = ({
       </S.CreateServerPopUpInnerContainer>
     </S.CreateServerPopUpContainer>
   );
-};
+}

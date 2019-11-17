@@ -1,4 +1,4 @@
-import { IGraphQLRequest } from "../../types/IGraphQLRequest.d";
+import IGraphQLRequest from "../../types/IGraphQLRequest.d";
 
 export const Users = (page: number): IGraphQLRequest => ({
   query: `

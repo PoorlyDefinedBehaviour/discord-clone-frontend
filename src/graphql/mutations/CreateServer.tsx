@@ -1,6 +1,6 @@
-import { IGraphQLRequest } from "../../types/IGraphQLRequest.d";
+import IGraphQLRequest from "../../types/IGraphQLRequest.d";
 
-export const CreateServer = (name: string): IGraphQLRequest => ({
+const CreateServer = (name: string): IGraphQLRequest => ({
   query: `
 mutation {
   create_server(name: "${name}") {
@@ -70,3 +70,5 @@ mutation {
 }
 `
 });
+
+export default CreateServer;

@@ -12,12 +12,6 @@ You'll also need to have the backend running. <br/>
 [git](https://git-scm.com) clone https://github.com/PoorlyDefinedBehaviour/discord-clone-backend <br/>
 run [npm](https://www.npmjs.com) install in the project folder <br/>
 
-## Usage
-
-mongodb must be running on port 27017 <br/>
-npm start or npm run dev for the backend <br/>
-npm start for the frontend <br/>
-
 ## Preview
 
 ![Preview](https://i.imgur.com/svDegU4.png)

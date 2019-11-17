@@ -1,21 +1,17 @@
 import React from "react";
-
 import * as S from "./Styles";
-
 import HashtagIcon from "../../assets/hashtag.png";
 import TPHIcon from "../../assets/server-icon.png";
+import store from "../../store/Index";
+import Label from "../label/Index";
+import CenterContainer from "../centercontainer/Index";
+import Avatar from "../avatar/Index";
+import Icon from "../icon/Index";
 
-import { store } from "../../store/Index";
-
-import { Label } from "../label/Index";
-import { CenterContainer } from "../centercontainer/Index";
-import { Avatar } from "../avatar/Index";
-import { Icon } from "../icon/Index";
-
-export const ServerRooms = (): JSX.Element => {
+export default function ServerRooms(): JSX.Element {
   const {
     server: { name, _id }
-  }: any = store.getState();
+  } = store.getState();
 
   return (
     <S.Section>
@@ -41,4 +37,4 @@ export const ServerRooms = (): JSX.Element => {
       </CenterContainer>
     </S.Section>
   );
-};
+}

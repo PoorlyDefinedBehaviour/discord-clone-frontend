@@ -1,13 +1,10 @@
 import React from "react";
-
 import * as S from "./Styles";
-
 import Image404 from "../../assets/404.png";
 import ImageRobot from "../../assets/not-found-robot.png";
 import DiscordLogoTransparent from "../../assets/discord-logo-transparent.svg";
-import { SiteUrl } from "../../services/Authentication";
 
-export const NotFound = (): JSX.Element => (
+const NotFound = (): JSX.Element => (
   <S.Container>
     <S.Div>
       <S.InfoContainer>
@@ -40,7 +37,7 @@ export const NotFound = (): JSX.Element => (
     <S.Image
       src={DiscordLogoTransparent}
       alt="Discord logo"
-      onClick={() => (window.location.href = SiteUrl)}
+      onClick={() => (window.location.href = process.env.SITE_URL as string)}
       style={{
         position: "absolute",
         bottom: "30px",
@@ -54,3 +51,5 @@ export const NotFound = (): JSX.Element => (
     />
   </S.Container>
 );
+
+export default NotFound;

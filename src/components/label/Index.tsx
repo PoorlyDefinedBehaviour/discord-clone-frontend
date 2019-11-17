@@ -2,7 +2,9 @@ import React, { PropsWithChildren } from "react";
 
 import { P } from "./Styles";
 
-export const Label = ({
+export default function Label({
   children,
   ...props
-}: PropsWithChildren<any>): JSX.Element => <P {...props}>{children}</P>;
+}: PropsWithChildren<any>): JSX.Element {
+  return <P {...props}>{children}</P>;
+}

@@ -1,3 +1,3 @@
-export interface IGraphQLRequest {
+export default interface IGraphQLRequest {
   query: string;
 }

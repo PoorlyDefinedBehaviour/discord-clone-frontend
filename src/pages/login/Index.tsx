@@ -1,23 +1,16 @@
 import React, { useState, useEffect } from "react";
-
 import { Link } from "react-router-dom";
-
 import * as yup from "yup";
 import * as S from "./Styles";
-
-import { api } from "../../services/Api";
-import { Login as LoginMutation } from "../../graphql/mutations/Login";
-
-import { isLoggedIn } from "../../services/Authentication";
-
-import { store } from "../../store/Index";
-
-import { Label } from "../../components/label/Index";
-import { ErrorMessage } from "../../components/errormessage/Index";
-import { Form, Input } from "../../components/form/Index";
-import { Button } from "../../components/button/Index";
-
-import { MatchAny, Match } from "../../utils/Match";
+import api from "../../services/Api";
+import LoginMutation from "../../graphql/mutations/Login";
+import store from "../../store/Index";
+import Label from "../../components/label/Index";
+import ErrorMessage from "../../components/errormessage/Index";
+import Form, { Input } from "../../components/form/Index";
+import Button from "../../components/button/Index";
+import Match, { MatchAny } from "../../utils/Match";
+import UserService from "../../services/User.service";
 
 async function validate(email: string, password: string): Promise<any> {
   const LoginSchema = yup.object().shape({
@@ -35,21 +28,25 @@ async function validate(email: string, password: string): Promise<any> {
   return await LoginSchema.validate({ email, password }, { abortEarly: false });
 }
 
-export function Login({ history }: any): any {
+export default function Login({ history }) {
   const [email, setEmail]: any = useState("");
   const [password, setPassword]: any = useState("");
-
   const [errorMessage, setErrorMessage] = useState("");
-
   const [tryingToLogin, setTryingToLogin] = useState(false);
 
   useEffect(() => {
-    if (isLoggedIn()) history.push("/lobby");
+    if (UserService.isLoggedIn()) {
+      history.push("/lobby");
+    }
   }, []);
 
-  async function login(): Promise<void> {
-    if (tryingToLogin) return;
-    if (!email || !password) return;
+  const tryToLogin = async (event): Promise<void> => {
+    event.preventDefault();
+
+    if (tryingToLogin || !email || !password) {
+      return;
+    }
+
     try {
       setTryingToLogin(true);
 
@@ -81,7 +78,7 @@ export function Login({ history }: any): any {
     } finally {
       setTryingToLogin(false);
     }
-  }
+  };
 
   return (
     <S.Container>
@@ -93,12 +90,7 @@ export function Login({ history }: any): any {
           </S.HappyToSeeYouAgainMessage>
         </S.WelcomeMessageContainer>
 
-        <Form
-          onSubmit={(e: any): void => {
-            e.preventDefault();
-            login();
-          }}
-        >
+        <Form onSubmit={tryToLogin}>
           <Label>EMAIL</Label>
           <Input
             type="email"
@@ -110,7 +102,7 @@ export function Login({ history }: any): any {
             type="password"
             onChange={(e: any): void => setPassword(e.target.value)}
           />
-          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+          {errorMessage && <ErrorMessage message={errorMessage} />}
 
           <Button
             style={{

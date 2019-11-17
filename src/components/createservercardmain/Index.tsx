@@ -8,11 +8,11 @@ import JoinServerActionIcon from "../../assets/join-server.png";
 import CreateServerPopUpLeftBackground from "../../assets/left-background.png";
 import CreateServerPopUpRightBackground from "../../assets/right-background.png";
 
-export const CreateServerCardMain = ({
+export default function CreateServerCardMain({
   closeButtonClickHandler,
   createButtonClickHandler,
   joinButtonClickHandler
-}: any): JSX.Element => {
+}): JSX.Element {
   return (
     <S.PopUpContainer>
       <S.Button
@@ -52,4 +52,4 @@ export const CreateServerCardMain = ({
       </S.BackgroundContainer>
     </S.PopUpContainer>
   );
-};
+}

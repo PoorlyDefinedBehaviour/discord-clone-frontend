@@ -1,19 +1,15 @@
 import React, { useState } from "react";
-
 import * as S from "./Styles";
-
 import DiscordLogo from "../../assets/discord-icon.png";
 import CreateServerImage from "../../assets/plus.png";
-
-import { CreateServerCard } from "../createservercard/Index";
+import CreateServerCard from "../createservercard/Index";
 import { EViews } from "../../pages/lobby/Index";
-import { Avatar } from "../avatar/Index";
+import Avatar from "../avatar/Index";
+import ServerQuery from "../../graphql/queries/Server";
+import store from "../../store/Index";
+import api from "../../services/Api";
 
-import { Server as ServerQuery } from "../../graphql/queries/Server";
-import { store } from "../../store/Index";
-import { api } from "../../services/Api";
-
-export const LeftSideNavbar = ({ setCurrentView }: any): JSX.Element => {
+export default function LeftSideNavbar({ setCurrentView }): JSX.Element {
   const [state, setState] = useState({
     joiningServer: false,
     componentsOnView: {
@@ -22,9 +18,8 @@ export const LeftSideNavbar = ({ setCurrentView }: any): JSX.Element => {
     userServers: store.getState().user.servers
   });
 
-  store.subscribe(
-    (): void =>
-      setState({ ...state, userServers: store.getState().user.servers })
+  store.subscribe((): void =>
+    setState({ ...state, userServers: store.getState().user.servers })
   );
 
   const join = async (serverId: string): Promise<void> => {
@@ -58,15 +53,13 @@ export const LeftSideNavbar = ({ setCurrentView }: any): JSX.Element => {
   };
 
   const getUserServers = () =>
-    state.userServers.map(
-      (server: any): any => (
-        <Avatar
-          src={server.logo}
-          key={server._id}
-          onClick={async (): Promise<void> => await join(server._id)}
-        />
-      )
-    );
+    state.userServers.map((server: any): any => (
+      <Avatar
+        src={server.logo}
+        key={server._id}
+        onClick={async (): Promise<void> => await join(server._id)}
+      />
+    ));
 
   return (
     <>
@@ -97,4 +90,4 @@ export const LeftSideNavbar = ({ setCurrentView }: any): JSX.Element => {
       )}
     </>
   );
-};
+}

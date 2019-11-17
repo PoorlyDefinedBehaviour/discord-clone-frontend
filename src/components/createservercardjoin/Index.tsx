@@ -1,19 +1,14 @@
 import React, { useState } from "react";
-
 import * as S from "./Styles";
+import ErrorMessage from "../errormessage/Index";
+import store from "../../store/Index";
+import api from "../../services/Api";
+import JoinServerMutation from "../../graphql/mutations/JoinServer";
+import Label from "../label/Index";
 
-import { ErrorMessage } from "../errormessage/Index";
-
-import { store } from "../../store/Index";
-
-import { api } from "../../services/Api";
-
-import { JoinServer as JoinServerMutation } from "../../graphql/mutations/JoinServer";
-import { Label } from "../label/Index";
-
-export const CreateServerCardJoin = ({
+export default function CreateServerCardJoin({
   backButtonClickHandler
-}: any): JSX.Element => {
+}): JSX.Element {
   const [state, setState] = useState({
     invalidServerId: false,
     serverId: ""
@@ -92,9 +87,10 @@ export const CreateServerCardJoin = ({
               }
             />
             {state.invalidServerId && (
-              <ErrorMessage style={{ marginTop: "9%", marginLeft: "-24%" }}>
-                Invite link must be valid
-              </ErrorMessage>
+              <ErrorMessage
+                style={{ marginTop: "9%", marginLeft: "-24%" }}
+                message={"Invite link must be valid"}
+              />
             )}
           </S.CreateServerLabelAndInputContainer>
         </S.CreateServerInputContainer>
@@ -129,4 +125,4 @@ export const CreateServerCardJoin = ({
       </S.CreateServerPopUpInnerContainer>
     </S.CreateServerPopUpContainer>
   );
-};
+}
