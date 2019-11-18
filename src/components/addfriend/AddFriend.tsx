@@ -14,7 +14,7 @@ export default function AddFriend(): JSX.Element {
         await api.post("", FriendRequestMutation(state._id));
       }
     } catch (ex) {
-      console.ex(ex);
+      console.error(ex);
     }
   };
 
