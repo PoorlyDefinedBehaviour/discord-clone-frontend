@@ -102,7 +102,6 @@ export default function Login({ history }) {
             type="password"
             onChange={(e: any): void => setPassword(e.target.value)}
           />
-          {errorMessage && <ErrorMessage message={errorMessage} />}
 
           <Button
             style={{
@@ -114,6 +113,7 @@ export default function Login({ history }) {
           >
             Login
           </Button>
+          {errorMessage && <ErrorMessage message={errorMessage} />}
         </Form>
 
         <S.RegisterLinkContainer>

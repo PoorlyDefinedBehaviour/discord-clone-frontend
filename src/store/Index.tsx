@@ -4,7 +4,7 @@ import storage from "redux-persist/lib/storage";
 
 import reducers from "./ducks/Index";
 
-const persistConfig: any = {
+const persistConfig = {
   key: "root",
   storage
 };
@@ -12,6 +12,6 @@ const persistConfig: any = {
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store: any = createStore(persistedReducer);
-export const persistor: any = persistStore(store);
+export const persistor = persistStore(store);
 
 export default store;

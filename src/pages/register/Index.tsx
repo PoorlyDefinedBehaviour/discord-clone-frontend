@@ -71,10 +71,7 @@ export default function Register({ history }): JSX.Element {
             register: { status, user, token }
           }
         }
-      }: any = await api
-        .post("/", RegisterMutation(username, email, password))
-        .catch(console.error);
-
+      } = await api.post("/", RegisterMutation(username, email, password));
       match(
         status,
         [
@@ -123,7 +120,6 @@ export default function Register({ history }): JSX.Element {
             type="password"
             onChange={(e: any): void => setPassword(e.target.value)}
           />
-          {errorMessage && <ErrorMessage message={errorMessage} />}
 
           <Button
             style={{
@@ -135,6 +131,7 @@ export default function Register({ history }): JSX.Element {
           >
             Continue
           </Button>
+          {errorMessage && <ErrorMessage message={errorMessage} />}
         </Form>
 
         <S.LinkContainer>

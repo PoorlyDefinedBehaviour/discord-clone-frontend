@@ -2,14 +2,14 @@ import axios from "axios";
 import store from "../store/Index";
 import UserService from "./User.service";
 
-/* export const API_URL = "http://localhost:8080";
-export const SITE_URL: string = "http://localhost:3000";
- */
+export const API_URL = "http://localhost:8080";
+export const SITE_URL = "http://localhost:3000";
+
 /**
  * Change it to https:// on prod
  */
 const api = axios.create({
-  baseURL: `${process.env.API_URL}/graphql`
+  baseURL: `${API_URL}/graphql`
 });
 
 api.interceptors.request.use((config) => {

@@ -10,9 +10,11 @@ export default function AddFriend(): JSX.Element {
 
   const sendFriendRequest = async (): Promise<void> => {
     try {
-      if (state._id) await api.post("", FriendRequestMutation(state._id));
-    } catch (error) {
-      console.error(error);
+      if (state._id) {
+        await api.post("", FriendRequestMutation(state._id));
+      }
+    } catch (ex) {
+      console.ex(error);
     }
   };
 
@@ -34,7 +36,7 @@ export default function AddFriend(): JSX.Element {
             height: "38px",
             background: "#7289DA",
             left: "90%",
-            top: "20.5%",
+            top: "21%",
             transform: "translate(-90%, -20.5%)"
           }}
           onClick={sendFriendRequest}
