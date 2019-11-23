@@ -29,14 +29,18 @@ export default function ServerChat(): JSX.Element {
     server: { _id }
   } = store.getState();
 
-  socket.emit("join", _id);
+  socket.emit("join", { user_id: user._id, server_id: _id });
 
-  socket.on("message", (message): void => {
-    console.log("received", message.message);
-    if (user.headphones) setMessages([...messages, message.message]);
+  socket.on("text", (data): void => {
+    console.log("received", data.message);
+    setMessages((messages) => [...messages, data.message]);
   });
 
-  socket.on("voice", (data): void => playAudio(data.data.content));
+  socket.on("voice", (data): void => {
+    if (user.headphones) {
+      playAudio(data.message.content);
+    }
+  });
 
   const onData = (chunk): void => {
     if (user.microphone) {
@@ -46,8 +50,8 @@ export default function ServerChat(): JSX.Element {
 
   const onStop = (_): void => {
     socket.emit("voice", {
-      data: {
-        room: _id,
+      message: {
+        server_id: _id,
         content: audioChunks,
         author: { ...user, token: null }
       }
@@ -77,7 +81,7 @@ export default function ServerChat(): JSX.Element {
 
     socket.emit("message", {
       message: {
-        room: _id,
+        server_id: _id,
         content: currentMessage,
         author: { ...user, token: null }
       }

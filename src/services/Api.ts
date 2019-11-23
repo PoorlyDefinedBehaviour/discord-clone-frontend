@@ -5,9 +5,6 @@ import UserService from "./User.service";
 export const API_URL = "http://localhost:8080";
 export const SITE_URL = "http://localhost:3000";
 
-/**
- * Change it to https:// on prod
- */
 const api = axios.create({
   baseURL: `${API_URL}/graphql`
 });
