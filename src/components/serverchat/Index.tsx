@@ -6,8 +6,9 @@ import store from "../../store/Index";
 import ErrorMessage from "../errormessage/Index";
 import useKeyPress from "../../hooks/UseKeyPress";
 import Avatar from "../avatar/Index";
+import { API_URL } from "../../services/Api";
 
-export const socket = io(process.env.API_URL as string);
+export const socket = io(API_URL);
 
 let lastMessageTimestamp: number = 0;
 let audioChunks: any[] = [];

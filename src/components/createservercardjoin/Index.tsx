@@ -25,6 +25,7 @@ export default function CreateServerCardJoin({
         }
       }: any = await api.post("", JoinServerMutation(state.serverId));
 
+      console.log("store.getState()", store.getState());
       switch (join_server.status) {
         case 201:
           const { user }: any = store.getState();

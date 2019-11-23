@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CreateServerCardMain from "../createservercardmain/Index";
 import CreateServerCardCreate from "../createservercardcreate/Index";
 import CreateServerCardJoin from "../createservercardjoin/Index";
+import store from "../../store/Index";
 
 enum ECards {
   MAIN = 0,
@@ -18,6 +19,8 @@ export default function CreateServerCard({ setOnView }): JSX.Element {
     invalidServerName: false,
     serverNameAlreadyInUse: false
   });
+
+  console.log("serverchat store.getState()", store.getState());
 
   const cards: Map<number, any> = new Map<number, any>();
 

@@ -9,10 +9,10 @@ import Label from "../../components/label/Index";
 import ErrorMessage from "../../components/errormessage/Index";
 import Form, { Input } from "../../components/form/Index";
 import Button from "../../components/button/Index";
-import Match, { MatchAny } from "../../utils/Match";
+import match, { MatchAny } from "../../utils/Match";
 import UserService from "../../services/User.service";
 
-async function validate(email: string, password: string): Promise<any> {
+async function validate(email: string, password: string) {
   const LoginSchema = yup.object().shape({
     email: yup
       .string()
@@ -40,7 +40,7 @@ export default function Login({ history }) {
     }
   }, []);
 
-  const tryToLogin = async (event): Promise<void> => {
+  const tryToLogin = async (event) => {
     event.preventDefault();
 
     if (tryingToLogin || !email || !password) {
@@ -52,25 +52,31 @@ export default function Login({ history }) {
 
       await validate(email, password);
 
+      console.log("merda");
+
       const {
         data: {
           data: {
             login: { status, user, token }
           }
         }
-      }: any = await api.post("/", LoginMutation(email, password));
+      } = await api.post("/", LoginMutation(email, password));
 
-      Match(
+      console.log(status, user, token);
+
+      match(
         status,
         [
           200,
-          (): void => store.dispatch({ type: "SET_USER", user, token }),
-          history.push("/lobby")
+          () => {
+            store.dispatch({ type: "SET_USER", user: { ...user, token } });
+            history.push("/lobby");
+          }
         ],
-        [401, (): void => setErrorMessage("Invalid credentials")],
+        [401, () => setErrorMessage("Invalid credentials")],
         [
           MatchAny,
-          (): void => setErrorMessage("Something went wrong, try again later")
+          () => setErrorMessage("Something went wrong, try again later")
         ]
       );
     } catch (e) {
@@ -92,15 +98,12 @@ export default function Login({ history }) {
 
         <Form onSubmit={tryToLogin}>
           <Label>EMAIL</Label>
-          <Input
-            type="email"
-            onChange={(e: any): void => setEmail(e.target.value)}
-          />
+          <Input type="email" onChange={(e) => setEmail(e.target.value)} />
 
           <Label>PASSWORD</Label>
           <Input
             type="password"
-            onChange={(e: any): void => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <Button

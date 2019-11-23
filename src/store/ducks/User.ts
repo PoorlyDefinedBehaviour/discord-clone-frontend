@@ -19,17 +19,19 @@ const updateUser = (fields) => {
   return { ...newUser, token: oldUser.token };
 };
 
-interface Handler {
+interface Dictionary {
   [key: string]: <T>(state: T, action) => T;
 }
 
-const handlers: Handler = {
-  SET_USER: <T>(state: T, action) => ({ ...action.user, token: action.token }),
+const handlers: Dictionary = {
+  SET_USER: <T>(state: T, action) => action.user,
   UPDATE_USER: <T>(state: T, action) => updateUser(action.fields)
 };
 
 function reducer(state = INITIAL_STATE, action) {
   const handler = handlers[action.type];
+
+  console.log("action", action);
 
   return handler ? handler(state, action) : state;
 }

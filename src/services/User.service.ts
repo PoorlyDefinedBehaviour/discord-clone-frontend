@@ -1,11 +1,12 @@
 import Maybe from "../types/Maybe.d";
 import { SITE_URL } from "./Api";
+import store from "../store/Index";
 
 const PERSIST_ROOT = "persist:root";
 
 export default class UserService {
   public static isLoggedIn = (): boolean =>
-    !!localStorage.getItem(PERSIST_ROOT);
+    !!UserService.getToken() || store.getState().user.token;
 
   public static getToken(): Maybe<string> {
     const user: Maybe<string> = localStorage.getItem(PERSIST_ROOT);
